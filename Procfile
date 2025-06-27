@@ -1,1 +1,1 @@
-web: gunicorn Mop_Proyecto.wsgi:application --workers 2
+web: python manage.py collectstatic && gunicorn Mop_Proyecto.wsgi:application --workers 2
