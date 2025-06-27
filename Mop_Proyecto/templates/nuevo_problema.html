@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Nuevo Problema</title>
+</head>
+<body>
+    <h1>Ingresar Problema</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Resolver</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Resultado</title>
+</head>
+<body>
+    <h1>Resultado</h1>
+    {% if mensaje %}<p>{{ mensaje }}</p>{% endif %}
+    {% if resultado %}
+        <p>Status: {{ resultado.status }}</p>
+        <p>x1: {{ resultado.x }}</p>
+        <p>x2: {{ resultado.y }}</p>
+        <p>z: {{ resultado.z }}</p>
+        <div>{{ grafico|safe }}</div>
+    {% endif %}
+</body>
+</html>
