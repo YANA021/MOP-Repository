@@ -1,1 +1,1 @@
-web: gunicorn Mop_Proyecto.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn Mop_Proyecto.wsgi:application --workers 2
