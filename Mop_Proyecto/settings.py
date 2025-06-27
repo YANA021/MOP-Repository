@@ -125,4 +125,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-ALLOWED_HOSTS = ['https://mop-repository-production.up.railway.app/']
+ALLOWED_HOSTS = [".railway.app"] 
