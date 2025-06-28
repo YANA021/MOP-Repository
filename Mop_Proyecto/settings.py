@@ -143,8 +143,3 @@ ALLOWED_HOSTS = ['localhost', 'mop-repository-production.up.railway.app']
 CSRF_TRUSTED_ORIGINS = [
       "https://mop-repository-production.up.railway.app",
 ]
-
-
-CSRF_COOKIE_SECURE    = True 
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT   = True
