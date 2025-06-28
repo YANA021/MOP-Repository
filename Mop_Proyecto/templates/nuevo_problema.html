@@ -1,94 +1,62 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Problema</title>
+    <title>NavBar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        .font-inter{font-family:'Inter',sans-serif;}
-    </style>
-    {% load static %}
+    <style>.font-inter{font-family:'Inter',sans-serif;}</style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-[#eef6ff] to-[#dfeeff] font-inter">
-    <nav id="navbar" class="sticky top-0 h-15 flex items-center justify-between px-6 text-sm font-semibold">
-        <div class="flex space-x-6">
-            <a href="#" class="hover:text-sky-600">Inicio</a>
-            <a href="#" class="hover:text-sky-600">Método Gráfico</a>
-            <a href="#" class="hover:text-sky-600">Ayuda</a>
-            <a href="#" class="hover:text-sky-600">Historial</a>
+<body class="font-inter bg-gray-100">
+
+<nav class="fixed top-0 inset-x-0 h-[54px] bg-[#1F2933] text-white flex items-center justify-between px-4 md:px-8 z-50">
+    <div class="flex items-center">
+        <a href="/" class="text-[20px] font-bold mr-5">MOP</a>
+        <div class="hidden md:flex space-x-1">
+            <a href="/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
+            <a href="/metodo-grafico/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
+            <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Simplex</a>
+            <a href="/ayuda/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
         </div>
-    </nav>
-    <div class="max-w-[1000px] mx-auto py-12">
-        <h1 class="text-3xl text-[#214164] tracking-wide text-center my-10 font-semibold">NUEVO PROBLEMA DE PROGRAMACIÓN LINEAL</h1>
-
-        <form id="form" class="space-y-8" method="post">
-            {% csrf_token %}
-            <div class="bg-white rounded-lg shadow-sm p-8 grid grid-cols-3 gap-4">
-                <label class="text-gray-700 font-semibold">Función Objetivo</label>
-                <div>Z =</div>
-                <div class="col-span-2 flex space-x-2 relative">
-                    <select id="objetivo" name="objetivo" class="w-40 bg-slate-100 rounded-md focus:ring-2 focus:ring-sky-300 pr-8 appearance-none">
-                        <option value="max">Maximizar</option>
-                        <option value="min">Minimizar</option>
-                    </select>
-                    <div class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <input name="coef_x1" type="number" placeholder="Coef x1" class="flex-1 text-right placeholder-sky-400 border rounded-md p-2" />
-                    <span class="self-center">x₁ +</span>
-                    <input name="coef_x2" type="number" placeholder="Coef x2" class="flex-1 text-right placeholder-sky-400 border rounded-md p-2" />
-                    <span class="self-center">x₂</span>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-sm p-8">
-                <table class="w-full text-sm text-left">
-                    <thead class="uppercase text-[12px] tracking-wide bg-slate-50">
-                        <tr>
-                            <th class="p-2">Variable</th>
-                            <th class="p-2">Mínimo</th>
-                            <th class="p-2">Máximo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="p-2">x₁</td>
-                            <td class="p-2"><input type="number" class="w-full border rounded-md p-1" /></td>
-                            <td class="p-2"><input type="number" class="w-full border rounded-md p-1" /></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2">x₂</td>
-                            <td class="p-2"><input type="number" class="w-full border rounded-md p-1" /></td>
-                            <td class="p-2"><input type="number" class="w-full border rounded-md p-1" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-sm p-8 grid grid-cols-5 gap-4">
-                <input id="rest-x1" type="number" placeholder="Coef x₁" class="w-full border rounded-md p-2" />
-                <input id="rest-x2" type="number" placeholder="Coef x₂" class="w-full border rounded-md p-2" />
-                <select id="rest-op" class="border rounded-md p-2">
-                    <option>≤</option>
-                    <option>≥</option>
-                    <option>=</option>
-                </select>
-                <input id="rest-val" type="number" placeholder="Valor" class="w-full border rounded-md p-2" />
-                <div></div>
-                <button id="add-restriccion" type="button" class="col-span-5 bg-sky-600 hover:bg-sky-700 text-white rounded-md py-3 uppercase tracking-wide shadow-md transition">Agregar Nueva Restricción</button>
-            </div>
-
-            <input type="hidden" name="restricciones" id="restricciones-hidden" />
-            <div>
-                <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white rounded-md py-3 px-6 uppercase tracking-wide shadow-md transition">Enviar</button>
-            </div>
-        </form>
     </div>
-    <script src="{% static 'js/nuevo_problema.js' %}"></script>
+    <div class="flex items-center space-x-4">
+        <div class="hidden md:flex space-x-1">
+            <a href="/login/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Iniciar sesión</a>
+            <a href="/registro/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Registrarse</a>
+        </div>
+        <div class="relative">
+            <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-[#1F2933] text-white rounded-md shadow-lg py-1">
+                <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">Español</a>
+                <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">English</a>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <span id="theme-label" class="mr-2 text-sm">Modo claro</span>
+            <button aria-label="Tema" id="theme-toggle" tabindex="0" aria-pressed="false" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-400 focus:outline-none">
+                <span class="sr-only">Toggle theme</span>
+                <span class="inline-block h-5 w-5 transform rounded-full bg-white transition"></span>
+            </button>
+        </div>
+        <button id="menu-btn" tabindex="0" aria-expanded="false" class="md:hidden ml-2 focus:outline-none" aria-label="Abrir menú">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 bg-[#1F2933] text-white z-40">
+    <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
+    <a href="/metodo-grafico/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
+    <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Simplex</a>
+    <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
+    <a href="/login/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Iniciar sesión</a>
+    <a href="/registro/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Registrarse</a>
+</div>
+
+<script src="{% static 'js/navbar.js' %}"></script>
+
 </body>
 </html>
