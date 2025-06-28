@@ -39,7 +39,6 @@ if (langBtn && langMenu) {
         function toggleLangMenu() {
             const expanded = langMenu.classList.toggle('hidden');
             langBtn.setAttribute('aria-expanded', String(!expanded));
-            toggleLangMenu();
         }
 
     langBtn.addEventListener('click', toggleLangMenu);
