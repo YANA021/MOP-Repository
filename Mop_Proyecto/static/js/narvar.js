@@ -35,32 +35,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const langBtn = document.getElementById('lang-btn');
     const langMenu = document.getElementById('lang-menu');
 
-    function toggleLangMenu() {
-        const expanded = langMenu.classList.toggle('hidden');
-        langBtn.setAttribute('aria-expanded', String(!expanded));
-    }
-
-    langBtn.addEventListener('click', toggleLangMenu);
-    langBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
+if (langBtn && langMenu) {
+        function toggleLangMenu() {
+            const expanded = langMenu.classList.toggle('hidden');
+            langBtn.setAttribute('aria-expanded', String(!expanded));
             toggleLangMenu();
         }
-    });
+
+    langBtn.addEventListener('click', toggleLangMenu);
+        langBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleLangMenu();
+            }
+        });
+    }
 
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    function toggleMobileMenu() {
-        const expanded = mobileMenu.classList.toggle('hidden');
-        menuBtn.setAttribute('aria-expanded', String(!expanded));
-    }
-
-    menuBtn.addEventListener('click', toggleMobileMenu);
-    menuBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleMobileMenu();
+if (menuBtn && mobileMenu) {
+        function toggleMobileMenu() {
+            const expanded = mobileMenu.classList.toggle('hidden');
+            menuBtn.setAttribute('aria-expanded', String(!expanded));
         }
-    });
+   menuBtn.addEventListener('click', toggleMobileMenu);
+        menuBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
+            }
+        });
+    }
 });
