@@ -4,8 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const sun = document.getElementById('sun-icon');
     const moon = document.getElementById('moon-icon');
 
+    if (!toggle || !sun || !moon) return;
+
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
         html.classList.add('dark');
         sun.classList.add('hidden');
         moon.classList.remove('hidden');
@@ -18,13 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
-    toggle.addEventListener('click', toggleTheme);
-    toggle.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleTheme();
-        }
-    });
+    if (toggle) {
+        toggle.addEventListener('click', toggleTheme);
+        toggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+    }
 
     const langBtn = document.getElementById('lang-btn');
     const langMenu = document.getElementById('lang-menu');
