@@ -37,7 +37,10 @@ class ProblemaPLForm(forms.Form):
         label="Valor máximo para x1",
         required=False,
         widget=forms.NumberInput(
-            attrs={"class": "form-control", "placeholder": "Valor máximo permitido para x₁"}
+            attrs={
+                "class": "form-control",
+                "placeholder": "Valor máximo permitido para x₁",
+            }
         ),
     )
     x2_min = forms.FloatField(
@@ -55,12 +58,23 @@ class ProblemaPLForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Máximo permitido para x₂"}
         ),
     )
-    restricciones = forms.CharField(widget=forms.HiddenInput())
+    restricciones = forms.CharField(
+        label="Restricciones (JSON)",
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 4,
+                "placeholder": '[{"coef_x1": 2, "coef_x2": 1, "operador": "<=", "valor": 18}]',
+            }
+        ),
+    )
 
     def clean_restricciones(self):
         import json
 
-        data = self.cleaned_data["restricciones"]
+        data = self.cleaned_data.get("restricciones")
+        if not data:
+            raise forms.ValidationError("Este campo es obligatorio")
         try:
             parsed = json.loads(data)
         except json.JSONDecodeError:

@@ -231,3 +231,24 @@ def crear_grafica_vacia():
 )]
     )
     return fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+if __name__ == "__main__":
+    # Ejemplo de uso
+    objetivo = "max"
+    coef_x1 = 3
+    coef_x2 = 2
+    restricciones = [
+        {"coef_x1": 2, "coef_x2": 1, "operador": "<=", "valor": 18},
+        {"coef_x1": 2, "coef_x2": 3, "operador": "<=", "valor": 42},
+        {"coef_x1": 3, "coef_x2": 1, "operador": "<=", "valor": 24},
+    ]
+
+    resultado = resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones)
+    print("Estado:", resultado["status"])
+    print("x1:", resultado["x"])
+    print("x2:", resultado["y"])
+    print("z:", resultado["z"])
+
+    with open("output.html", "w", encoding="utf-8") as f:
+        f.write(resultado["grafica"])
+    print("Graph saved to output.html")
