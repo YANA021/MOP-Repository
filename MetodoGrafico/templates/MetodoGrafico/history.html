@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Historial de Problemas Resueltos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Resultado</th>
+            <th>Gráfica</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.created_at }}</td>
+            <td>{{ entry.problem_description }}</td>
+            <td>{{ entry.result }}</td>
+            <td>
+                <img src="{{ entry.graph_image.url }}" width="150px">
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No hay entradas todavía.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -148,3 +148,6 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
       "https://mop-repository-production.up.railway.app",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
