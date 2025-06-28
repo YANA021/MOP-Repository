@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!toggle || !sun || !moon) return;
 
     const storedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+      if (storedTheme === 'dark') {
         html.classList.add('dark');
         sun.classList.add('hidden');
         moon.classList.remove('hidden');
