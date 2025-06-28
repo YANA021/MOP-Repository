@@ -1,22 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     const html = document.documentElement;
     const toggle = document.getElementById('theme-toggle');
-    const circle = toggle.querySelector('span');
-    const label = document.getElementById('theme-label');
+    const sun = document.getElementById('sun-icon');
+    const moon = document.getElementById('moon-icon');
+
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+        html.classList.add('dark');
+        sun.classList.add('hidden');
+        moon.classList.remove('hidden');
+    }
 
     function toggleTheme() {
         const dark = html.classList.toggle('dark');
-        if (dark) {
-            toggle.classList.add('bg-[#4FD1C5]');
-            circle.classList.add('translate-x-5');
-            label.textContent = 'Modo oscuro';
-            toggle.setAttribute('aria-pressed', 'true');
-        } else {
-            toggle.classList.remove('bg-[#4FD1C5]');
-            circle.classList.remove('translate-x-5');
-            label.textContent = 'Modo claro';
-            toggle.setAttribute('aria-pressed', 'false');
-        }
+        sun.classList.toggle('hidden', dark);
+        moon.classList.toggle('hidden', !dark);
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
     toggle.addEventListener('click', toggleTheme);

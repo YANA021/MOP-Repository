@@ -8,8 +8,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>.font-inter{font-family:'Inter',sans-serif;}</style>
+     <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </head>
-<body class="font-inter bg-gray-100">
+<body class="font-inter bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
     <nav class="fixed top-0 inset-x-0 h-[54px] bg-[#1F2933] text-white flex items-center justify-between px-4 md:px-8 z-50">
         <div class="flex items-center">
             <a href="/" class="text-[20px] font-bold mr-5">MOP</a>
@@ -31,11 +36,10 @@
                     <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">English</a>
                 </div>
             </div>
-            <div class="flex items-center">
-                <span id="theme-label" class="mr-2 text-sm">Modo claro</span>
-                <button aria-label="Tema" id="theme-toggle" tabindex="0" aria-pressed="false" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-400 focus:outline-none">
-                    <span class="sr-only">Toggle theme</span>
-                    <span class="inline-block h-5 w-5 transform rounded-full bg-white transition"></span>
+             <div>
+                <button id="theme-toggle" aria-label="Cambiar tema" class="text-xl">
+                    <span id="sun-icon">☀️</span>
+                    <span id="moon-icon" class="hidden">🌙</span>
                 </button>
             </div>
             <button id="menu-btn" tabindex="0" aria-expanded="false" class="md:hidden ml-2 focus:outline-none" aria-label="Abrir menú">
