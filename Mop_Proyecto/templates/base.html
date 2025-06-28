@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MOP{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>.font-inter{font-family:'Inter',sans-serif;}</style>
+</head>
+<body class="font-inter bg-gray-100">
+    <nav class="fixed top-0 inset-x-0 h-[54px] bg-[#1F2933] text-white flex items-center justify-between px-4 md:px-8 z-50">
+        <div class="flex items-center">
+            <a href="/" class="text-[20px] font-bold mr-5">MOP</a>
+            <div class="hidden md:flex space-x-1">
+                <a href="/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
+                <a href="/metodo-grafico/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
+                <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Simplex</a>
+                <a href="/ayuda/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="hidden md:flex space-x-1">
+                <a href="/login/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Iniciar sesión</a>
+                <a href="/registro/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Registrarse</a>
+            </div>
+            <div class="relative">
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-[#1F2933] text-white rounded-md shadow-lg py-1">
+                    <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">Español</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">English</a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <span id="theme-label" class="mr-2 text-sm">Modo claro</span>
+                <button aria-label="Tema" id="theme-toggle" tabindex="0" aria-pressed="false" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-400 focus:outline-none">
+                    <span class="sr-only">Toggle theme</span>
+                    <span class="inline-block h-5 w-5 transform rounded-full bg-white transition"></span>
+                </button>
+            </div>
+            <button id="menu-btn" tabindex="0" aria-expanded="false" class="md:hidden ml-2 focus:outline-none" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 bg-[#1F2933] text-white z-40">
+        <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
+        <a href="/metodo-grafico/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
+        <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Simplex</a>
+        <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
+        <a href="/login/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Iniciar sesión</a>
+        <a href="/registro/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Registrarse</a>
+    </div>
+    <main class="max-w-3xl mx-auto px-4 py-6">
+        {% block content %}{% endblock %}
+    </main>
+    <script src="{% static 'js/narvar.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
