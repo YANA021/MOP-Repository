@@ -8,6 +8,10 @@ from .models import ProblemaPL
 from .solver import resolver_problema_lineal
 
 
+def home(request):
+    """Renderiza la página de inicio."""
+    return render(request, "home.html")
+
 def metodo_grafico(request):
     """Muestra el formulario y procesa el método gráfico."""
     mensaje = ""
