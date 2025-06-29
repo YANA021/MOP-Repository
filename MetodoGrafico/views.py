@@ -116,7 +116,7 @@ def metodo_grafico(request):
             }
         return render(request, "resultado.html", context)
     else:
-        return render(request, "nuevo_problema.html", {"form": form})
+        form = ProblemaPLForm()
 
 
     form = ProblemaPLForm()
