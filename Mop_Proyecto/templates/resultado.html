@@ -8,7 +8,99 @@
     <p>x1: {{ resultado.x }}</p>
     <p>x2: {{ resultado.y }}</p>
     <p>z: {{ resultado.z }}</p>
-   <a href="{% url 'ver_grafica' %}" class="btn-primary-theme rounded-md inline-block mt-4">Ver gráfica</a>
-    <div class="mt-4">{{ grafico|safe }}</div>
+    <p class="mb-2"><strong>Función Objetivo:</strong> {{ objetivo }}</p>
+
+    <p class="font-semibold">Sujeto a:</p>
+    <ul class="list-disc ml-5 mb-4">
+        {% for r in restricciones %}
+            <li>{{ r }}</li>
+        {% endfor %}
+    </ul>
+
+    <div id="plot" data-restr-count="{{ restricciones|length }}">{{ grafico|safe }}</div>
+
+    <h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
+    <div class="space-y-1 mb-4">
+        <label><input type="checkbox" id="chk-restr" checked> Restricciones</label><br>
+        <label><input type="checkbox" id="chk-obj"   checked> Función Objetivo</label><br>
+        <label><input type="checkbox" id="chk-vert"  checked> Puntos de Región Factible</label><br>
+        <label><input type="checkbox" id="chk-grid"  checked> Cuadrícula</label>
+    </div>
+
+    <button id="save-img" class="btn-primary-theme mb-4">Guardar Imagen</button>
+
+    <table class="min-w-full text-center mt-4">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="px-2 py-1">Punto</th>
+                <th class="px-2 py-1">Coordenadas</th>
+                <th class="px-2 py-1">Valor Z</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in vertices %}
+            <tr class="{% if v.optimo %}bg-red-200{% endif %}">
+                <td class="border px-2 py-1">{{ v.punto }}</td>
+                <td class="border px-2 py-1">({{ v.x1 }}, {{ v.x2 }})</td>
+                <td class="border px-2 py-1">{{ v.z }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+/* @ts-nocheck */
+document.addEventListener('DOMContentLoaded', () => {
+    const figDiv = document.querySelector('#plot .plotly-graph-div');
+    if (!figDiv) return;
+
+    const restrCount = parseInt(
+        document.getElementById('plot').dataset.restrCount,
+        10
+    );
+
+    const chkRestr = document.getElementById('chk-restr');
+    const chkObj   = document.getElementById('chk-obj');
+    const chkVert  = document.getElementById('chk-vert');
+    const chkGrid  = document.getElementById('chk-grid');
+    const btnSave  = document.getElementById('save-img');
+
+    chkRestr.addEventListener('change', () => {
+        const idx = [...Array(restrCount).keys()];
+        Plotly.restyle(figDiv, 'visible',
+                       chkRestr.checked ? true : 'legendonly',
+                       idx);
+    });
+
+    const idxObj  = restrCount + 1;
+    const idxVert = [restrCount + 2, restrCount + 3];
+
+    chkObj.addEventListener('change', () => {
+        Plotly.restyle(figDiv, 'visible',
+                       chkObj.checked ? true : 'legendonly',
+                       [idxObj]);
+    });
+
+    chkVert.addEventListener('change', () => {
+        Plotly.restyle(figDiv, 'visible',
+                       chkVert.checked ? true : 'legendonly',
+                       idxVert);
+    });
+
+    chkGrid.addEventListener('change', () => {
+        Plotly.relayout(figDiv, {
+            'xaxis.showgrid': chkGrid.checked,
+            'yaxis.showgrid': chkGrid.checked
+        });
+    });
+
+    btnSave.addEventListener('click', () => {
+        Plotly.downloadImage(figDiv,
+            { format: 'png', filename: 'grafico' });
+    });
+});
+</script>
 {% endblock %}

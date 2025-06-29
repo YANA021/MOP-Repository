@@ -83,25 +83,11 @@ def metodo_grafico(request):
 
             # 1.5  Separar la gráfica del resto del resultado
             grafico = resultado.pop("grafica", "")
-        request.session["grafico"] = _convert_structure(grafico)
 
-             # Guardar datos necesarios para la vista de la gráfica
-        request.session["post_data"] = _convert_structure({
-                "coef_x1": form.cleaned_data["coef_x1"],
-                "coef_x2": form.cleaned_data["coef_x2"],
-                "objetivo": form.cleaned_data["objetivo"],
-                "x1_min": form.cleaned_data.get("x1_min"),
-                "x1_max": form.cleaned_data.get("x1_max"),
-                "x2_min": form.cleaned_data.get("x2_min"),
-                "x2_max": form.cleaned_data.get("x2_max"),
-            })
-
-        request.session["restricciones"] = _convert_structure(restricciones)
-
-        vertices = []
-        opt_val = resultado.get("z")
-        for idx, v in enumerate(resultado.get("vertices", []), start=1):
-             vert = {
+            vertices = []
+            opt_val = resultado.get("z")
+            for idx, v in enumerate(resultado.get("vertices", []), start=1):
+                vert = {
                     "punto": f"P{idx}",
                     "x1": v["x"],
                     "x2": v["y"],
@@ -110,7 +96,13 @@ def metodo_grafico(request):
                 }
         vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
-        request.session["vertices"] = _convert_structure(vertices)
+        objetivo_text = (
+                f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
+            )
+        restricciones_fmt = [
+                f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
+                for r in restricciones
+            ]
 
             # 1.6  Preparar contexto para la plantilla de resultados
         context = {
@@ -118,36 +110,12 @@ def metodo_grafico(request):
                 "mensaje": mensaje,
                 "resultado": resultado,
                 "grafico": grafico,
-                "post_data": request.POST.dict(),
-                "restricciones_json": json.dumps(restricciones),
+                "objetivo": objetivo_text,
+                "restricciones": restricciones_fmt,
+                "vertices": vertices,
             }
         return render(request, "resultado.html", context)
 
 
     form = ProblemaPLForm()
     return render(request, "nuevo_problema.html", {"form": form, "mensaje": mensaje})
-
-
-def ver_grafica(request):
-    """Muestra la gráfica almacenada en la sesión con información extra."""
-    grafico = request.session.get("grafico", "")
-    post_data = request.session.get("post_data", {})
-    restricciones = request.session.get("restricciones", [])
-    vertices = request.session.get("vertices", [])
-
-    coef_x1 = post_data.get("coef_x1", 0)
-    coef_x2 = post_data.get("coef_x2", 0)
-    objetivo_text = f"Z = {coef_x1}x₁ + {coef_x2}x₂"
-
-    restricciones_fmt = [
-        f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
-        for r in restricciones
-    ]
-
-    context = {
-        "grafico": grafico,
-        "objetivo": objetivo_text,
-        "restricciones": restricciones_fmt,
-        "vertices": vertices,
-    }
-    return render(request, "grafica.html", context)
