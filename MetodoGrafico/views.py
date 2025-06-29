@@ -1,7 +1,7 @@
 import json
 import numpy as np
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .form import ProblemaPLForm
@@ -64,6 +64,8 @@ def metodo_grafico(request):
                     restricciones=restricciones,
                 )
                 mensaje = "Problema guardado correctamente."
+            else:
+                mensaje = "Inicia sesión para guardar el problema en tu historial."
 
             # 1.3  Preparar límites opcionales
             limites = {
@@ -154,3 +156,45 @@ def historial_problemas(request):
         "hasta": hasta or "",
     }
     return render(request, "historial.html", context)
+
+@login_required
+def ver_problema(request, pk):
+    """Muestra el resultado de un problema guardado."""
+    problema = get_object_or_404(ProblemaPL, pk=pk, user=request.user)
+
+    resultado = resolver_problema_lineal(
+        problema.objetivo,
+        problema.coef_x1,
+        problema.coef_x2,
+        problema.restricciones,
+    )
+
+    grafico = resultado.pop("grafica", "")
+    vertices = []
+    opt_val = resultado.get("z")
+    for idx, v in enumerate(resultado.get("vertices", []), start=1):
+        vert = {
+            "punto": f"P{idx}",
+            "x1": v["x"],
+            "x2": v["y"],
+            "z": v["z"],
+            "optimo": abs(v["z"] - opt_val) < 1e-6,
+        }
+        vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+
+    objetivo_text = f"Z = {problema.coef_x1}x₁ + {problema.coef_x2}x₂"
+    restricciones_fmt = [
+        f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
+        for r in problema.restricciones
+    ]
+
+    context = {
+        "form": ProblemaPLForm(),
+        "mensaje": "",
+        "resultado": resultado,
+        "grafico": grafico,
+        "objetivo": objetivo_text,
+        "restricciones": restricciones_fmt,
+        "vertices": vertices,
+    }
+    return render(request, "resultado.html", context)
