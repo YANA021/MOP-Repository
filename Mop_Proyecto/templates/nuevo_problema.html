@@ -60,7 +60,17 @@
     </div>
     <input type="hidden" name="restricciones" id="restricciones-hidden">
  <button type="submit" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">Resolver</button></form>
-{% endblock %}
+{% if form.errors %}
+  <div class="bg-red-100 text-red-800 p-3 rounded-md mb-4">
+      <strong>Corrige los errores:</strong>
+      <ul class="list-disc ml-6">
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+        {% endfor %}
+      </ul>
+  </div>
+{% endif %}
+ {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/restricciones.js' %}"></script>
 {% endblock %}
