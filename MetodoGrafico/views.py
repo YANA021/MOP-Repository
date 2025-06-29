@@ -128,13 +128,13 @@ def metodo_grafico(request):
 @login_required
 def historial_problemas(request):
     """Muestra el historial de problemas del usuario con filtros opcionales."""
-    qs = ProblemaPL.objects.filter(user=request.user)
+    todos = ProblemaPL.objects.filter(user=request.user).order_by("created_at")
+    index_map = {p.id: idx + 1 for idx, p in enumerate(todos)}
+    qs = todos
 
     orden = request.GET.get("orden", "old")
     if orden == "new":
         qs = qs.order_by("-created_at")
-    else:
-        qs = qs.order_by("created_at")
 
     obj = request.GET.get("obj")
     if obj in {"max", "min"}:
@@ -147,6 +147,10 @@ def historial_problemas(request):
     hasta = request.GET.get("hasta")
     if hasta:
         qs = qs.filter(created_at__date__lte=hasta)
+
+        qs = list(qs)
+        for problema in qs:
+         problema.numero = index_map.get(problema.id)
 
     context = {
         "problemas": qs,

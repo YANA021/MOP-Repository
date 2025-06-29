@@ -30,7 +30,7 @@
     <tbody>
         {% for p in problemas %}
         <tr class="border-b border-gray-200">
-            <td class="px-4 py-2 text-center align-middle">{{ forloop.counter }}</td>
+            <td class="px-4 py-2 text-center align-middle">{{ p.numero|default:forloop.counter }}</td>
             <td class="px-4 py-2 text-center align-middle">{{ p.get_objetivo_display }}</td>
             <td class="px-4 py-2 text-center align-middle">Z = {{ p.coef_x1 }}x₁ + {{ p.coef_x2 }}x₂</td>
             <td class="px-4 py-2 text-center align-middle" style="white-space:pre-line">
