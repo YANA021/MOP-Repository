@@ -138,11 +138,7 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
         'z': opt_val,
          'soluciones': [{'x': x, 'y': y} for x, y in soluciones],
         'vertices': [{'x': x, 'y': y, 'z': coef_x1*x + coef_x2*y} for x, y in vertices_factibles],
-        'grafica': fig.to_html(
-            full_html=False,
-            include_plotlyjs=True,
-            config={"displayModeBar": False},
-        )
+        'grafica': fig.to_html(full_html=False, include_plotlyjs=True)
     }
 
 def encontrar_vertices(restricciones):
@@ -280,14 +276,7 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
         xaxis=dict(title='x₁', range=[x_min, x_max]),
         yaxis=dict(title='x₂', range=[y_min, y_max]),
         plot_bgcolor='white',
-       height=600,
-        legend=dict(
-            orientation='h',
-            yanchor='bottom',
-            y=1.02,
-            xanchor='center',
-            x=0.5,
-        ),
+        height=600
     )
     
     return fig
@@ -305,11 +294,7 @@ def crear_grafica_vacia():
           showarrow=False, font=dict(size=20)
 )]
     )
-    return fig.to_html(
-        full_html=False,
-        include_plotlyjs=True,
-        config={"displayModeBar": False},
-    )
+    return fig.to_html(full_html=False, include_plotlyjs=True)
 
 if __name__ == "__main__":
     # Ejemplo de uso
