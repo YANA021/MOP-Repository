@@ -123,4 +123,13 @@ body{
 .plotly .modebar {
   display:flex !important;
   flex-direction:row !important;
+
+
+ flex-wrap:wrap;
+  align-items:center;
+}
+
+.plotly .modebar-group {
+  display:flex !important;
+  flex-direction:row !important;
 }
