@@ -238,17 +238,21 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     
     # Dibujar solución óptima
     if soluciones:
-       xs = [s[0] for s in soluciones]
-       ys = [s[1] for s in soluciones]
-       nombre = 'Solución óptima'
-    if len(soluciones) > 1:
-            nombre += ' (múltiples)'
-    fig.add_trace(go.Scatter(
-             x=xs, y=ys, mode='markers',
-            marker=dict(size=10, color='red'),
-            name=nombre
-        ))
-    
+             xs = [s[0] for s in soluciones]
+             ys = [s[1] for s in soluciones]
+             nombre = 'Solución óptima'
+             if len(soluciones) > 1:
+                 nombre += ' (múltiples)'
+                 fig.add_trace(
+            go.Scatter(
+                x=xs,
+                y=ys,
+                mode='markers',
+                marker=dict(size=10, color='red'),
+                name=nombre,
+            )
+        )
+                 
     # Dibujar función objetivo
     if not np.isnan(opt_val) and coef_x2 != 0:
         y_obj = (opt_val - coef_x1*x) / coef_x2
