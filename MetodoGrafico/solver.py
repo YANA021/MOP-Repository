@@ -91,7 +91,7 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
         'y': soluciones[0][1] if soluciones else float('nan'),
         'z': opt_val,
         'vertices': [{'x': x, 'y': y, 'z': coef_x1*x + coef_x2*y} for x, y in vertices_factibles],
-        'grafica': fig.to_html(full_html=False, include_plotlyjs='cdn')
+        'grafica': fig.to_html(full_html=False, include_plotlyjs=True)
     }
 
 def encontrar_vertices(restricciones):
@@ -230,7 +230,7 @@ def crear_grafica_vacia():
           showarrow=False, font=dict(size=20)
 )]
     )
-    return fig.to_html(full_html=False, include_plotlyjs='cdn')
+    return fig.to_html(full_html=False, include_plotlyjs=True)
 
 if __name__ == "__main__":
     # Ejemplo de uso
