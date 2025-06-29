@@ -58,7 +58,7 @@ def metodo_grafico(request):
                 "form": form,
                 "mensaje": mensaje,
                 "resultado": resultado,
-                "grafico_url": "/grafica/",
+                "grafico": grafico,
                 "post_data": post_data,
                 "restricciones_json": json.dumps(restricciones_data),
             }
