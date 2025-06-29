@@ -6,7 +6,7 @@
 <form id="problema-form" method="post" class="space-y-8">
     {% csrf_token %}
     <div class="card-theme rounded-lg p-8 space-y-4">
-        <label class="text-gray-700 font-semibold block">Función Objetivo</label>
+        <label class="text-white font-semibold block">Función Objetivo</label>
         <div class="flex flex-wrap items-center gap-2">
            <select name="objetivo" class="w-40 form-theme rounded-md focus:ring-2 ring-sky-400">
                 <option value="max">Maximizar</option>
@@ -20,13 +20,13 @@
         </div>
     </div>
     <div class="card-theme rounded-lg p-8">
-        <label class="text-gray-700 font-semibold">Rango de valores permitidos</label>
+        <label class="text-white-700 font-semibold">Rango de valores permitidos</label>
         <table class="min-w-full mt-4 text-center">
             <thead>
                 <tr class="bg-slate-50 text-xs uppercase tracking-wide">
-                    <th class="py-2">Variable</th>
-                    <th class="py-2">Mínimo</th>
-                    <th class="py-2">Máximo</th>
+                    <th class="py-1 text-black">Variable</th>
+                    <th class="py-1 text-black">Mínimo</th>
+                    <th class="py-1 text-black">Máximo</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,7 +45,7 @@
     </div>
 
 <div class="card-theme rounded-lg p-8">
-        <label class="text-gray-700 font-semibold mb-4 block">Restricciones</label>
+        <label class="text-white-700 font-semibold mb-4 block">Restricciones</label>
         <div class="grid grid-cols-4 gap-4 mb-4">
            <input id="coef-x1" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₁">
             <input id="coef-x2" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₂">

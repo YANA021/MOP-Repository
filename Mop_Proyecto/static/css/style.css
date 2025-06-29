@@ -117,3 +117,6 @@ body{
 .dark .theme-toggle::after{
   transform:translateX(22px);
 }
+.form-theme option{
+  color:#000;
+}

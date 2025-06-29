@@ -48,6 +48,7 @@ def metodo_grafico(request):
             )
 
             grafico = resultado.get("grafica", "")
+            request.session["grafico"] = grafico
             resultado = {k: v for k, v in resultado.items() if k != "grafica"}
             post_data = request.POST.dict()
             restricciones_data = form.cleaned_data.get("restricciones", [])
@@ -57,7 +58,7 @@ def metodo_grafico(request):
                 "form": form,
                 "mensaje": mensaje,
                 "resultado": resultado,
-                "grafico": grafico,
+                "grafico_url": "/grafica/",
                 "post_data": post_data,
                 "restricciones_json": json.dumps(restricciones_data),
             }
@@ -67,3 +68,9 @@ def metodo_grafico(request):
 
     context = {"form": form, "mensaje": mensaje}
     return render(request, "nuevo_problema.html", context)
+
+
+def ver_grafica(request):
+    """Muestra la gráfica almacenada en la sesión."""
+    grafico = request.session.pop("grafico", "")
+    return render(request, "grafica.html", {"grafico": grafico})

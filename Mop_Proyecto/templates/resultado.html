@@ -8,6 +8,6 @@
     <p>x1: {{ resultado.x }}</p>
     <p>x2: {{ resultado.y }}</p>
     <p>z: {{ resultado.z }}</p>
-    <div>{{ grafico|safe }}</div>
+   <a href="{% url 'ver_grafica' %}" class="btn-primary-theme rounded-md inline-block mt-4">Ver gráfica</a>
 {% endif %}
 {% endblock %}
