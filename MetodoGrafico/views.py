@@ -1,4 +1,5 @@
 import json
+import numpy as np
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required  # noqa: F401
@@ -7,6 +8,24 @@ from .form import ProblemaPLForm
 from .models import ProblemaPL
 from .solver import resolver_problema_lineal
 
+def to_native(obj):
+   
+    if isinstance(obj, np.bool_):
+        return bool(obj)
+    if isinstance(obj, np.integer):
+        return int(obj)
+    if isinstance(obj, np.floating):
+        return float(obj)
+    return obj
+
+
+def _convert_structure(data):
+    
+    if isinstance(data, dict):
+        return {k: _convert_structure(v) for k, v in data.items()}
+    if isinstance(data, list):
+        return [_convert_structure(v) for v in data]
+    return to_native(data)
 
 def home(request):
     """Renderiza la página de inicio."""
@@ -64,10 +83,10 @@ def metodo_grafico(request):
 
             # 1.5  Separar la gráfica del resto del resultado
             grafico = resultado.pop("grafica", "")
-            request.session["grafico"] = grafico
+        request.session["grafico"] = _convert_structure(grafico)
 
              # Guardar datos necesarios para la vista de la gráfica
-            request.session["post_data"] = {
+        request.session["post_data"] = _convert_structure({
                 "coef_x1": form.cleaned_data["coef_x1"],
                 "coef_x2": form.cleaned_data["coef_x2"],
                 "objetivo": form.cleaned_data["objetivo"],
@@ -75,25 +94,26 @@ def metodo_grafico(request):
                 "x1_max": form.cleaned_data.get("x1_max"),
                 "x2_min": form.cleaned_data.get("x2_min"),
                 "x2_max": form.cleaned_data.get("x2_max"),
-            }
-            request.session["restricciones"] = restricciones
+            })
 
-            vertices = []
-            opt_val = resultado.get("z")
-            for idx, v in enumerate(resultado.get("vertices", []), start=1):
-                vertices.append(
-                    {
-                        "punto": f"P{idx}",
-                        "x1": v["x"],
-                        "x2": v["y"],
-                        "z": v["z"],
-                        "optimo": abs(v["z"] - opt_val) < 1e-6,
-                    }
-                )
-            request.session["vertices"] = vertices
+        request.session["restricciones"] = _convert_structure(restricciones)
+
+        vertices = []
+        opt_val = resultado.get("z")
+        for idx, v in enumerate(resultado.get("vertices", []), start=1):
+             vert = {
+                    "punto": f"P{idx}",
+                    "x1": v["x"],
+                    "x2": v["y"],
+                    "z": v["z"],
+                    "optimo": abs(v["z"] - opt_val) < 1e-6,
+                }
+        vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+
+        request.session["vertices"] = _convert_structure(vertices)
 
             # 1.6  Preparar contexto para la plantilla de resultados
-            context = {
+        context = {
                 "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
                 "mensaje": mensaje,
                 "resultado": resultado,
@@ -101,7 +121,7 @@ def metodo_grafico(request):
                 "post_data": request.POST.dict(),
                 "restricciones_json": json.dumps(restricciones),
             }
-            return render(request, "resultado.html", context)
+        return render(request, "resultado.html", context)
 
 
     form = ProblemaPLForm()
