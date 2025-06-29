@@ -2,7 +2,53 @@ import numpy as np
 import plotly.graph_objects as go
 from scipy.optimize import linprog
 
+def validar_datos(objetivo, coef_x1, coef_x2, restricciones, limites=None):
+   
+
+    if objetivo not in ("max", "min"):
+        raise ValueError("Objetivo debe ser 'max' o 'min'.")
+
+    try:
+        coef_x1 = float(coef_x1)
+        coef_x2 = float(coef_x2)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Coeficientes de la función objetivo inválidos") from exc
+
+    if not isinstance(restricciones, list):
+        raise ValueError("Las restricciones deben ser una lista")
+
+    lista = []
+    for r in restricciones:
+        try:
+            a = float(r["coef_x1"])
+            b = float(r["coef_x2"])
+            c = float(r["valor"])
+            op = r["operador"]
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError("Restricción inválida") from exc
+        if op not in ("<=", ">=", "="):
+            raise ValueError("Operador no soportado")
+        lista.append({"coef_x1": a, "coef_x2": b, "operador": op, "valor": c})
+
+    limites = limites or {}
+    limites_limpios = {}
+    for k in ("x1_min", "x1_max", "x2_min", "x2_max"):
+        v = limites.get(k)
+        if v is not None:
+            try:
+                limites_limpios[k] = float(v)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"Límite {k} inválido") from exc
+
+    return coef_x1, coef_x2, lista, limites_limpios
+
+
 def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=None):
+    """Resuelve un problema lineal de dos variables mediante el método gráfico."""
+
+    coef_x1, coef_x2, restricciones, limites = validar_datos(
+        objetivo, coef_x1, coef_x2, restricciones, limites
+    )
    
     # Procesar restricciones
     restr = []
@@ -90,6 +136,7 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
         'x': soluciones[0][0] if soluciones else float('nan'),
         'y': soluciones[0][1] if soluciones else float('nan'),
         'z': opt_val,
+         'soluciones': [{'x': x, 'y': y} for x, y in soluciones],
         'vertices': [{'x': x, 'y': y, 'z': coef_x1*x + coef_x2*y} for x, y in vertices_factibles],
         'grafica': fig.to_html(full_html=False, include_plotlyjs=True)
     }
@@ -191,11 +238,15 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     
     # Dibujar solución óptima
     if soluciones:
-        x_opt, y_opt = soluciones[0]
-        fig.add_trace(go.Scatter(
-            x=[x_opt], y=[y_opt], mode='markers',
+       xs = [s[0] for s in soluciones]
+       ys = [s[1] for s in soluciones]
+       nombre = 'Solución óptima'
+    if len(soluciones) > 1:
+            nombre += ' (múltiples)'
+    fig.add_trace(go.Scatter(
+             x=xs, y=ys, mode='markers',
             marker=dict(size=10, color='red'),
-            name=f'Solución óptima ({x_opt:.1f}, {y_opt:.1f})'
+            name=nombre
         ))
     
     # Dibujar función objetivo
