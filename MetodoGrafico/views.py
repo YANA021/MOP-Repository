@@ -22,39 +22,48 @@ def metodo_grafico(request):
     if request.method == "POST":
         form = ProblemaPLForm(request.POST)
         if form.is_valid():
-            if request.user.is_authenticated:
+              restr_raw = form.cleaned_data["restricciones"]
+        if isinstance(restr_raw, str):
+                try:
+                    restr_parsed = json.loads(restr_raw or "[]")
+                except json.JSONDecodeError:
+                    restr_parsed = []
+        else:
+                restr_parsed = restr_raw
+
+        if request.user.is_authenticated:
                 ProblemaPL.objects.create(
                     user=request.user,
                     objetivo=form.cleaned_data["objetivo"],
                     coef_x1=form.cleaned_data["coef_x1"],
                     coef_x2=form.cleaned_data["coef_x2"],
-                    restricciones=form.cleaned_data["restricciones"],
+                   restricciones=restr_parsed,
                 )
                 mensaje = "Problema guardado correctamente."
 
-            limites = {
+        limites = {
                 "x1_min": form.cleaned_data.get("x1_min"),
                 "x1_max": form.cleaned_data.get("x1_max"),
                 "x2_min": form.cleaned_data.get("x2_min"),
                 "x2_max": form.cleaned_data.get("x2_max"),
             }
 
-            resultado = resolver_problema_lineal(
+        resultado = resolver_problema_lineal(
                 form.cleaned_data["objetivo"],
                 form.cleaned_data["coef_x1"],
                 form.cleaned_data["coef_x2"],
-                form.cleaned_data["restricciones"],
+                 restr_parsed,
                 limites=limites,
             )
 
-            grafico = resultado.get("grafica", "")
-            request.session["grafico"] = grafico
-            resultado = {k: v for k, v in resultado.items() if k != "grafica"}
-            post_data = request.POST.dict()
-            restricciones_data = form.cleaned_data.get("restricciones", [])
-            form = ProblemaPLForm()
+        grafico = resultado.get("grafica", "")
+        request.session["grafico"] = grafico
+        resultado = {k: v for k, v in resultado.items() if k != "grafica"}
+        post_data = request.POST.dict()
+        restricciones_data = restr_parsed
+        form = ProblemaPLForm()
 
-            context = {
+        context = {
                 "form": form,
                 "mensaje": mensaje,
                 "resultado": resultado,
@@ -62,7 +71,7 @@ def metodo_grafico(request):
                 "post_data": post_data,
                 "restricciones_json": json.dumps(restricciones_data),
             }
-            return render(request, "resultado.html", context)
+        return render(request, "resultado.html", context)
     else:
         form = ProblemaPLForm()
 
