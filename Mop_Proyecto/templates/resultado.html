@@ -20,11 +20,20 @@
     <div id="plot" data-restr-count="{{ restricciones|length }}">{{ grafico|safe }}</div>
 
     <h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
-    <div class="space-y-1 mb-4">
-        <label><input type="checkbox" id="chk-restr" checked> Restricciones</label><br>
-        <label><input type="checkbox" id="chk-obj"   checked> Función Objetivo</label><br>
-        <label><input type="checkbox" id="chk-vert"  checked> Puntos de Región Factible</label><br>
-        <label><input type="checkbox" id="chk-grid"  checked> Cuadrícula</label>
+       <div class="flex flex-wrap items-center gap-4 mb-4">
+        <label class="inline-flex items-center gap-1">
+            <input type="checkbox" id="chk-restr" checked> Restricciones
+        </label>
+        <label class="inline-flex items-center gap-1">
+            <input type="checkbox" id="chk-obj" checked> Función Objetivo
+        </label>
+        <label class="inline-flex items-center gap-1">
+            <input type="checkbox" id="chk-vert" checked> Puntos de Región Factible
+        </label>
+        <label class="inline-flex items-center gap-1">
+            <input type="checkbox" id="chk-grid" checked> Cuadrícula
+        </label>
+        <button id="save-img" class="btn-primary-theme ml-auto">Guardar Imagen</button>
     </div>
 
     <button id="save-img" class="btn-primary-theme mb-4">Guardar Imagen</button>
