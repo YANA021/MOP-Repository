@@ -22,14 +22,14 @@ def metodo_grafico(request):
     if request.method == "POST":
         form = ProblemaPLForm(request.POST)
         if form.is_valid():
-              restr_raw = form.cleaned_data["restricciones"]
+              restr_raw = form.cleaned_data.get("restricciones", "[]")
         if isinstance(restr_raw, str):
                 try:
-                    restr_parsed = json.loads(restr_raw or "[]")
+                   restricciones = json.loads(restr_raw)
                 except json.JSONDecodeError:
-                    restr_parsed = []
+                   restricciones = []
         else:
-                restr_parsed = restr_raw
+                restricciones = restr_raw
 
         if request.user.is_authenticated:
                 ProblemaPL.objects.create(
@@ -37,7 +37,7 @@ def metodo_grafico(request):
                     objetivo=form.cleaned_data["objetivo"],
                     coef_x1=form.cleaned_data["coef_x1"],
                     coef_x2=form.cleaned_data["coef_x2"],
-                   restricciones=restr_parsed,
+                   restricciones=restricciones,
                 )
                 mensaje = "Problema guardado correctamente."
 
@@ -52,7 +52,7 @@ def metodo_grafico(request):
                 form.cleaned_data["objetivo"],
                 form.cleaned_data["coef_x1"],
                 form.cleaned_data["coef_x2"],
-                 restr_parsed,
+                 restricciones,
                 limites=limites,
             )
 
@@ -60,7 +60,7 @@ def metodo_grafico(request):
         request.session["grafico"] = grafico
         resultado = {k: v for k, v in resultado.items() if k != "grafica"}
         post_data = request.POST.dict()
-        restricciones_data = restr_parsed
+        restricciones_data = restricciones
         form = ProblemaPLForm()
 
         context = {
