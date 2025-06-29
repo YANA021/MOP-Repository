@@ -44,55 +44,56 @@
     </tbody>
 </table>
 {% endblock %}
-
 {% block scripts %}
 <script>
+/* @ts-nocheck */   <!-- desactiva el linter de VS Code en este bloque -->
 document.addEventListener('DOMContentLoaded', () => {
-    // div real de Plotly
-    const fig = document.querySelector('#plot .plotly-graph-div');
-    if (!fig) return;
+    const figDiv = document.querySelector('#plot .plotly-graph-div');
+    if (!figDiv) return;
 
-    const restrCount = {{ restricciones|length }};
+    const restrCount = parseInt(
+        document.getElementById('plot').dataset.restrCount,
+        10
+    );
+
     const chkRestr = document.getElementById('chk-restr');
     const chkObj   = document.getElementById('chk-obj');
     const chkVert  = document.getElementById('chk-vert');
     const chkGrid  = document.getElementById('chk-grid');
     const btnSave  = document.getElementById('save-img');
 
-    // 0..(restrCount-1)  son las rectas de restricción
     chkRestr.addEventListener('change', () => {
-        const vis = chkRestr.checked ? true : 'legendonly';
         const idx = [...Array(restrCount).keys()];
-        Plotly.restyle(fig, 'visible', vis, idx);
+        Plotly.restyle(figDiv, 'visible',
+                       chkRestr.checked ? true : 'legendonly',
+                       idx);
     });
 
-    // Función objetivo (trace justo después de las restricciones + polígono)
-    const idxObj = restrCount + 1;
+    const idxObj  = restrCount + 1;
+    const idxVert = [restrCount + 2, restrCount + 3];
+
     chkObj.addEventListener('change', () => {
-        Plotly.restyle(fig, 'visible',
+        Plotly.restyle(figDiv, 'visible',
                        chkObj.checked ? true : 'legendonly',
                        [idxObj]);
     });
 
-    // Puntos de vértice (dos últimos traces)
-    const idxVert = [restrCount + 2, restrCount + 3];
     chkVert.addEventListener('change', () => {
-        Plotly.restyle(fig, 'visible',
+        Plotly.restyle(figDiv, 'visible',
                        chkVert.checked ? true : 'legendonly',
                        idxVert);
     });
 
-    // Cuadrícula
     chkGrid.addEventListener('change', () => {
-        Plotly.relayout(fig, {
+        Plotly.relayout(figDiv, {
             'xaxis.showgrid': chkGrid.checked,
             'yaxis.showgrid': chkGrid.checked
         });
     });
 
-    // Guardar imagen
     btnSave.addEventListener('click', () => {
-        Plotly.downloadImage(fig, {format: 'png', filename: 'grafico'});
+        Plotly.downloadImage(figDiv,
+            { format: 'png', filename: 'grafico' });
     });
 });
 </script>
