@@ -41,6 +41,7 @@ def metodo_grafico(request):
     # ------------------------------------------------------------------
     if request.method == "POST":
         form = ProblemaPLForm(request.POST)
+        vertices = []
 
         if form.is_valid():
             # 1.1  Convertir 'restricciones' (texto JSON) en lista de Python
@@ -84,7 +85,6 @@ def metodo_grafico(request):
             # 1.5  Separar la gráfica del resto del resultado
             grafico = resultado.pop("grafica", "")
 
-            vertices = []
             opt_val = resultado.get("z")
             for idx, v in enumerate(resultado.get("vertices", []), start=1):
                 vert = {
@@ -115,6 +115,8 @@ def metodo_grafico(request):
                 "vertices": vertices,
             }
         return render(request, "resultado.html", context)
+    else:
+        return render(request, "nuevo_problema.html", {"form": form})
 
 
     form = ProblemaPLForm()
