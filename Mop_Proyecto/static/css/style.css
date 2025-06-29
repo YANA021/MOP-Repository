@@ -120,3 +120,7 @@ body{
 .form-theme option{
   color:#000;
 }
+.plotly .modebar {
+  display:flex !important;
+  flex-direction:row !important;
+}
