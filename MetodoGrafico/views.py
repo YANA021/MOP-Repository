@@ -2,7 +2,7 @@ import json
 import numpy as np
 
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required  # noqa: F401
+from django.contrib.auth.decorators import login_required
 
 from .form import ProblemaPLForm
 from .models import ProblemaPL
@@ -121,3 +121,36 @@ def metodo_grafico(request):
 
     form = ProblemaPLForm()
     return render(request, "nuevo_problema.html", {"form": form, "mensaje": mensaje})
+
+
+@login_required
+def historial_problemas(request):
+    """Muestra el historial de problemas del usuario con filtros opcionales."""
+    qs = ProblemaPL.objects.filter(user=request.user)
+
+    orden = request.GET.get("orden", "old")
+    if orden == "new":
+        qs = qs.order_by("-created_at")
+    else:
+        qs = qs.order_by("created_at")
+
+    obj = request.GET.get("obj")
+    if obj in {"max", "min"}:
+        qs = qs.filter(objetivo=obj)
+
+    desde = request.GET.get("desde")
+    if desde:
+        qs = qs.filter(created_at__date__gte=desde)
+
+    hasta = request.GET.get("hasta")
+    if hasta:
+        qs = qs.filter(created_at__date__lte=hasta)
+
+    context = {
+        "problemas": qs,
+        "orden": orden,
+        "obj": obj or "",
+        "desde": desde or "",
+        "hasta": hasta or "",
+    }
+    return render(request, "historial.html", context)

@@ -23,7 +23,7 @@
                 <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
                 <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
                 <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
-                <a href="/ayuda/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
+                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
             </div>
         </div>
         <div class="flex items-center space-x-4">
@@ -53,7 +53,7 @@
         <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
         <a href="/metodo-grafico/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
         <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
-        <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
+        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
         <a href="/login/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Iniciar sesión</a>
         <a href="/registro/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Registrarse</a>
     </div>
