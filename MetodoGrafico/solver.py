@@ -231,9 +231,18 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
         ys = [v[1] for v in vertices_ordenados] + [vertices_ordenados[0][1]]
         
         fig.add_trace(go.Scatter(
-            x=xs, y=ys, fill='toself', 
-            fillcolor='rgba(0,100,80,0.2)', 
+            x=xs, y=ys, fill='toself',
+            fillcolor='rgba(0,100,80,0.2)',
             name='Región factible'
+        ))
+
+         # Marcadores de los vértices factibles
+        fig.add_trace(go.Scatter(
+            x=[v[0] for v in vertices],
+            y=[v[1] for v in vertices],
+            mode='markers',
+            marker=dict(size=6, color='blue'),
+            name='Vértices'
         ))
     
     # Dibujar solución óptima

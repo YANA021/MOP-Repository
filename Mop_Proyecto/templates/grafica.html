@@ -1,6 +1,99 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Gráfica{% endblock %}
+
 {% block content %}
 <h1 class="text-2xl mb-4">Gráfica del Problema</h1>
-<div>{{ grafico|safe }}</div>
+
+<p class="mb-2"><strong>Función Objetivo:</strong> {{ objetivo }}</p>
+
+<p class="font-semibold">Sujeto a:</p>
+<ul class="list-disc ml-5 mb-4">
+    {% for r in restricciones %}
+        <li>{{ r }}</li>
+    {% endfor %}
+</ul>
+
+<div id="plot">{{ grafico|safe }}</div>
+
+<h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
+<div class="space-y-1 mb-4">
+    <label><input type="checkbox" id="chk-restr" checked> Restricciones</label><br>
+    <label><input type="checkbox" id="chk-obj"   checked> Función Objetivo</label><br>
+    <label><input type="checkbox" id="chk-vert"  checked> Puntos de Región Factible</label><br>
+    <label><input type="checkbox" id="chk-grid"  checked> Cuadrícula</label>
+</div>
+
+<button id="save-img" class="btn-primary-theme mb-4">Guardar Imagen</button>
+
+<table class="min-w-full text-center mt-4">
+    <thead>
+        <tr class="bg-gray-200">
+            <th class="px-2 py-1">Punto</th>
+            <th class="px-2 py-1">Coordenadas</th>
+            <th class="px-2 py-1">Valor Z</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in vertices %}
+        <tr class="{% if v.optimo %}bg-red-200{% endif %}">
+            <td class="border px-2 py-1">{{ v.punto }}</td>
+            <td class="border px-2 py-1">({{ v.x1 }}, {{ v.x2 }})</td>
+            <td class="border px-2 py-1">{{ v.z }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // div real de Plotly
+    const fig = document.querySelector('#plot .plotly-graph-div');
+    if (!fig) return;
+
+    const restrCount = {{ restricciones|length }};
+    const chkRestr = document.getElementById('chk-restr');
+    const chkObj   = document.getElementById('chk-obj');
+    const chkVert  = document.getElementById('chk-vert');
+    const chkGrid  = document.getElementById('chk-grid');
+    const btnSave  = document.getElementById('save-img');
+
+    // 0..(restrCount-1)  son las rectas de restricción
+    chkRestr.addEventListener('change', () => {
+        const vis = chkRestr.checked ? true : 'legendonly';
+        const idx = [...Array(restrCount).keys()];
+        Plotly.restyle(fig, 'visible', vis, idx);
+    });
+
+    // Función objetivo (trace justo después de las restricciones + polígono)
+    const idxObj = restrCount + 1;
+    chkObj.addEventListener('change', () => {
+        Plotly.restyle(fig, 'visible',
+                       chkObj.checked ? true : 'legendonly',
+                       [idxObj]);
+    });
+
+    // Puntos de vértice (dos últimos traces)
+    const idxVert = [restrCount + 2, restrCount + 3];
+    chkVert.addEventListener('change', () => {
+        Plotly.restyle(fig, 'visible',
+                       chkVert.checked ? true : 'legendonly',
+                       idxVert);
+    });
+
+    // Cuadrícula
+    chkGrid.addEventListener('change', () => {
+        Plotly.relayout(fig, {
+            'xaxis.showgrid': chkGrid.checked,
+            'yaxis.showgrid': chkGrid.checked
+        });
+    });
+
+    // Guardar imagen
+    btnSave.addEventListener('click', () => {
+        Plotly.downloadImage(fig, {format: 'png', filename: 'grafico'});
+    });
+});
+</script>
 {% endblock %}
