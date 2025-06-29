@@ -5,21 +5,21 @@
 <h1 class="text-center text-[36px] text-[#214164] tracking-wide my-10 font-semibold">NUEVO PROBLEMA DE PROGRAMACIÓN LINEAL</h1>
 <form id="problema-form" method="post" class="space-y-8">
     {% csrf_token %}
-    <div class="bg-white rounded-lg shadow-sm p-8 space-y-4">
+    <div class="card-theme rounded-lg p-8 space-y-4">
         <label class="text-gray-700 font-semibold block">Función Objetivo</label>
         <div class="flex flex-wrap items-center gap-2">
-            <select name="objetivo" class="w-40 bg-slate-100 rounded-md focus:ring-2 focus:ring-sky-300">
+           <select name="objetivo" class="w-40 form-theme rounded-md focus:ring-2 ring-sky-400">
                 <option value="max">Maximizar</option>
                 <option value="min">Minimizar</option>
             </select>
             <span>Z =</span>
-            <input type="number" step="any" name="coef_x1" placeholder="Coef x₁" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md">
+            <input type="number" step="any" name="coef_x1" placeholder="Coef x₁" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
             <span>x₁ +</span>
-            <input type="number" step="any" name="coef_x2" placeholder="Coef x₂" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md">
+            <input type="number" step="any" name="coef_x2" placeholder="Coef x₂" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
             <span>x₂</span>
         </div>
     </div>
-    <div class="bg-white rounded-lg shadow-sm p-8">
+    <div class="card-theme rounded-lg p-8">
         <label class="text-gray-700 font-semibold">Rango de valores permitidos</label>
         <table class="min-w-full mt-4 text-center">
             <thead>
@@ -32,36 +32,34 @@
             <tbody>
                 <tr>
                     <td>x₁</td>
-                    <td><input type="number" step="any" name="x1_min" class="w-full border rounded-md px-2 py-1"></td>
-                    <td><input type="number" step="any" name="x1_max" class="w-full border rounded-md px-2 py-1"></td>
+                     <td><input type="number" step="any" name="x1_min" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400"></td>
+                    <td><input type="number" step="any" name="x1_max" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400"></td>
                 </tr>
                 <tr>
                     <td>x₂</td>
-                    <td><input type="number" step="any" name="x2_min" class="w-full border rounded-md px-2 py-1"></td>
-                    <td><input type="number" step="any" name="x2_max" class="w-full border rounded-md px-2 py-1"></td>
+                    <td><input type="number" step="any" name="x2_min" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400"></td>
+                    <td><input type="number" step="any" name="x2_max" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400"></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
- <div class="bg-white rounded-lg shadow-sm p-8">
+<div class="card-theme rounded-lg p-8">
         <label class="text-gray-700 font-semibold mb-4 block">Restricciones</label>
         <div class="grid grid-cols-4 gap-4 mb-4">
-            <input id="coef-x1" type="number" step="any" class="w-full border rounded-md px-2 py-1" placeholder="Coef x₁">
-            <input id="coef-x2" type="number" step="any" class="w-full border rounded-md px-2 py-1" placeholder="Coef x₂">
-            <select id="operador" class="w-full bg-slate-100 rounded-md focus:ring-2 focus:ring-sky-300">
+           <input id="coef-x1" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₁">
+            <input id="coef-x2" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₂">
+            <select id="operador" class="w-full form-theme rounded-md focus:ring-2 ring-sky-400">
                 <option value="<=">≤</option>
                 <option value=">=">≥</option>
                 <option value="=">=</option>
             </select>
-              <input id="valor-restriccion" type="number" step="any" class="w-full border rounded-md px-2 py-1" placeholder="Valor del lado derecho">
+            <input id="valor-restriccion" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Valor del lado derecho">
         </div>
-           <button type="button" id="agregar-restriccion" class="bg-sky-600 hover:bg-sky-700 text-white rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">AGREGAR NUEVA RESTRICCIÓN</button>
-        <ul id="lista-restricciones" class="mt-4 space-y-1 text-sm"></ul>
+        <button type="button" id="agregar-restriccion" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">AGREGAR NUEVA RESTRICCIÓN</button>        <ul id="lista-restricciones" class="mt-4 space-y-1 text-sm"></ul>
     </div>
     <input type="hidden" name="restricciones" id="restricciones-hidden">
-    <button type="submit" class="bg-[#214164] hover:bg-[#19344d] text-white rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">Resolver</button>
-</form>
+ <button type="submit" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">Resolver</button></form>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/restricciones.js' %}"></script>
