@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Usuarios',
     'MetodoGrafico',
     'whitenoise.runserver_nostatic'
 ]
@@ -80,10 +81,12 @@ WSGI_APPLICATION = 'Mop_Proyecto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
         
 }
+
 
 
 # Password validation
