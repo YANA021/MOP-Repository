@@ -3,7 +3,7 @@ import numpy as np
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from tabla_intersecciones import tabla_intersecciones
+from .tabla_intersecciones import tabla_intersecciones
 from .form import ProblemaPLForm
 from .models import ProblemaPL
 from .solver import resolver_problema_lineal
