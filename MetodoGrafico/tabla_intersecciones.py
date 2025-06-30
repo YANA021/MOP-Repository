@@ -9,17 +9,17 @@ from sympy.parsing.sympy_parser import (
 
 
 def tabla_intersecciones(restricciones):
-    """Genera una tabla con los interceptos de cada restricción.
+    """Genera una tabla didáctica con los interceptos de cada restricción.
 
     Parameters
     ----------
-    restricciones : list of str
+    restricciones : list[str]
         Restricciones como cadenas. Ejemplo: ['x1 <= 6', 'x2 <= 4']
 
     Returns
     -------
     pandas.DataFrame
-        Con columnas 'restriccion', 'x1_intercepto' y 'x2_intercepto'.
+        Con columnas 'restriccion', 'intercepto_x1', 'intercepto_x2' y 'puntos'.
     """
     if not isinstance(restricciones, list) or not all(isinstance(r, str) for r in restricciones):
         raise ValueError("Las restricciones deben proporcionarse como lista de cadenas")
@@ -29,40 +29,55 @@ def tabla_intersecciones(restricciones):
     trans = standard_transformations + (implicit_multiplication_application,)
 
     datos = []
+
     for restr in restricciones:
+        # Detectar operador (<=, >=, =, <, >)
         m = re.search(r"(<=|>=|=|<|>)", restr)
         if not m:
             raise ValueError(f"Operador no encontrado en la restricción: {restr}")
-        op = m.group(1)
-        lado_izq, lado_der = [s.strip() for s in restr.split(op, 1)]
-        expr_izq = parse_expr(lado_izq, transformations=trans, local_dict=local_dict)
-        expr_der = parse_expr(lado_der, transformations=trans, local_dict=local_dict)
 
-        if not (expr_izq - expr_der).free_symbols.issubset({x1, x2}):
-            raise ValueError("Solo se permiten las variables x1 y x2")
+        operador = m.group(1)
 
+        # Separar y convertir a expresiones sympy
+        expr_izq, expr_der = map(
+            lambda s: parse_expr(s, local_dict=local_dict, transformations=trans),
+            restr.split(operador),
+        )
         igualdad = sp.Eq(expr_izq, expr_der)
 
+        # Interceptos
         sol_x1 = sp.solve(igualdad.subs(x2, 0), x1)
         x1_inter = float(sol_x1[0]) if sol_x1 else float("nan")
 
         sol_x2 = sp.solve(igualdad.subs(x1, 0), x2)
         x2_inter = float(sol_x2[0]) if sol_x2 else float("nan")
 
-        datos.append({
-            "restriccion": restr,
-            "x1_intercepto": x1_inter,
-            "x2_intercepto": x2_inter,
-        })
+        # Formatear restricción con subíndices y símbolo ≤ / ≥
+        restr_fmt = (
+            restr.replace("x1", "x₁")
+            .replace("x2", "x₂")
+            .replace("<=", "≤")
+            .replace(">=", "≥")
+        )
 
-    return pd.DataFrame(datos)
+        puntos = f"({x1_inter}, 0) y (0, {x2_inter})"
+
+        datos.append(
+            {
+                "restriccion": restr_fmt,
+                "intercepto_x1": x1_inter,
+                "intercepto_x2": x2_inter,
+                "puntos": puntos,
+            }
+        )
+
+    df = pd.DataFrame(
+        datos,
+        columns=["restriccion", "intercepto_x1", "intercepto_x2", "puntos"],
+    )
+    return df.reset_index(drop=True)
 
 
 if __name__ == "__main__":
-    ejemplo = [
-        "x1 <= 6",
-        "x2 <= 4",
-        "6 x1 + 8 x2 <= 48",
-    ]
-    tabla = tabla_intersecciones(ejemplo)
-    print(tabla)
+    restricciones = ["3 x1 + 5 x2 <= 6", "4 x1 + 2 x2 <= 5"]
+    print(tabla_intersecciones(restricciones))
