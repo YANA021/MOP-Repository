@@ -111,7 +111,7 @@ def metodo_grafico(request):
             f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
             for r in restricciones
         ]
-        df_tabla = tabla_intersecciones(restr_para_tabla)
+        df_tabla, pasos_inter = tabla_intersecciones(restr_para_tabla, incluir_pasos=True)
         tabla = [
             {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
         ]
@@ -125,6 +125,7 @@ def metodo_grafico(request):
             "objetivo": objetivo_text,
             "restricciones": restricciones_fmt,
             "tabla_inter": tabla,
+            "pasos_inter": pasos_inter,
             "vertices": vertices,
             }
         return render(request, "resultado.html", context)
@@ -207,7 +208,7 @@ def ver_problema(request, pk):
         f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
         for r in problema.restricciones
     ]
-    df_tabla = tabla_intersecciones(restr_para_tabla)
+    df_tabla, pasos_inter = tabla_intersecciones(restr_para_tabla, incluir_pasos=True)
     tabla = [
         {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
     ]
@@ -220,6 +221,7 @@ def ver_problema(request, pk):
         "objetivo": objetivo_text,
         "restricciones": restricciones_fmt,
         "tabla_inter": tabla,
+        "pasos_inter": pasos_inter,
         "vertices": vertices,
     }
     return render(request, "resultado.html", context)

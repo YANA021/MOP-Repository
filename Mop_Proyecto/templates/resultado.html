@@ -17,7 +17,17 @@
         {% endfor %}
     </ul>
 
-    <h2 class="text-xl mt-4 mb-2">Paso 1: Tabulación de intersecciones</h2>
+   <h2 class="text-xl mt-4 mb-2">Paso 1: Intersección con los ejes</h2>
+    {% for paso in pasos_inter %}
+    <p class="font-semibold">{{ paso.restriccion }}</p>
+    <ol class="list-decimal ml-8 mb-4">
+        {% for p in paso.pasos %}
+        <li>{{ p }}</li>
+        {% endfor %}
+    </ol>
+    {% endfor %}
+
+    <h2 class="text-xl mt-4 mb-2">Paso 2: Tabulación de intersecciones</h2>
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mb-4">
         <thead>

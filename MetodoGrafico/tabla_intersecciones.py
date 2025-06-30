@@ -31,6 +31,11 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
     datos = []
     pasos = []
 
+    def _fmt_num(num):
+        num = float(num)
+        num_r = round(num, 2)
+        return int(num_r) if num_r.is_integer() else f"{num_r:.2f}"
+
     for restr in restricciones:
         # Detectar operador (<=, >=, =, <, >)
         m = re.search(r"(<=|>=|=|<|>)", restr)
@@ -61,21 +66,20 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
             .replace(">=", "≥")
         )
 
-        puntos = f"({x1_inter}, 0) y (0, {x2_inter})"
+        puntos = f"({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})"
 
         datos.append(
             {
                 "restriccion": restr_fmt,
-                "intercepto_x1": x1_inter,
-                "intercepto_x2": x2_inter,
+                "intercepto_x1": _fmt_num(x1_inter),
+                "intercepto_x2": _fmt_num(x2_inter),
                 "puntos": puntos,
             }
         )
 
         if incluir_pasos:
             def _fmt(num):
-                num = float(num)
-                return int(num) if num.is_integer() else num
+               return _fmt_num(num)
 
             a = expr_izq.coeff(x1)
             b = expr_izq.coeff(x2)
@@ -85,13 +89,15 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
 
             paso1 = (
                 f"Sustituir x₂ = 0 → {_fmt(a)}x₁ + {_fmt(b)}(0) {op_fmt} {_fmt(c)}"
-                f" ⇒ x₁ = {x1_inter}"
+              f" ⇒ x₁ = {_fmt_num(x1_inter)}"
             )
             paso2 = (
                 f"Sustituir x₁ = 0 → {_fmt(a)}(0) + {_fmt(b)}x₂ {op_fmt} {_fmt(c)}"
-                f" ⇒ x₂ = {x2_inter}"
+              f" ⇒ x₂ = {_fmt_num(x2_inter)}"
             )
-            paso3 = f"Formar el par ordenado ({x1_inter}, 0) y (0, {x2_inter})"
+            paso3 = (
+                f"Formar el par ordenado ({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})"
+            )
 
             pasos.append({"restriccion": restr_fmt, "pasos": [paso1, paso2, paso3]})
 
