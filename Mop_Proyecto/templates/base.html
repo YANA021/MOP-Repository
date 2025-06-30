@@ -7,36 +7,45 @@
     <title>{% block title %}MOP{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>.font-inter{font-family:'Inter',sans-serif;}</style>
+     <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
 </head>
-<body class="font-inter bg-gray-100">
-    <nav class="fixed top-0 inset-x-0 h-[54px] bg-[#1F2933] text-white flex items-center justify-between px-4 md:px-8 z-50">
+<body class="font-inter bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
+    <nav class="fixed top-0 inset-x-0 h-[54px] nav-theme flex items-center justify-between px-4 md:px-8 z-50">
         <div class="flex items-center">
-            <a href="/" class="text-[20px] font-bold mr-5">MOP</a>
+            <a href="{% url 'metodo:home' %}" class="text-[20px] font-bold mr-5">MOP</a>
             <div class="hidden md:flex space-x-1">
-                <a href="/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
-                <a href="/metodo-grafico/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
-                <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Simplex</a>
-                <a href="/ayuda/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
+                <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
+                <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
+                <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
+                <a href="/ayuda/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
             </div>
         </div>
         <div class="flex items-center space-x-4">
             <div class="hidden md:flex space-x-1">
+<<<<<<< HEAD
                 <a href="/login/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Iniciar sesión</a>
                 <a href="/registro/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Registrarse</a>
                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
+=======
+                <a href="{% url 'logout' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Cerrar sesión</a>
+>>>>>>> origin/main
             </div>
             <div class="relative">
-                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-[#1F2933] text-white rounded-md shadow-lg py-1">
+                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 nav-theme rounded-md shadow-lg py-1">
                     <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">Español</a>
                     <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">English</a>
                 </div>
             </div>
-            <div class="flex items-center">
-                <span id="theme-label" class="mr-2 text-sm">Modo claro</span>
-                <button aria-label="Tema" id="theme-toggle" tabindex="0" aria-pressed="false" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-400 focus:outline-none">
-                    <span class="sr-only">Toggle theme</span>
-                    <span class="inline-block h-5 w-5 transform rounded-full bg-white transition"></span>
+             <div>
+                <button id="theme-toggle" aria-label="Cambiar tema" class="text-xl">
+                   <span id="sun-icon" class="icon-theme">☀️</span>
+                    <span id="moon-icon" class="hidden icon-theme">🌙</span>
                 </button>
             </div>
             <button id="menu-btn" tabindex="0" aria-expanded="false" class="md:hidden ml-2 focus:outline-none" aria-label="Abrir menú">
@@ -46,11 +55,11 @@
             </button>
         </div>
     </nav>
-    <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 bg-[#1F2933] text-white z-40">
+   <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 nav-theme z-40">
         <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
         <a href="/metodo-grafico/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
-        <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Simplex</a>
-        <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
+        <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
+        <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
         <a href="/login/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Iniciar sesión</a>
         <a href="/registro/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Registrarse</a>
         <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
