@@ -33,11 +33,18 @@
         <label class="inline-flex items-center gap-1">
             <input type="checkbox" id="chk-grid" checked> Cuadrícula
         </label>
-        <button id="save-img" class="btn-primary-theme ml-auto">Guardar Imagen</button>
+       <label class="inline-flex items-center gap-1 ml-auto">
+            <span>Formato</span>
+            <select id="img-format" class="form-theme">
+                <option value="png">PNG</option>
+                <option value="pdf">PDF</option>
+                <option value="svg">SVG</option>
+            </select>
+        </label>
+        <button id="save-img" class="btn-primary-theme">Descargar</button>
     </div>
 
-    <button id="save-img" class="btn-primary-theme mb-4">Guardar Imagen</button>
-
+    <div class="overflow-x-auto">
     <table class="min-w-full text-center mt-4">
         <thead>
             <tr class="bg-gray-200">
@@ -56,6 +63,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 {% endif %}
 {% endblock %}
 
@@ -76,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chkVert  = document.getElementById('chk-vert');
     const chkGrid  = document.getElementById('chk-grid');
     const btnSave  = document.getElementById('save-img');
+    const formatSel = document.getElementById('img-format');
 
     chkRestr.addEventListener('change', () => {
         const idx = [...Array(restrCount).keys()];
@@ -107,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnSave.addEventListener('click', () => {
-        Plotly.downloadImage(figDiv,
-            { format: 'png', filename: 'grafico' });
+       const fmt = formatSel ? formatSel.value : 'png';
+        Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
     });
 });
 </script>

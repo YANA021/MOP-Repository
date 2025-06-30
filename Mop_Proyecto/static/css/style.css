@@ -133,3 +133,9 @@ body{
   display:flex !important;
   flex-direction:row !important;
 }
+.plotly-graph-div {
+  width: 100% !important;
+}
+.dark .plotly-graph-div {
+  background-color: var(--bg-dark);
+}

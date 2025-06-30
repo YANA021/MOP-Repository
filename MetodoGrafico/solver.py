@@ -138,7 +138,11 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
         'z': opt_val,
          'soluciones': [{'x': x, 'y': y} for x, y in soluciones],
         'vertices': [{'x': x, 'y': y, 'z': coef_x1*x + coef_x2*y} for x, y in vertices_factibles],
-        'grafica': fig.to_html(full_html=False, include_plotlyjs=True)
+        'grafica': fig.to_html(
+            full_html=False,
+            include_plotlyjs='cdn',
+            config={'displaylogo': False, 'responsive': True}
+        )
     }
 
 def encontrar_vertices(restricciones):
@@ -215,10 +219,14 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
             x_line = x
             y_line = (c - a*x) / b
         
-        fig.add_trace(go.Scatter(
-            x=x_line, y=y_line, mode='lines', 
-            name=f"{a}x₁ + {b}x₂ {op} {c}"
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=x_line,
+                y=y_line,
+                mode='lines',
+                name=f"{a}x₁ + {b}x₂ {op} {c}"
+            )
+        )
     
     # Dibujar región factible (convex hull de los vértices)
     if vertices:
@@ -230,33 +238,43 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
         xs = [v[0] for v in vertices_ordenados] + [vertices_ordenados[0][0]]
         ys = [v[1] for v in vertices_ordenados] + [vertices_ordenados[0][1]]
         
-        fig.add_trace(go.Scatter(
-            x=xs, y=ys, fill='toself',
-            fillcolor='rgba(0,100,80,0.2)',
-            name='Región factible'
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=xs,
+                y=ys,
+                fill='toself',
+                fillcolor='rgba(0,100,80,0.2)',
+                name='Región factible'
+            )
+        )
 
          # Marcadores de los vértices factibles
-        fig.add_trace(go.Scatter(
-            x=[v[0] for v in vertices],
-            y=[v[1] for v in vertices],
-            mode='markers',
-            marker=dict(size=6, color='blue'),
-            name='Vértices'
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=[v[0] for v in vertices],
+                y=[v[1] for v in vertices],
+                mode='markers+text',
+                text=[f"P{i+1}" for i in range(len(vertices))],
+                textposition="top center",
+                marker=dict(size=6, color='blue'),
+                name='Vértices'
+            )
+        )
     
     # Dibujar solución óptima
     if soluciones:
              xs = [s[0] for s in soluciones]
-             ys = [s[1] for s in soluciones]
-             nombre = 'Solución óptima'
-             if len(soluciones) > 1:
-                 nombre += ' (múltiples)'
-                 fig.add_trace(
+    ys = [s[1] for s in soluciones]
+    nombre = 'Solución óptima'
+    if len(soluciones) > 1:
+            nombre += ' (múltiples)'
+    fig.add_trace(
             go.Scatter(
                 x=xs,
                 y=ys,
-                mode='markers',
+                mode='markers+text',
+                text=['Óptimo' for _ in xs],
+                textposition='top center',
                 marker=dict(size=10, color='red'),
                 name=nombre,
             )
@@ -276,7 +294,8 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
         xaxis=dict(title='x₁', range=[x_min, x_max]),
         yaxis=dict(title='x₂', range=[y_min, y_max]),
         plot_bgcolor='white',
-        height=600
+        height=600,
+        transition=dict(duration=500)
     )
     
     return fig
@@ -294,7 +313,11 @@ def crear_grafica_vacia():
           showarrow=False, font=dict(size=20)
 )]
     )
-    return fig.to_html(full_html=False, include_plotlyjs=True)
+    return fig.to_html(
+        full_html=False,
+        include_plotlyjs='cdn',
+        config={'displaylogo': False, 'responsive': True}
+    )
 
 if __name__ == "__main__":
     # Ejemplo de uso

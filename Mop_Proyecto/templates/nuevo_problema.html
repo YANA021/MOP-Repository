@@ -8,19 +8,20 @@
     <div class="card-theme rounded-lg p-8 space-y-4">
         <label class="text-white font-semibold block">Función Objetivo</label>
         <div class="flex flex-wrap items-center gap-2">
-           <select name="objetivo" class="w-40 form-theme rounded-md focus:ring-2 ring-sky-400">
+            <select name="objetivo" class="w-full sm:w-40 form-theme rounded-md focus:ring-2 ring-sky-400">
                 <option value="max">Maximizar</option>
                 <option value="min">Minimizar</option>
             </select>
             <span>Z =</span>
-            <input type="number" step="any" name="coef_x1" placeholder="Coef x₁" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
+            <input type="number" step="any" name="coef_x1" placeholder="Coef x₁" class="w-20 sm:w-24 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
             <span>x₁ +</span>
-            <input type="number" step="any" name="coef_x2" placeholder="Coef x₂" class="w-20 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
+            <input type="number" step="any" name="coef_x2" placeholder="Coef x₂" class="w-20 sm:w-24 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
             <span>x₂</span>
         </div>
     </div>
     <div class="card-theme rounded-lg p-8">
         <label class="text-white-700 font-semibold">Rango de valores permitidos</label>
+        <div class="overflow-x-auto">
         <table class="min-w-full mt-4 text-center">
             <thead>
                 <tr class="bg-slate-50 text-xs uppercase tracking-wide">
@@ -42,6 +43,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
 
 <div class="card-theme rounded-lg p-8">
