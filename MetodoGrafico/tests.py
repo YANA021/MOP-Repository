@@ -43,3 +43,12 @@ class SolverTestCase(SimpleTestCase):
         ]
         res = resolver_problema_lineal("max", 1, 1, restricciones)
         self.assertEqual(res["status"], "inviable")
+
+from .sistema_lineal import resolver_sistema_pasos
+
+class SistemaLinealTestCase(SimpleTestCase):
+    def test_resolver_sistema(self):
+        res = resolver_sistema_pasos('3 x1 + 5 x2 = 6', '4 x1 + 2 x2 = 5')
+        self.assertAlmostEqual(res['resultado']['x1'], 13/14)
+        self.assertAlmostEqual(res['resultado']['x2'], 9/14, places=1)
+        self.assertIn('Punto de intersección', res['html'])
