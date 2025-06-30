@@ -86,20 +86,34 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
             c = expr_der
 
             op_fmt = operador.replace("<=", "≤").replace(">=", "≥")
-
-            paso1 = (
-                f"Sustituir x₂ = 0 → {_fmt(a)}x₁ + {_fmt(b)}(0) {op_fmt} {_fmt(c)}"
-              f" ⇒ x₁ = {_fmt_num(x1_inter)}"
+            pasos.extend(
+                [
+                    {
+                        "restriccion": restr_fmt,
+                        "sustitucion": "x₂ = 0",
+                        "ecuacion": f"{_fmt(a)}x₁ + {_fmt(b)}(0) = {_fmt(c)} → {_fmt(a)}x₁ = {_fmt(c)}",
+                        "resultado": f"x₁ = {_fmt_num(x1_inter)}",
+                        "punto": f"({_fmt_num(x1_inter)}, 0)",
+                        "resumen": False,
+                    },
+                    {
+                        "restriccion": "",
+                        "sustitucion": "x₁ = 0",
+                        "ecuacion": f"{_fmt(a)}(0) + {_fmt(b)}x₂ = {_fmt(c)} → {_fmt(b)}x₂ = {_fmt(c)}",
+                        "resultado": f"x₂ = {_fmt_num(x2_inter)}",
+                        "punto": f"(0, {_fmt_num(x2_inter)})",
+                        "resumen": False,
+                    },
+                    {
+                        "restriccion": "",
+                        "sustitucion": "Resumen:",
+                        "ecuacion": "",
+                        "resultado": "",
+                        "punto": f"({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})",
+                        "resumen": True,
+                    },
+                ]
             )
-            paso2 = (
-                f"Sustituir x₁ = 0 → {_fmt(a)}(0) + {_fmt(b)}x₂ {op_fmt} {_fmt(c)}"
-              f" ⇒ x₂ = {_fmt_num(x2_inter)}"
-            )
-            paso3 = (
-                f"Formar el par ordenado ({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})"
-            )
-
-            pasos.append({"restriccion": restr_fmt, "pasos": [paso1, paso2, paso3]})
 
     df = pd.DataFrame(
         datos,

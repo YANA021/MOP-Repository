@@ -18,14 +18,31 @@
     </ul>
 
    <h2 class="text-xl mt-4 mb-2">Paso 1: Intersección con los ejes</h2>
-    {% for paso in pasos_inter %}
-    <p class="font-semibold">{{ paso.restriccion }}</p>
-    <ol class="list-decimal ml-8 mb-4">
-        {% for p in paso.pasos %}
-        <li>{{ p }}</li>
-        {% endfor %}
-    </ol>
-    {% endfor %}
+
+   <div class="overflow-x-auto">
+    <table class="min-w-full text-center mb-4">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="px-2 py-1">Restricción</th>
+                <th class="px-2 py-1">Sustitución</th>
+                <th class="px-2 py-1">Ecuación resultante</th>
+                <th class="px-2 py-1">Resultado</th>
+                <th class="px-2 py-1">Punto obtenido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in pasos_inter %}
+            <tr class="{% if fila.resumen %}font-semibold{% endif %}">
+                <td class="border px-2 py-1">{{ fila.restriccion }}</td>
+                <td class="border px-2 py-1">{{ fila.sustitucion }}</td>
+                <td class="border px-2 py-1">{{ fila.ecuacion }}</td>
+                <td class="border px-2 py-1">{{ fila.resultado }}</td>
+                <td class="border px-2 py-1">{% if fila.resumen %}<strong>{{ fila.punto }}</strong>{% else %}{{ fila.punto }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
 
     <h2 class="text-xl mt-4 mb-2">Paso 2: Tabulación de intersecciones</h2>
     <div class="overflow-x-auto">
