@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Historial de Problemas{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Historial de Problemas</h1>Add commentMore actions
+<form method="get" class="flex flex-wrap gap-4 items-end">
+    <select name="orden" class="form-select">
+        <option value="old" {% if orden == 'old' %}selected{% endif %}>Primeros agregados</option>
+        <option value="new" {% if orden == 'new' %}selected{% endif %}>Últimos agregados</option>
+    </select>
+    <select name="obj">
+        <option value="" {% if not obj %}selected{% endif %}>Todos</option>
+        <option value="max" {% if obj == 'max' %}selected{% endif %}>Maximizar</option>
+        <option value="min" {% if obj == 'min' %}selected{% endif %}>Minimizar</option>
+    </select>
+    <input type="date" name="desde" value="{{ desde }}" placeholder="mm/dd/yyyy">
+    <input type="date" name="hasta" value="{{ hasta }}" placeholder="mm/dd/yyyy">
+    <button class="btn btn-primary" id="filtrar" type="submit">Filtrar</button>
+</form>
+<table class="table-auto w-full mt-6">
+    <thead class="bg-gray-50 font-semibold">
+        <tr>
+            <th>#</th>
+            <th>Objetivo</th>
+            <th>Función Objetivo</th>
+            <th>Restricciones</th>
+            <th>Fecha</th>
+            <th>Ir al problema</th>
+            <th class="px-4 py-2 text-center">#</th>
+            <th class="px-4 py-2 text-center">Objetivo</th>
+            <th class="px-4 py-2 text-center">Función Objetivo</th>
+            <th class="px-4 py-2 text-center">Restricciones</th>Add commentMore actions
+            <th class="px-4 py-2 text-center">Fecha</th>
+            <th class="px-4 py-2 text-center">Ir al problema</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in problemas %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ p.get_objetivo_display }}</td>
+            <td>Z = {{ p.coef_x1 }}x₁ + {{ p.coef_x2 }}x₂</td>
+            <td style="white-space:pre-line">
+                <tr class="border-b border-gray-200">
+            <td class="px-4 py-2 text-center align-middle">{{ p.numero|default:forloop.counter }}</td>
+            <td class="px-4 py-2 text-center align-middle" style="white-space:nowrap">{{ p.get_objetivo_display }}</td>
+            <td class="px-4 py-2 text-center align-middle" style="white-space:nowrap">Z = {{ p.coef_x1 }}x₁ + {{ p.coef_x2 }}x₂</td>
+            <td class="px-4 py-2 text-center align-middle" style="white-space:nowrap">
+                {% for r in p.restricciones %}
+                    {{ r.coef_x1 }}x₁ + {{ r.coef_x2 }}x₂ {{ r.operador }} {{ r.valor }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ p.created_at|date:"Y-m-d H:i" }}</td>
+            <td><a href="{% url 'metodo:ver_problema' p.id %}" class="btn btn-primary">Ver</a></td>
+            <td class="px-4 py-2 text-center align-middle" style="white-space:nowrap">{{ p.created_at|date:"Y-m-d H:i" }}</td>
+            <td class="px-4 py-2 text-center align-middle"><a href="{% url 'metodo:ver_problema' p.id %}" class="btn btn-primary">Ver</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center py-4">Sin registros</td></tr>
+        {% endfor %}
+        <tr class="border-b border-gray-200"><td colspan="6" class="text-center py-4">Sin registros</td></tr>
+          {% endfor %}  
+    </tbody>
+</table>
+{% endblock %}

@@ -24,6 +24,7 @@
             <div class="hidden md:flex space-x-1">
                 <a href="/login/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Iniciar sesión</a>
                 <a href="/registro/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Registrarse</a>
+                <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
             </div>
             <div class="relative">
                 <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-[#1F2933] text-white rounded-md shadow-lg py-1">
@@ -52,6 +53,7 @@
         <a href="/ayuda/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
         <a href="/login/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Iniciar sesión</a>
         <a href="/registro/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Registrarse</a>
+        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
     </div>
     <main class="max-w-3xl mx-auto px-4 py-6">
         {% block content %}{% endblock %}
