@@ -3,21 +3,21 @@
 {% block content %}
 <h1 class="text-3xl font-bold mb-6">Historial de Problemas</h1>
 <form method="get" class="flex flex-wrap gap-4 items-end">
-    <select name="orden" class="form-select">
+    <select name="orden" class="form-theme">
         <option value="old" {% if orden == 'old' %}selected{% endif %}>Primeros agregados</option>
         <option value="new" {% if orden == 'new' %}selected{% endif %}>Últimos agregados</option>
     </select>
-    <select name="obj">
+    <select name="obj" class="form-theme">
         <option value="" {% if not obj %}selected{% endif %}>Todos</option>
         <option value="max" {% if obj == 'max' %}selected{% endif %}>Maximizar</option>
         <option value="min" {% if obj == 'min' %}selected{% endif %}>Minimizar</option>
     </select>
-    <input type="date" name="desde" value="{{ desde }}" placeholder="mm/dd/yyyy">
-    <input type="date" name="hasta" value="{{ hasta }}" placeholder="mm/dd/yyyy">
-    <button class="btn btn-primary" id="filtrar" type="submit">Filtrar</button>
+    <input type="date" name="desde" class="form-theme" value="{{ desde }}" placeholder="mm/dd/yyyy">
+    <input type="date" name="hasta" class="form-theme" value="{{ hasta }}" placeholder="mm/dd/yyyy">
+    <button class="btn-primary-theme" id="filtrar" type="submit">Filtrar</button>
 </form>
 <table class="table-auto w-full mt-6">
-    <thead class="bg-gray-50 font-semibold">
+    <thead class="bg-gray-50 font-semibold text-black dark:text-black">
         <tr>
             <th class="px-4 py-2 text-center">#</th>
             <th class="px-4 py-2 text-center">Objetivo</th>
