@@ -2,6 +2,7 @@ import json
 import os
 from django.conf import settings
 from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .form import ProblemaPLForm
@@ -17,7 +18,7 @@ def home(request):
 def metodo_grafico(request):
     """
     Muestra el formulario, resuelve el problema con el método gráfico,
-    guarda el ProblemaPL (si está autenticado) y registra la entrada en HistoryEntry.
+    guarda el ProblemaPL (esto si está autenticado) y registra la entrada en HistoryEntry.
     """
     mensaje = ""
     resultado = None
@@ -37,6 +38,9 @@ def metodo_grafico(request):
                     restricciones=form.cleaned_data["restricciones"],
                 )
                 mensaje = "Problema guardado correctamente."
+
+            else:  
+                mensaje = "Inicia sesión para guardar el problema en tu historial."
 
             # Preparamos límites si los hay
             limites = {
@@ -107,6 +111,81 @@ def metodo_grafico(request):
 
 
 @login_required
-def history_list(request):
-    entries = HistoryEntry.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'MetodoGrafico/history.html', {'entries': entries})
+def historial_problemas(request):
+    """Muestra el historial de problemas del usuario con filtros opcionales."""
+    qs = ProblemaPL.objects.filter(user=request.user)
+    todos = ProblemaPL.objects.filter(user=request.user).order_by("created_at")
+    index_map = {p.id: idx + 1 for idx, p in enumerate(todos)}
+    qs = todos
+
+    orden = request.GET.get("orden", "old")
+    if orden == "new":
+        qs = qs.order_by("-created_at")
+    else:
+        qs = qs.order_by("created_at")
+
+    obj = request.GET.get("obj")
+    if obj in {"max", "min"}:
+        qs = qs.filter(objetivo=obj)
+
+    desde = request.GET.get("desde")
+    if desde:
+        qs = qs.filter(created_at__date__gte=desde)
+
+    hasta = request.GET.get("hasta")
+    if hasta:
+        qs = qs.filter(created_at__date__lte=hasta)
+
+        qs = list(qs)
+        for problema in qs:
+         problema.numero = index_map.get(problema.id)
+
+    context = {
+        "problemas": qs,
+        "orden": orden,
+        "obj": obj or "",
+        "desde": desde or "",
+        "hasta": hasta or "",
+    }
+    return render(request, "historial.html", context)
+
+@login_required
+def ver_problema(request, pk):
+    """Muestra el resultado de un problema guardado."""
+    problema = get_object_or_404(ProblemaPL, pk=pk, user=request.user)
+
+    resultado = resolver_problema_lineal(
+        problema.objetivo,
+        problema.coef_x1,
+        problema.coef_x2,
+        problema.restricciones,
+    )
+
+    grafico = resultado.pop("grafica", "")
+    vertices = []
+    opt_val = resultado.get("z")
+    for idx, v in enumerate(resultado.get("vertices", []), start=1):
+        vert = {
+            "punto": f"P{idx}",
+            "x1": v["x"],
+            "x2": v["y"],
+            "z": v["z"],
+            "optimo": abs(v["z"] - opt_val) < 1e-6,
+        }
+        vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+
+    objetivo_text = f"Z = {problema.coef_x1}x₁ + {problema.coef_x2}x₂"
+    restricciones_fmt = [
+        f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
+        for r in problema.restricciones
+    ]
+
+    context = {
+        "form": ProblemaPLForm(),
+        "mensaje": "",
+        "resultado": resultado,
+        "grafico": grafico,
+        "objetivo": objetivo_text,
+        "restricciones": restricciones_fmt,
+        "vertices": vertices,
+    }
