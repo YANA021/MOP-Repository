@@ -149,8 +149,8 @@ def historial_problemas(request):
         qs = qs.filter(created_at__date__lte=hasta)
 
         qs = list(qs)
-        for problema in qs:
-         problema.numero = index_map.get(problema.id)
+    for problema in qs:
+        problema.numero = index_map.get(problema.id)
 
     context = {
         "problemas": qs,
