@@ -104,14 +104,6 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
                         "punto": f"(0, {_fmt_num(x2_inter)})",
                         "resumen": False,
                     },
-                    {
-                        "restriccion": "",
-                        "sustitucion": "Resumen:",
-                        "ecuacion": "",
-                        "resultado": "",
-                        "punto": f"({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})",
-                        "resumen": True,
-                    },
                 ]
             )
 
