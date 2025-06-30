@@ -3,7 +3,7 @@ import numpy as np
 
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from tabla_intersecciones import tabla_intersecciones
 from .form import ProblemaPLForm
 from .models import ProblemaPL
 from .solver import resolver_problema_lineal
@@ -99,22 +99,33 @@ def metodo_grafico(request):
         vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
         objetivo_text = (
-                f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
-            )
+                 f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
+        )
         restricciones_fmt = [
                 f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
-                for r in restricciones
-            ]
+            for r in restricciones
+        ]
+
+        # cadenas sin subíndices para el cálculo de interceptos
+        restr_para_tabla = [
+            f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
+            for r in restricciones
+        ]
+        df_tabla = tabla_intersecciones(restr_para_tabla)
+        tabla = [
+            {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
+        ]
 
             # 1.6  Preparar contexto para la plantilla de resultados
         context = {
-                "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
-                "mensaje": mensaje,
-                "resultado": resultado,
-                "grafico": grafico,
-                "objetivo": objetivo_text,
-                "restricciones": restricciones_fmt,
-                "vertices": vertices,
+            "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
+            "mensaje": mensaje,
+            "resultado": resultado,
+            "grafico": grafico,
+            "objetivo": objetivo_text,
+            "restricciones": restricciones_fmt,
+            "tabla_inter": tabla,
+            "vertices": vertices,
             }
         return render(request, "resultado.html", context)
     else:
@@ -192,6 +203,15 @@ def ver_problema(request, pk):
         for r in problema.restricciones
     ]
 
+    restr_para_tabla = [
+        f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
+        for r in problema.restricciones
+    ]
+    df_tabla = tabla_intersecciones(restr_para_tabla)
+    tabla = [
+        {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
+    ]
+
     context = {
         "form": ProblemaPLForm(),
         "mensaje": "",
@@ -199,6 +219,7 @@ def ver_problema(request, pk):
         "grafico": grafico,
         "objetivo": objetivo_text,
         "restricciones": restricciones_fmt,
+        "tabla_inter": tabla,
         "vertices": vertices,
     }
     return render(request, "resultado.html", context)

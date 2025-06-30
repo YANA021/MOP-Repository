@@ -17,6 +17,28 @@
         {% endfor %}
     </ul>
 
+    <h2 class="text-xl mt-4 mb-2">Paso 1: Tabulación de intersecciones</h2>
+    <div class="overflow-x-auto">
+    <table class="min-w-full text-center mb-4">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="px-2 py-1">Restricción</th>
+                <th class="px-2 py-1">Intercepto x₁</th>
+                <th class="px-2 py-1">Intercepto x₂</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in tabla_inter %}
+            <tr>
+                <td class="border px-2 py-1">{{ fila.restriccion }}</td>
+                <td class="border px-2 py-1">{{ fila.x1_intercepto }}</td>
+                <td class="border px-2 py-1">{{ fila.x2_intercepto }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    
     <div id="plot" data-restr-count="{{ restricciones|length }}">{{ grafico|safe }}</div>
 
     <h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
