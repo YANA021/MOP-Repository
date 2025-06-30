@@ -8,7 +8,7 @@ from sympy.parsing.sympy_parser import (
 )
 
 
-def tabla_intersecciones(restricciones):
+def tabla_intersecciones(restricciones, incluir_pasos=False):
     """Genera una tabla didáctica con los interceptos de cada restricción.
 
     Parameters
@@ -29,6 +29,7 @@ def tabla_intersecciones(restricciones):
     trans = standard_transformations + (implicit_multiplication_application,)
 
     datos = []
+    pasos = []
 
     for restr in restricciones:
         # Detectar operador (<=, >=, =, <, >)
@@ -71,13 +72,39 @@ def tabla_intersecciones(restricciones):
             }
         )
 
+        if incluir_pasos:
+            def _fmt(num):
+                num = float(num)
+                return int(num) if num.is_integer() else num
+
+            a = expr_izq.coeff(x1)
+            b = expr_izq.coeff(x2)
+            c = expr_der
+
+            op_fmt = operador.replace("<=", "≤").replace(">=", "≥")
+
+            paso1 = (
+                f"Sustituir x₂ = 0 → {_fmt(a)}x₁ + {_fmt(b)}(0) {op_fmt} {_fmt(c)}"
+                f" ⇒ x₁ = {x1_inter}"
+            )
+            paso2 = (
+                f"Sustituir x₁ = 0 → {_fmt(a)}(0) + {_fmt(b)}x₂ {op_fmt} {_fmt(c)}"
+                f" ⇒ x₂ = {x2_inter}"
+            )
+            paso3 = f"Formar el par ordenado ({x1_inter}, 0) y (0, {x2_inter})"
+
+            pasos.append({"restriccion": restr_fmt, "pasos": [paso1, paso2, paso3]})
+
     df = pd.DataFrame(
         datos,
         columns=["restriccion", "intercepto_x1", "intercepto_x2", "puntos"],
     )
-    return df.reset_index(drop=True)
+    df = df.reset_index(drop=True)
+    return (df, pasos) if incluir_pasos else df
 
 
 if __name__ == "__main__":
     restricciones = ["3 x1 + 5 x2 <= 6", "4 x1 + 2 x2 <= 5"]
-    print(tabla_intersecciones(restricciones))
+    tabla, pasos = tabla_intersecciones(restricciones, incluir_pasos=True)
+    print(pasos)
+    print(tabla)
