@@ -2,9 +2,11 @@ import json
 import numpy as np
 import io
 from PIL import Image
+import base64
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .tabla_intersecciones import tabla_intersecciones
 from .form import ProblemaPLForm
 from .models import ProblemaPL
@@ -302,5 +304,41 @@ def export_pdf(request, pk):
         buffer,
         as_attachment=True,
         filename=nombre,
+        content_type="application/pdf",
+    )
+@csrf_exempt
+def export_pdf_image(request):
+    """Convierte una imagen PNG enviada en el cuerpo en un PDF descargable."""
+
+    if request.method != "POST":
+        return HttpResponse(status=405)
+
+    image_data = request.POST.get("image")
+    if not image_data:
+        try:
+            body = json.loads(request.body.decode())
+            image_data = body.get("image")
+        except Exception:
+            image_data = None
+
+    if not image_data:
+        return HttpResponse("Sin datos de imagen", status=400, content_type="text/plain")
+
+    if image_data.startswith("data:"):
+        image_data = image_data.split(",", 1)[1]
+
+    try:
+        img_bytes = base64.b64decode(image_data)
+        img = Image.open(io.BytesIO(img_bytes))
+        buffer = io.BytesIO()
+        img.save(buffer, format="PDF")
+        buffer.seek(0)
+    except Exception:
+        return HttpResponse("Error al generar el PDF", status=500, content_type="text/plain")
+
+    return FileResponse(
+        buffer,
+        as_attachment=True,
+        filename="grafico.pdf",
         content_type="application/pdf",
     )

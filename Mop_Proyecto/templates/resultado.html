@@ -184,10 +184,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     btnSave.addEventListener('click', () => {
        const fmt = formatSel ? formatSel.value : 'png';
-        if (fmt === 'pdf' && figDiv && figDiv.parentElement.dataset.pdfUrl) {
-           window.location.href = figDiv.parentElement.dataset.pdfUrl;
+       if (fmt === 'pdf') {
+            if (figDiv && figDiv.parentElement.dataset.pdfUrl) {
+                window.location.href = figDiv.parentElement.dataset.pdfUrl;
+            } else {
+                Plotly.toImage(figDiv, { format: 'png' }).then((dataUrl) => {
+                    fetch("{% url 'metodo:export_pdf_image' %}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken'),
+                        },
+                        body: JSON.stringify({ image: dataUrl })
+                    }).then(resp => resp.blob())
+                      .then(blob => {
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = 'grafico.pdf';
+                          document.body.appendChild(a);
+                          a.click();
+                          a.remove();
+                          URL.revokeObjectURL(url);
+                      });
+                });
+            }
        } else {
            Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
        }
