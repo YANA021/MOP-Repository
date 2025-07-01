@@ -71,7 +71,8 @@
     </table>
     </div>
 
-    <div id="plot" data-restr-count="{{ restricciones|length }}">{{ grafico|safe }}</div>
+    <div id="plot" data-restr-count="{{ restricciones|length }}"{% if problema_id %} data-problem-id="{{ problema_id }}" data-pdf-url="{% url 'metodo:export_pdf' problema_id %}"{% endif %}>{{ grafico|safe }}</div>
+
 
     <h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
        <div class="flex flex-wrap items-center gap-4 mb-4">
@@ -185,7 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnSave.addEventListener('click', () => {
        const fmt = formatSel ? formatSel.value : 'png';
-        Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
+        if (fmt === 'pdf' && figDiv && figDiv.parentElement.dataset.pdfUrl) {
+           window.location.href = figDiv.parentElement.dataset.pdfUrl;
+       } else {
+           Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
+       }
     });
 });
 </script>

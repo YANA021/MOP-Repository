@@ -1,6 +1,7 @@
 import json
 import numpy as np
-
+import io
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .tabla_intersecciones import tabla_intersecciones
@@ -132,6 +133,7 @@ def metodo_grafico(request):
                 "pasos_inter": pasos_inter,
                 "pasos_sistemas": pasos_sistemas,
                 "vertices": vertices,
+                "problema_id": pk,
             }
             
             return render(request, "resultado.html", context)
@@ -258,3 +260,40 @@ def resolver_sistema(request):
         "sistema_html": html,
     }
     return render(request, "resultado.html", context)
+
+
+@login_required
+def export_pdf(request, pk):
+
+    # Obtener el problema o devolver 404 si no pertenece al usuario
+    problema = get_object_or_404(ProblemaPL, pk=pk, user=request.user)
+
+    try:
+        # Recalcular el resultado para obtener la figura actualizada
+        resultado = resolver_problema_lineal(
+            problema.objetivo,
+            problema.coef_x1,
+            problema.coef_x2,
+            problema.restricciones,
+        )
+        fig = resultado.get("fig")
+        if fig is None:
+            raise ValueError("Figura no generada")
+
+        # Exportar la figura a PDF en un buffer en memoria
+        buffer = io.BytesIO()
+        fig.write_image(buffer, format="pdf")
+        buffer.seek(0)
+    except Exception:
+        # Si ocurre cualquier problema devolver un error interno
+        return HttpResponse(
+            "Error al generar el PDF", status=500, content_type="text/plain"
+        )
+
+    nombre = f"grafico_{pk}.pdf"
+    return FileResponse(
+        buffer,
+        as_attachment=True,
+        filename=nombre,
+        content_type="application/pdf",
+    )

@@ -113,9 +113,16 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     vertices_factibles = [v for v in vertices if cumple_restricciones(v, restr)]
     
     if not vertices_factibles:
+        fig = crear_grafica_vacia()
         return {
             'status': 'inviable',
-            'grafica': crear_grafica_vacia()
+            'grafica': fig.to_html(
+                full_html=False,
+                include_plotlyjs='cdn',
+                config={'displaylogo': False, 'responsive': True}
+            ),
+            'fig': fig,
+            
         }
     
     # Calcular valores en los vértices
@@ -150,7 +157,8 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
             full_html=False,
             include_plotlyjs='cdn',
             config={'displaylogo': False, 'responsive': True}
-        )
+        ),
+        'fig': fig,
     }
 
 def encontrar_vertices(restricciones):
@@ -330,11 +338,7 @@ def crear_grafica_vacia():
           showarrow=False, font=dict(size=20)
 )]
     )
-    return fig.to_html(
-        full_html=False,
-        include_plotlyjs='cdn',
-        config={'displaylogo': False, 'responsive': True}
-    )
+    return fig
 
 if __name__ == "__main__":
     # Ejemplo de uso
