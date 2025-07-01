@@ -116,7 +116,7 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     if not vertices_factibles:
         fig = crear_grafica_vacia()
         return {
-            'status': 'inviable',
+            'status': str(_('Inviable')),
             'grafica': fig.to_html(
                 full_html=False,
                 include_plotlyjs='cdn',
@@ -336,7 +336,7 @@ def crear_grafica_vacia():
         plot_bgcolor='white',
         height=600,
         annotations=[dict(
-          x=0.5, y=0.5, text='PROBLEMA INVIABLE',
+          x=0.5, y=0.5, text=str(_('PROBLEMA INVIABLE')),
           showarrow=False, font=dict(size=20)
 )]
     )

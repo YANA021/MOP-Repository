@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 14:40-0600\n"
+"POT-Creation-Date: 2025-07-01 15:56-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,9 +26,13 @@ msgstr "Maximize"
 msgid "Minimizar"
 msgstr "Minimize"
 
+#: .\MetodoGrafico\solver.py:119
+msgid "Inviable"
+msgstr "Infeasible"
+
 #: .\MetodoGrafico\solver.py:136
 msgid "No acotada"
-msgstr ""
+msgstr "Unbounded"
 
 #: .\MetodoGrafico\solver.py:140
 #, fuzzy
@@ -60,9 +64,17 @@ msgstr "multiple"
 msgid "Función objetivo"
 msgstr "Objective function"
 
+#: .\MetodoGrafico\solver.py:339
+msgid "PROBLEMA INVIABLE"
+msgstr "INFEASIBLE PROBLEM"
+
 #: .\MetodoGrafico\tabla_intersecciones.py:69
 msgid "y"
 msgstr "and"
+
+#: .\MetodoGrafico\views.py:72
+msgid "Problema guardado correctamente."
+msgstr "Problem saved successfully."
 
 #, fuzzy
 #~| msgid "Óptimo"
