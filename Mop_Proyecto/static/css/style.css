@@ -120,6 +120,19 @@ body{
 .form-theme option{
   color:#000;
 }
+/* Oculta las flechas de los <input type="number"> ----------- */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  /* Firefox ≤ 110 */
+  -moz-appearance: textfield;
+  /* Estándar (otros navegadores modernos)  */
+  appearance: textfield;
+}
 .plotly .modebar {
   display:flex !important;
   flex-direction:row !important;
