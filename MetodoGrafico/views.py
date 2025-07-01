@@ -133,7 +133,7 @@ def metodo_grafico(request):
                 "pasos_inter": pasos_inter,
                 "pasos_sistemas": pasos_sistemas,
                 "vertices": vertices,
-                "problema_id": pk,
+                
             }
             
             return render(request, "resultado.html", context)
@@ -233,6 +233,7 @@ def ver_problema(request, pk):
         "pasos_inter": pasos_inter,
         "pasos_sistemas": pasos_sistemas,
         "vertices": vertices,
+        "problema_id": pk,
     }
     return render(request, "resultado.html", context)
 
