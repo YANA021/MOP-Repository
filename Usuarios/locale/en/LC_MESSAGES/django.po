@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 23:34-0600\n"
+"POT-Creation-Date: 2025-07-01 14:09-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: .\Usuarios\forms.py:16 .\Usuarios\templates\auth\login.html:59
+#: .\Usuarios\forms.py:16 .\Usuarios\templates\auth\signup.html:68
 msgid "Contraseña"
 msgstr "Password"
 
@@ -26,7 +25,7 @@ msgstr "Password"
 msgid "La contraseña es obligatoria."
 msgstr "Password is required."
 
-#: .\Usuarios\forms.py:22
+#: .\Usuarios\forms.py:22 .\Usuarios\templates\auth\signup.html:75
 msgid "Confirmar contraseña"
 msgstr "Confirm password"
 
@@ -35,6 +34,7 @@ msgid "Por favor confirma tu contraseña."
 msgstr "Please confirm your password."
 
 #: .\Usuarios\forms.py:29 .\Usuarios\forms.py:136
+#: .\Usuarios\templates\auth\signup.html:47
 msgid "Nombre completo"
 msgstr "Full name"
 
@@ -43,13 +43,14 @@ msgid "El nombre completo es obligatorio."
 msgstr "Full name is required."
 
 #: .\Usuarios\forms.py:40 .\Usuarios\forms.py:90
-#: .\Usuarios\templates\auth\login.html:50
+#: .\Usuarios\templates\auth\signup.html:54
 msgid "Nombre de usuario"
 msgstr "Username"
 
 #: .\Usuarios\forms.py:41 .\Usuarios\forms.py:91
+#: .\Usuarios\templates\auth\signup.html:61
 msgid "Correo electrónico"
-msgstr "Email address"
+msgstr "Email"
 
 #: .\Usuarios\forms.py:49 .\Usuarios\forms.py:99
 msgid "El nombre de usuario es obligatorio."
@@ -57,7 +58,7 @@ msgstr "Username is required."
 
 #: .\Usuarios\forms.py:50 .\Usuarios\forms.py:76 .\Usuarios\forms.py:118
 msgid "Este nombre de usuario ya está en uso."
-msgstr "This username is already taken."
+msgstr "This username is already in use."
 
 #: .\Usuarios\forms.py:53 .\Usuarios\forms.py:103
 msgid "El correo electrónico es obligatorio."
@@ -90,8 +91,7 @@ msgstr "Please enter a valid email."
 #: .\Usuarios\forms.py:112
 msgid ""
 "El nombre de usuario solo puede contener letras, números y guiones bajos."
-msgstr ""
-"Username can only contain letters, numbers, and underscores."
+msgstr "Username can only contain letters, numbers, and underscores."
 
 #: .\Usuarios\forms.py:115
 msgid "El nombre de usuario debe tener al menos 4 caracteres."
@@ -99,34 +99,36 @@ msgstr "Username must be at least 4 characters long."
 
 #: .\Usuarios\forms.py:126
 msgid "Este correo electrónico ya está registrado."
-msgstr "This email is already registered."
+msgstr "This email address is already registered."
 
 #: .\Usuarios\forms.py:150
 msgid "El nombre completo solo puede contener letras y espacios."
 msgstr "Full name can only contain letters and spaces."
 
-#: .\Usuarios\templates\auth\login.html:6
-#: .\Usuarios\templates\auth\login.html:74
-msgid "Iniciar Sesión"
-msgstr "Log In"
-
-#: .\Usuarios\templates\auth\login.html:45
-#: .\Usuarios\templates\auth\signup.html:45
-msgid "Solucionador gráfico de programación lineal"
-msgstr "Graphical linear programming solver"
-
-#: .\Usuarios\templates\auth\login.html:86
-msgid "Registrar Usuario"
-msgstr "Register User"
-
-#: .\Usuarios\templates\auth\signup.html:6
-msgid "Registrarse"
-msgstr "Sign Up"
-
-#: .\Usuarios\templates\auth\signup.html:105
-msgid "Crear cuenta"
-msgstr "Create Account"
-
-#: .\Usuarios\templates\auth\signup.html:110
+#: .\Usuarios\templates\auth\login.html:7
+#: .\Usuarios\templates\auth\login.html:43
+#: .\Usuarios\templates\auth\signup.html:87
 msgid "Iniciar sesión"
-msgstr "Log In"
+msgstr "Log in"
+
+#: .\Usuarios\templates\auth\login.html:83
+msgid "Ver contraseña"
+msgstr "Show password"
+
+#: .\Usuarios\templates\auth\login.html:89
+msgid "Entrar"
+msgstr "Enter"
+
+#: .\Usuarios\templates\auth\login.html:93
+msgid "¿No tienes una cuenta?"
+msgstr "Don't have an account?"
+
+#: .\Usuarios\templates\auth\login.html:94
+#: .\Usuarios\templates\auth\signup.html:6
+#: .\Usuarios\templates\auth\signup.html:42
+msgid "Registrarse"
+msgstr "Sign up"
+
+#: .\Usuarios\templates\auth\signup.html:82
+msgid "Crear cuenta"
+msgstr "Create account"
