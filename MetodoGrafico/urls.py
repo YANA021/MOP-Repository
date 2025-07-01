@@ -10,19 +10,14 @@ urlpatterns = [
     path('sistema/', views.resolver_sistema, name='resolver_sistema'),
     path('historial/', login_required(views.historial_problemas), name='historial'),
     path('problema/<int:pk>/', login_required(views.ver_problema), name='ver_problema'),
-     # A)  Descarga directa de la gráfica (usa el id del problema)
+    
+    # ÚNICA ruta para descargar el PDF (requiere pk)
     path(
         "export/<int:pk>/pdf/",
-        views.export_pdf,          # ← vista que genera el PDF con PIL / ReportLab
+        login_required(views.export_pdf),
         name="export_pdf",
     ),
-
-    # B)  Conversión en el servidor de un PNG enviado por JS (sin pk)
-    path(
-        "export/pdf-image/",
-        views.export_pdf_image,
-        name="export_pdf_image",
-    ),
+   
 
     
 ]

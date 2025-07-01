@@ -193,30 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSave.addEventListener('click', () => {
        const fmt = formatSel ? formatSel.value : 'png';
        if (fmt === 'pdf') {
-            if (figDiv && figDiv.parentElement.dataset.pdfUrl) {
-                window.location.href = figDiv.parentElement.dataset.pdfUrl;
-            } else {
-                Plotly.toImage(figDiv, { format: 'png' }).then((dataUrl) => {
-                    fetch("{% url 'metodo:export_pdf_image' %}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': getCookie('csrftoken'),
-                        },
-                        body: JSON.stringify({ image: dataUrl })
-                    }).then(resp => resp.blob())
-                      .then(blob => {
-                          const url = URL.createObjectURL(blob);
-                          const a = document.createElement('a');
-                          a.href = url;
-                          a.download = 'grafico.pdf';
-                          document.body.appendChild(a);
-                          a.click();
-                          a.remove();
-                          URL.revokeObjectURL(url);
-                      });
-                });
-            }
+           // Redirige directamente a la URL del PDF con el pk
+           window.location.href = "{% url 'metodo:export_pdf' problema_id %}";
        } else {
            Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
        }
