@@ -3,94 +3,106 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>{% trans "Iniciar Sesión" %}</title>
+
+    <title>Iniciar sesión</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Estilos personalizados -->
+    <!-- ESTILO UNIFICADO -->
     <style>
-        body {
-            background: linear-gradient(to right, #2797ba, #3e5ee7);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(90deg,#2797ba,#3e5ee7);
         }
-        .card {
-            border-radius: 20px;
+        .login-page{width:100%;max-width:420px}
+        .login-card{
+            border-radius:1.5rem;
+            box-shadow:0 0.5rem 1rem rgba(0,0,0,.15);
+            padding:2rem 2.5rem;
+            background:#fff
         }
-        .form-label {
-            font-weight: 500;
-        }
-        .btn-login, .btn-guest {
-            transition: 0.3s ease;
-        }
-        .btn-login:hover {
-            background-color: #004085;
-            color: white;
-        }
-        .btn-guest:hover {
-            background-color: #117a8b;
-            color: white;
-        }
+        .input-group>.form-control,
+        .input-group-text{border-radius:.75rem}
+        .btn-primary{background:#0d6efd;border:none}
+        .btn-primary:hover{background:#084298}
+        .text-link{color:#ffc107;text-decoration:none}
+        .text-link:hover{text-decoration:underline}
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card shadow-lg p-4">
-                <h2 class="text-center mb-4">{% trans "Solucionador gráfico de programación lineal" %}</h2>
+<div class="login-page">
+  <form class="login-card" method="POST" novalidate>
+    {% csrf_token %}
+    <h2 class="text-center mb-4">Iniciar sesión</h2>
 
-                <form method="POST" novalidate>
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="id_username" class="form-label">{% trans "Nombre de usuario" %}</label>
-                        <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" name="username" id="id_username" value="{{ form.username.value|default_if_none:'' }}">
-                        {% for error in form.username.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="id_password" class="form-label">{% trans "Contraseña" %}</label>
-                        <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}" name="password" id="id_password">
-                        {% for error in form.password.errors %}
-                            <div class="invalid-feedback">{{ error }}</div>
-                        {% endfor %}
-                    </div>
-                    
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger text-center">
-                            {% for error in form.non_field_errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <button type="submit" class="btn btn-primary w-100"><h5 class="text-center">{% trans "Iniciar Sesión" %}</h5></button>
-                </form>
-
-                <div class="mt-3">
-                    {% for message in messages %}
-                        <p id="messages" class="alert {% if 'success' in message.tags %}alert-success{% elif 'error' in message.tags %}alert-danger{% elif 'warning' in message.tags %}alert-warning{% elif 'info' in message.tags %}alert-info{% endif %} text-center">{{ message }}</p>
-                    {% endfor %}
-                </div>
-
-
-                <hr class="my-4">
-                <div class="d-flex justify-content-center">
-                    <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-login w-50 me-2"><h5 class="text-center">{% trans "Registrar Usuario" %}</h5></a>
-                </div>
-            </div>
-        </div>
+    <!-- Usuario -->
+    <div class="mb-3 input-group">
+        <input type="text"
+               name="username"
+               class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+               id="id_username"
+               placeholder="Nombre de usuario"
+               value="{{ form.username.value|default_if_none:'' }}">
+        <span class="input-group-text">👤</span>
+        {% for error in form.username.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
     </div>
+
+
+    <!-- Contraseña -->
+    <div class="mb-3 input-group">
+        <input type="password"
+               name="password"
+               class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+               id="id_password"
+               placeholder="Contraseña">
+        <span class="input-group-text">🔒</span>
+        {% for error in form.password.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger text-center">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="showPassword">
+        <label class="form-check-label" for="showPassword">Ver contraseña</label>
+      </div>
+    </div>
+
+
+    <div class="d-grid mb-3">
+      <button class="btn btn-primary" type="submit">Entrar</button>
+    </div>
+
+    <p class="text-center mb-0">
+        ¿No tienes una cuenta?
+        <a href="{% url 'signup' %}" class="text-link">Registrarse</a>
+    </p>
+
+  </form>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.getElementById('showPassword').addEventListener('change', function () {
+    const pwd = document.getElementById('id_password');
+    pwd.type = this.checked ? 'text' : 'password';
+  });
+</script>
 </body>
 </html>
