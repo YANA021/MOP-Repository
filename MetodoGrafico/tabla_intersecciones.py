@@ -6,7 +6,7 @@ from sympy.parsing.sympy_parser import (
     standard_transformations,
     implicit_multiplication_application,
 )
-
+from django.utils.translation import gettext_lazy as _
 
 def tabla_intersecciones(restricciones, incluir_pasos=False):
     """Genera una tabla didáctica con los interceptos de cada restricción.
@@ -66,7 +66,7 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
             .replace(">=", "≥")
         )
 
-        puntos = f"({_fmt_num(x1_inter)}, 0) y (0, {_fmt_num(x2_inter)})"
+        puntos = f"({_fmt_num(x1_inter)}, 0) {_('y')} (0, {_fmt_num(x2_inter)})"
 
         datos.append(
             {

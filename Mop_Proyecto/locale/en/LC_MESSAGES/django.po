@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 12:24-0600\n"
+"POT-Creation-Date: 2025-07-01 14:41-0600\n"
 "PO-Revision-Date: 2025-07-01 00:00+0000\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -12,19 +12,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\Mop_Proyecto\templates\base.html:25 .\Mop_Proyecto\templates\home.html:3
+#: .\Mop_Proyecto\templates\base.html:33 .\Mop_Proyecto\templates\home.html:3
 msgid "Inicio"
 msgstr "Home"
 
-#: .\Mop_Proyecto\templates\base.html:26 .\Mop_Proyecto\templates\base.html:58
+#: .\Mop_Proyecto\templates\base.html:34 .\Mop_Proyecto\templates\base.html:66
 msgid "Método Gráfico"
 msgstr "Graphical Method"
 
-#: .\Mop_Proyecto\templates\base.html:27 .\Mop_Proyecto\templates\base.html:59
+#: .\Mop_Proyecto\templates\base.html:35 .\Mop_Proyecto\templates\base.html:67
 msgid "Historial"
 msgstr "History"
 
-#: .\Mop_Proyecto\templates\base.html:32
+#: .\Mop_Proyecto\templates\base.html:40
 msgid "Cerrar sesión"
 msgstr "Sign out"
 
@@ -131,6 +131,10 @@ msgstr "Solve"
 #: .\Mop_Proyecto\templates\resultado.html:33
 msgid "Resultado"
 msgstr "Result"
+
+#: .\Mop_Proyecto\templates\resultado.html:11
+msgid "Estado"
+msgstr "Status"
 
 #: .\Mop_Proyecto\templates\resultado.html:15
 msgid "Función objetivo:"
