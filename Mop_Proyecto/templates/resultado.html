@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}Resultado{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Resultado" %}{% endblock %}
 {% block content %}
-<h1 class="text-2xl mb-4">Resultado</h1>
+<h1 class="text-2xl mb-4">{% trans "Resultado" %}</h1>
 {% if mensaje %}<p>{{ mensaje }}</p>{% endif %}
 {% if sistema_html %}
     {{ sistema_html|safe }}
@@ -11,26 +12,26 @@
     <p>x1: {{ resultado.x }}</p>
     <p>x2: {{ resultado.y }}</p>
     <p>z: {{ resultado.z }}</p>
-    <p class="mb-2"><strong>Función Objetivo:</strong> {{ objetivo }}</p>
+    <p class="mb-2"><strong>{% trans "Función objetivo:" %}</strong> {{ objetivo }}</p>
 
-    <p class="font-semibold">Sujeto a:</p>
+    <p class="font-semibold">{% trans "Sujeto a:" %}</p>
     <ul class="list-disc ml-5 mb-4">
         {% for r in restricciones %}
             <li>{{ r }}</li>
         {% endfor %}
     </ul>
 
-   <h2 class="text-xl mt-4 mb-2">Paso 1: Intersección con los ejes</h2>
+   <h2 class="text-xl mt-4 mb-2">{% trans "Paso 1: Intersección con los ejes" %}</h2>
 
    <div class="overflow-x-auto">
     <table class="min-w-full text-center mb-4">
         <thead>
             <tr class="bg-gray-200">
-                <th class="px-2 py-1">Restricción</th>
-                <th class="px-2 py-1">Sustitución</th>
-                <th class="px-2 py-1">Ecuación resultante</th>
-                <th class="px-2 py-1">Resultado</th>
-                <th class="px-2 py-1">Punto obtenido</th>
+                <th class="px-2 py-1">{% trans "Restricción" %}</th>
+                <th class="px-2 py-1">{% trans "Sustitución" %}</th>
+                <th class="px-2 py-1">{% trans "Ecuación resultante" %}</th>
+                <th class="px-2 py-1">{% trans "Resultado" %}</th>
+                <th class="px-2 py-1">{% trans "Punto obtenido" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -47,15 +48,15 @@
     </table>
     </div>
 
-    <h2 class="text-xl mt-4 mb-2">Paso 2: Tabulación de intersecciones</h2>
+    <h2 class="text-xl mt-4 mb-2">{% trans "Paso 2: Tabulación de intersecciones" %}</h2>
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mb-4">
         <thead>
             <tr class="bg-gray-200">
-                <th class="px-2 py-1">Restricción</th>
-                <th class="px-2 py-1">Intercepto x₁</th>
-                <th class="px-2 py-1">Intercepto x₂</th>
-                <th class="px-2 py-1">Puntos resultantes</th>
+                <th class="px-2 py-1">{% trans "Restricción" %}</th>
+                <th class="px-2 py-1">{% trans "Intercepto x₁" %}</th>
+                <th class="px-2 py-1">{% trans "Intercepto x₂" %}</th>
+                <th class="px-2 py-1">{% trans "Puntos resultantes" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -74,33 +75,33 @@
     <div id="plot" data-restr-count="{{ restricciones|length }}"{% if problema_id %} data-problem-id="{{ problema_id }}" data-pdf-url="{% url 'metodo:export_pdf' problema_id %}"{% endif %}>{{ grafico|safe }}</div>
 
 
-    <h2 class="text-xl mt-4 mb-2">Etiquetas del Gráfico</h2>
+    <h2 class="text-xl mt-4 mb-2">{% trans "Etiquetas del Gráfico" %}</h2>
        <div class="flex flex-wrap items-center gap-4 mb-4">
         <label class="inline-flex items-center gap-1">
-            <input type="checkbox" id="chk-restr" checked> Restricciones
+            <input type="checkbox" id="chk-restr" checked> {% trans "Restricciones" %}
         </label>
         <label class="inline-flex items-center gap-1">
-            <input type="checkbox" id="chk-obj" checked> Función Objetivo
+            <input type="checkbox" id="chk-obj" checked> {% trans "Función Objetivo" %}
         </label>
         <label class="inline-flex items-center gap-1">
-            <input type="checkbox" id="chk-vert" checked> Puntos de Región Factible
+            <input type="checkbox" id="chk-vert" checked> {% trans "Puntos de Región Factible" %}
         </label>
         <label class="inline-flex items-center gap-1">
-            <input type="checkbox" id="chk-grid" checked> Cuadrícula
+            <input type="checkbox" id="chk-grid" checked> {% trans "Cuadrícula" %}
         </label>
        <label class="inline-flex items-center gap-1 ml-auto">
-            <span>Formato</span>
+            <span>{% trans "Formato" %}</span>
             <select id="img-format" class="form-theme">
                 <option value="png">PNG</option>
                 <option value="pdf">PDF</option>
                 <option value="svg">SVG</option>
             </select>
         </label>
-        <button id="save-img" class="btn-primary-theme">Descargar</button>
+        <button id="save-img" class="btn-primary-theme">{% trans "Descargar" %}</button>
     </div>
 
      {% if pasos_sistemas %}
-    <h2 class="text-xl mt-4 mb-2">Paso 3: Intersección de restricciones</h2>
+    <h2 class="text-xl mt-4 mb-2">{% trans "Paso 3: Intersección de restricciones" %}</h2>
     {% for item in pasos_sistemas %}
     <div class="mb-4">
         <p class="font-semibold">{{ item.restriccion1 }} \u2229 {{ item.restriccion2 }}</p>
@@ -117,9 +118,9 @@
     <table class="min-w-full text-center mt-4">
         <thead>
             <tr class="bg-gray-200">
-                <th class="px-2 py-1">Punto</th>
-                <th class="px-2 py-1">Coordenadas</th>
-                <th class="px-2 py-1">Valor Z</th>
+                <th class="px-2 py-1">{% trans "Punto" %}</th>
+                <th class="px-2 py-1">{% trans "Coordenadas" %}</th>
+                <th class="px-2 py-1">{% trans "Valor Z" %}</th>
             </tr>
         </thead>
         <tbody>

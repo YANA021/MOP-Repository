@@ -22,9 +22,9 @@
         <div class="flex items-center">
             <a href="{% url 'metodo:home' %}" class="text-[20px] font-bold mr-5">MOP</a>
             <div class="hidden md:flex space-x-1">
-                <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
-                <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
-                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
+                <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Inicio" %}</a>
+                <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Método Gráfico" %}</a>
+                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Historial" %}</a>
             </div>
         </div>
         <div class="flex items-center space-x-4">
@@ -55,8 +55,8 @@
     </nav>
    <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 nav-theme z-40">
         <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
-         <a href="{% url 'metodo:metodo_grafico' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
-        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
+         <a href="{% url 'metodo:metodo_grafico' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Método Gráfico" %}</a>
+        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Historial" %}</a>
     </div>
     <main class="pt-[54px] max-w-3xl mx-auto px-4 py-6">
         {% block content %}{% endblock %}
