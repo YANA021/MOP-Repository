@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import io
+from PIL import Image
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -281,9 +282,14 @@ def export_pdf(request, pk):
         if fig is None:
             raise ValueError("Figura no generada")
 
-        # Exportar la figura a PDF en un buffer en memoria
+       # Exportar la figura a PNG y convertirla a PDF
+        png_buffer = io.BytesIO()
+        fig.write_image(png_buffer, format="png")
+        png_buffer.seek(0)
+
+        img = Image.open(png_buffer)
         buffer = io.BytesIO()
-        fig.write_image(buffer, format="pdf")
+        img.save(buffer, format="PDF")
         buffer.seek(0)
     except Exception:
         # Si ocurre cualquier problema devolver un error interno
