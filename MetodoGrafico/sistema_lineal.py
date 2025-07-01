@@ -1,7 +1,7 @@
 """Herramientas para resolver sistemas lineales de dos ecuaciones."""
 
 from typing import List, Dict, Tuple
-
+import re
 import numpy as np
 import sympy as sp
 from sympy.parsing.sympy_parser import (
@@ -88,9 +88,9 @@ def _combinar_grafica_y_pasos(grafica: str, pasos: List[str]) -> str:
 def resolver_sistema_pasos(eq1_str: str, eq2_str: str, metodo: str = 'eliminacion') -> Dict[str, object]:
     """Resuelve un sistema 2x2 y devuelve pasos y gráfica.
 
-    The returned dictionary now includes an ``html`` field containing the plot
-    followed by the formatted steps so that the process appears below the
-    graphic when rendered.
+    El diccionario resultante incluye un campo ``html`` con la gráfica
+    seguida del procedimiento formateado, de modo que el proceso aparezca
+    debajo de la imagen al mostrarse.
     """
     x1, x2 = sp.symbols('x1 x2')
     eq1 = _parse_ecuacion(eq1_str, x1, x2)
@@ -153,6 +153,28 @@ def resolver_sistema_pasos(eq1_str: str, eq2_str: str, metodo: str = 'eliminacio
         'grafica': grafica,
         'html': html,
     }
+
+def pasos_vertices(restricciones: List[str], metodo: str = 'eliminacion') -> List[Dict[str, object]]:
+
+    pares = []
+    for i in range(len(restricciones)):
+        for j in range(i + 1, len(restricciones)):
+            eq1 = re.sub(r'(<=|>=|<|>)', '=', restricciones[i])
+            eq2 = re.sub(r'(<=|>=|<|>)', '=', restricciones[j])
+            try:
+                res = resolver_sistema_pasos(eq1, eq2, metodo=metodo)
+                pares.append({
+                    'restriccion1': restricciones[i],
+                    'restriccion2': restricciones[j],
+                    'pasos': res['pasos'],
+                    'punto': res['resultado'],
+                })
+            except Exception:
+                continue
+
+    return pares
+
+
 
 
 if __name__ == '__main__':

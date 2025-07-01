@@ -98,6 +98,20 @@
         <button id="save-img" class="btn-primary-theme">Descargar</button>
     </div>
 
+     {% if pasos_sistemas %}
+    <h2 class="text-xl mt-4 mb-2">Paso 3: Intersección de restricciones</h2>
+    {% for item in pasos_sistemas %}
+    <div class="mb-4">
+        <p class="font-semibold">{{ item.restriccion1 }} \u2229 {{ item.restriccion2 }}</p>
+        <pre class="whitespace-pre-wrap border p-2">
+{% for p in item.pasos %}
+{{ p }}
+{% endfor %}
+        </pre>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mt-4">
         <thead>

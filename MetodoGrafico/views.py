@@ -7,6 +7,7 @@ from .tabla_intersecciones import tabla_intersecciones
 from .form import ProblemaPLForm
 from .models import ProblemaPL
 from .solver import resolver_problema_lineal
+from .sistema_lineal import pasos_vertices
 
 def to_native(obj):
    
@@ -115,7 +116,9 @@ def metodo_grafico(request):
         tabla = [
             {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
         ]
+        pasos_sistemas = pasos_vertices(restr_para_tabla)
 
+        
             # 1.6  Preparar contexto para la plantilla de resultados
         context = {
             "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
@@ -126,6 +129,7 @@ def metodo_grafico(request):
             "restricciones": restricciones_fmt,
             "tabla_inter": tabla,
             "pasos_inter": pasos_inter,
+            "pasos_sistemas": pasos_sistemas,
             "vertices": vertices,
             }
         return render(request, "resultado.html", context)
@@ -212,6 +216,7 @@ def ver_problema(request, pk):
     tabla = [
         {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
     ]
+    pasos_sistemas = pasos_vertices(restr_para_tabla)
 
     context = {
         "form": ProblemaPLForm(),
@@ -222,6 +227,7 @@ def ver_problema(request, pk):
         "restricciones": restricciones_fmt,
         "tabla_inter": tabla,
         "pasos_inter": pasos_inter,
+        "pasos_sistemas": pasos_sistemas,
         "vertices": vertices,
     }
     return render(request, "resultado.html", context)
