@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-01 12:20-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\MetodoGrafico\models.py:7
+msgid "Maximizar"
+msgstr "Maximize"
+
+#: .\MetodoGrafico\models.py:8
+msgid "Minimizar"
+msgstr "Minimize"
+
+#: .\MetodoGrafico\solver.py:267
+msgid "Región factible"
+msgstr "Feasible region"
+
+#: .\MetodoGrafico\solver.py:280
+msgid "Vértices"
+msgstr "Vertices"
+
+#: .\MetodoGrafico\solver.py:288
+msgid "Óptimo"
+msgstr "Optimal"
+
+#: .\MetodoGrafico\solver.py:289
+msgid "Solución óptima"
+msgstr "Optimal solution"
+
+#: .\MetodoGrafico\solver.py:291
+msgid "múltiples"
+msgstr "multiple"
+
+#: .\MetodoGrafico\solver.py:310
+msgid "Función objetivo"
+msgstr "Objective function"

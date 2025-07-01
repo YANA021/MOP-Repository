@@ -1,8 +1,11 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
     <title>Iniciar sesión</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
@@ -53,6 +56,7 @@
         {% endfor %}
     </div>
 
+
     <!-- Contraseña -->
     <div class="mb-3 input-group">
         <input type="password"
@@ -66,6 +70,7 @@
         {% endfor %}
     </div>
 
+
     {% if form.non_field_errors %}
       <div class="alert alert-danger text-center">
         {% for error in form.non_field_errors %}{{ error }}{% endfor %}
@@ -78,6 +83,7 @@
         <label class="form-check-label" for="showPassword">Ver contraseña</label>
       </div>
     </div>
+
 
     <div class="d-grid mb-3">
       <button class="btn btn-primary" type="submit">Entrar</button>

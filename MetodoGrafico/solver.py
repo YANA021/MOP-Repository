@@ -1,6 +1,7 @@
 import numpy as np
 import plotly.graph_objects as go
 from scipy.optimize import linprog
+from django.utils.translation import gettext_lazy as _
 
 def validar_datos(objetivo, coef_x1, coef_x2, restricciones, limites=None):
    
@@ -263,7 +264,7 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
                 y=ys,
                 fill='toself',
                 fillcolor='rgba(0,100,80,0.2)',
-                name='Región factible'
+                name= str(_('Región factible'))
             )
         )
 
@@ -276,7 +277,7 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
                 text=[f"P{i+1}" for i in range(len(vertices))],
                 textposition="top center",
                 marker=dict(size=6, color='blue'),
-                name='Vértices'
+                name= str(_('Vértices'))
             )
         )
     
@@ -284,15 +285,16 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     if soluciones:
              xs = [s[0] for s in soluciones]
     ys = [s[1] for s in soluciones]
-    nombre = 'Solución óptima'
+    etiqueta_optimo = str(_('Óptimo'))
+    nombre = str(_('Solución óptima'))
     if len(soluciones) > 1:
-            nombre += ' (múltiples)'
+            nombre += f" ({str(_('múltiples'))})"
     fig.add_trace(
             go.Scatter(
                 x=xs,
                 y=ys,
                 mode='markers+text',
-                text=['Óptimo' for _ in xs],
+                text=[etiqueta_optimo] * len(xs),
                 textposition='top center',
                 marker=dict(size=10, color='red'),
                 name=nombre,
@@ -305,7 +307,7 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
         fig.add_trace(go.Scatter(
             x=x, y=y_obj, mode='lines',
             line=dict(dash='dash'),
-            name=f'Función objetivo (Z={opt_val:.1f})'
+            name = f"{str(_('Función objetivo'))} (Z={opt_val:.1f})"
         ))
 
         # Ejes x1 y x2

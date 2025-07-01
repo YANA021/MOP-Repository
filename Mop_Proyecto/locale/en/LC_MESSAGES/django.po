@@ -1,0 +1,217 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-01 12:24-0600\n"
+"PO-Revision-Date: 2025-07-01 00:00+0000\n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: English <en@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\Mop_Proyecto\templates\base.html:25 .\Mop_Proyecto\templates\home.html:3
+msgid "Inicio"
+msgstr "Home"
+
+#: .\Mop_Proyecto\templates\base.html:26 .\Mop_Proyecto\templates\base.html:58
+msgid "Método Gráfico"
+msgstr "Graphical Method"
+
+#: .\Mop_Proyecto\templates\base.html:27 .\Mop_Proyecto\templates\base.html:59
+msgid "Historial"
+msgstr "History"
+
+#: .\Mop_Proyecto\templates\base.html:32
+msgid "Cerrar sesión"
+msgstr "Sign out"
+
+#: .\Mop_Proyecto\templates\historial.html:3
+msgid "Historial de Problemas"
+msgstr "Problem History"
+
+#: .\Mop_Proyecto\templates\historial.html:7
+msgid "Primeros agregados"
+msgstr "First Added"
+
+#: .\Mop_Proyecto\templates\historial.html:8
+msgid "Últimos agregados"
+msgstr "Last Added"
+
+#: .\Mop_Proyecto\templates\historial.html:11
+msgid "Todos"
+msgstr "All"
+
+#: .\Mop_Proyecto\templates\historial.html:12
+#: .\Mop_Proyecto\templates\nuevo_problema.html:13
+msgid "Maximizar"
+msgstr "Maximize"
+
+#: .\Mop_Proyecto\templates\historial.html:13
+#: .\Mop_Proyecto\templates\nuevo_problema.html:14
+msgid "Minimizar"
+msgstr "Minimize"
+
+#: .\Mop_Proyecto\templates\historial.html:17
+msgid "Filtrar"
+msgstr "Filter"
+
+#: .\Mop_Proyecto\templates\historial.html:24
+msgid "Objetivo"
+msgstr "Objective"
+
+#: .\Mop_Proyecto\templates\historial.html:25
+#: .\Mop_Proyecto\templates\nuevo_problema.html:10
+#: .\Mop_Proyecto\templates\resultado.html:84
+msgid "Función Objetivo"
+msgstr "Objective Function"
+
+#: .\Mop_Proyecto\templates\historial.html:26
+#: .\Mop_Proyecto\templates\nuevo_problema.html:51
+#: .\Mop_Proyecto\templates\resultado.html:81
+msgid "Restricciones"
+msgstr "Constraints"
+
+#: .\Mop_Proyecto\templates\historial.html:27
+msgid "Fecha"
+msgstr "Date"
+
+#: .\Mop_Proyecto\templates\historial.html:28
+msgid "Ir al problema"
+msgstr "Go to Problem"
+
+#: .\Mop_Proyecto\templates\historial.html:43
+msgid "Ver"
+msgstr "View"
+
+#: .\Mop_Proyecto\templates\historial.html:46
+msgid "Sin registros"
+msgstr "No Records"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:4
+msgid "Nuevo Problema"
+msgstr "New Problem"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:6
+msgid "PROBLEMA DE PROGRAMACIÓN LINEAL"
+msgstr "LINEAR PROGRAMMING PROBLEM"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:24
+msgid "Rango de valores permitidos"
+msgstr "Allowed Value Range"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:29
+msgid "Variable"
+msgstr "Variable"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:30
+msgid "Mínimo"
+msgstr "Minimum"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:31
+msgid "Máximo"
+msgstr "Maximum"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:62
+msgid "Valor del lado derecho"
+msgstr "Right-hand Side Value"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:64
+msgid "AGREGAR NUEVA RESTRICCIÓN"
+msgstr "ADD NEW CONSTRAINT"
+
+#: .\Mop_Proyecto\templates\nuevo_problema.html:67
+msgid "Resolver"
+msgstr "Solve"
+
+#: .\Mop_Proyecto\templates\resultado.html:3
+#: .\Mop_Proyecto\templates\resultado.html:5
+#: .\Mop_Proyecto\templates\resultado.html:33
+msgid "Resultado"
+msgstr "Result"
+
+#: .\Mop_Proyecto\templates\resultado.html:15
+msgid "Función objetivo:"
+msgstr "Objective function:"
+
+#: .\Mop_Proyecto\templates\resultado.html:17
+msgid "Sujeto a:"
+msgstr "Subject to:"
+
+#: .\Mop_Proyecto\templates\resultado.html:24
+msgid "Paso 1: Intersección con los ejes"
+msgstr "Step 1: Axis Intersections"
+
+#: .\Mop_Proyecto\templates\resultado.html:30
+#: .\Mop_Proyecto\templates\resultado.html:56
+msgid "Restricción"
+msgstr "Constraint"
+
+#: .\Mop_Proyecto\templates\resultado.html:31
+msgid "Sustitución"
+msgstr "Substitution"
+
+#: .\Mop_Proyecto\templates\resultado.html:32
+msgid "Ecuación resultante"
+msgstr "Resulting equation"
+
+#: .\Mop_Proyecto\templates\resultado.html:34
+msgid "Punto obtenido"
+msgstr "Obtained point"
+
+#: .\Mop_Proyecto\templates\resultado.html:51
+msgid "Paso 2: Tabulación de intersecciones"
+msgstr "Step 2: Tabulation of Intersections"
+
+#: .\Mop_Proyecto\templates\resultado.html:57
+msgid "Intercepto x₁"
+msgstr "x₁ Intercept"
+
+#: .\Mop_Proyecto\templates\resultado.html:58
+msgid "Intercepto x₂"
+msgstr "x₂ Intercept"
+
+#: .\Mop_Proyecto\templates\resultado.html:59
+msgid "Puntos resultantes"
+msgstr "Resulting points"
+
+#: .\Mop_Proyecto\templates\resultado.html:78
+msgid "Etiquetas del Gráfico"
+msgstr "Chart Labels"
+
+#: .\Mop_Proyecto\templates\resultado.html:87
+msgid "Puntos de Región Factible"
+msgstr "Feasible Region Points"
+
+#: .\Mop_Proyecto\templates\resultado.html:90
+msgid "Cuadrícula"
+msgstr "Grid"
+
+#: .\Mop_Proyecto\templates\resultado.html:93
+msgid "Formato"
+msgstr "Format"
+
+#: .\Mop_Proyecto\templates\resultado.html:100
+msgid "Descargar"
+msgstr "Download"
+
+#: .\Mop_Proyecto\templates\resultado.html:104
+msgid "Paso 3: Intersección de restricciones"
+msgstr "Step 3: Constraints Intersections"
+
+#: .\Mop_Proyecto\templates\resultado.html:121
+msgid "Punto"
+msgstr "Point"
+
+#: .\Mop_Proyecto\templates\resultado.html:122
+msgid "Coordenadas"
+msgstr "Coordinates"
+
+#: .\Mop_Proyecto\templates\resultado.html:123
+msgid "Valor Z"
+msgstr "Z value"
+
+#~ msgid "Ayuda"
+#~ msgstr "Help"

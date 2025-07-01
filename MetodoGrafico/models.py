@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 class ProblemaPL(models.Model):
     OBJETIVO_CHOICES = [
-        ('max', 'Maximizar'),
-        ('min', 'Minimizar'),
+        ('max', _('Maximizar')),
+        ('min', _('Minimizar')),
     ]
 
     user = models.ForeignKey(
