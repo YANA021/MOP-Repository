@@ -107,3 +107,25 @@ class ProblemaPLForm(forms.Form):
                 "x2_max", "El límite superior debe ser mayor o igual al inferior"
             )
         return cleaned
+
+
+class SistemaLinealForm(forms.Form):
+    """Formulario para resolver sistemas de dos ecuaciones."""
+
+    ecuacion1 = forms.CharField(
+        label="Ecuación 1",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "3 x1 + 5 x2 = 6"}
+        ),
+    )
+    ecuacion2 = forms.CharField(
+        label="Ecuación 2",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "4 x1 + 2 x2 = 5"}
+        ),
+    )
+    metodo = forms.ChoiceField(
+        choices=[("eliminacion", "Eliminación"), ("sustitucion", "Sustitución")],
+        widget=forms.Select(attrs={"class": "form-select"}),
+        initial="eliminacion",
+    )

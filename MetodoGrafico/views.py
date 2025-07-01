@@ -225,3 +225,28 @@ def ver_problema(request, pk):
         "vertices": vertices,
     }
     return render(request, "resultado.html", context)
+
+
+def resolver_sistema(request):
+    """Resuelve un sistema 2x2 y muestra la gráfica con los pasos."""
+    html = ""
+    if request.method == "POST":
+        from .form import SistemaLinealForm
+        from .sistema_lineal import resolver_sistema_pasos
+
+        form = SistemaLinealForm(request.POST)
+        if form.is_valid():
+            res = resolver_sistema_pasos(
+                form.cleaned_data["ecuacion1"],
+                form.cleaned_data["ecuacion2"],
+                metodo=form.cleaned_data["metodo"],
+            )
+            html = res["html"]
+    else:
+        form = SistemaLinealForm()
+
+    context = {
+        "form": form,
+        "sistema_html": html,
+    }
+    return render(request, "resultado.html", context)
