@@ -215,7 +215,7 @@ msgstr "Coordinates"
 
 #: .\Mop_Proyecto\templates\resultado.html:123
 msgid "Valor Z"
-msgstr "Z value"
+msgstr "Z Value"
 
 #~ msgid "Ayuda"
 #~ msgstr "Help"

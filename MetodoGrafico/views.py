@@ -12,6 +12,7 @@ from .form import ProblemaPLForm
 from .models import ProblemaPL
 from .solver import resolver_problema_lineal
 from .sistema_lineal import pasos_vertices
+from django.utils.translation import gettext_lazy as _
 
 def to_native(obj):
    
@@ -68,7 +69,7 @@ def metodo_grafico(request):
                     coef_x2=form.cleaned_data["coef_x2"],
                     restricciones=restricciones,
                 )
-                mensaje = "Problema guardado correctamente."
+                mensaje = str(_("Problema guardado correctamente."))
             else:
                 mensaje = "Inicia sesión para guardar el problema en tu historial."
 
