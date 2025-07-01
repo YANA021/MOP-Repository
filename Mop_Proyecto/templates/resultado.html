@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{% trans "Resultado" %}{% endblock %}
 {% block content %}
 <h1 class="text-2xl mb-4">{% trans "Resultado" %}</h1>
@@ -101,18 +101,24 @@
     </div>
 
      {% if pasos_sistemas %}
-    <h2 class="text-xl mt-4 mb-2">{% trans "Paso 3: Intersección de restricciones" %}</h2>
+<h2 class="text-xl mt-4 mb-2">{% trans "Paso 3: Intersección de restricciones" %}</h2>
+
+<div id="accordion-step3" class="accordion-container">
     {% for item in pasos_sistemas %}
-    <div class="mb-4">
-        <p class="font-semibold">{{ item.restriccion1 }} \u2229 {{ item.restriccion2 }}</p>
-        <pre class="whitespace-pre-wrap border p-2">
+    <div class="accordion-item">
+        <button type="button" class="accordion-header">
+            {{ item.restriccion1 }} &#x2229; {{ item.restriccion2 }}
+        </button>
+        <pre class="accordion-content whitespace-pre-wrap border p-2">
 {% for p in item.pasos %}
 {{ p }}
 {% endfor %}
         </pre>
     </div>
     {% endfor %}
-    {% endif %}
+</div>
+{% endif %}
+
 
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mt-4">
@@ -224,4 +230,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+<script src="{% static 'js/accordion.js' %}"></script>
 {% endblock %}

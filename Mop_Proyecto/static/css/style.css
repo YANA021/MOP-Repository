@@ -152,3 +152,36 @@ input[type=number] {
 .dark .plotly-graph-div {
   background-color: var(--bg-dark);
 }
+
+/* Accordion styles for Paso 3 */
+.accordion-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.accordion-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.accordion-header {
+  background: var(--accent-neon);
+  color: #0A0F24;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.dark .accordion-header {
+  color: #0E1116;
+}
+.accordion-content {
+  display: none;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.accordion-item.open .accordion-content {
+  display: block;
+}
