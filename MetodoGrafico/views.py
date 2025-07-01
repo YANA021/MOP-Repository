@@ -97,42 +97,43 @@ def metodo_grafico(request):
                     "z": v["z"],
                     "optimo": abs(v["z"] - opt_val) < 1e-6,
                 }
-                vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+            vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
-        objetivo_text = (
-                 f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
-        )
-        restricciones_fmt = [
+            objetivo_text = (
+                f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
+            )
+            restricciones_fmt = [
                 f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
-            for r in restricciones
-        ]
+             for r in restricciones
+            ]
 
-        # cadenas sin subíndices para el cálculo de interceptos
-        restr_para_tabla = [
-            f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
-            for r in restricciones
-        ]
-        df_tabla, pasos_inter = tabla_intersecciones(restr_para_tabla, incluir_pasos=True)
-        tabla = [
-            {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
-        ]
-        pasos_sistemas = pasos_vertices(restr_para_tabla)
+            # cadenas sin subíndices para el cálculo de interceptos
+            restr_para_tabla = [
+                f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
+                for r in restricciones
+            ]
+            df_tabla, pasos_inter = tabla_intersecciones(restr_para_tabla, incluir_pasos=True)
+            tabla = [
+                {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
+            ]
+            pasos_sistemas = pasos_vertices(restr_para_tabla)
 
         
             # 1.6  Preparar contexto para la plantilla de resultados
-        context = {
-            "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
-            "mensaje": mensaje,
-            "resultado": resultado,
-            "grafico": grafico,
-            "objetivo": objetivo_text,
-            "restricciones": restricciones_fmt,
-            "tabla_inter": tabla,
-            "pasos_inter": pasos_inter,
-            "pasos_sistemas": pasos_sistemas,
-            "vertices": vertices,
+            context = {
+                "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
+                "mensaje": mensaje,
+                "resultado": resultado,
+                "grafico": grafico,
+                "objetivo": objetivo_text,
+                "restricciones": restricciones_fmt,
+                "tabla_inter": tabla,
+                "pasos_inter": pasos_inter,
+                "pasos_sistemas": pasos_sistemas,
+                "vertices": vertices,
             }
-        return render(request, "resultado.html", context)
+            
+            return render(request, "resultado.html", context)
     else:
         form = ProblemaPLForm()
 
