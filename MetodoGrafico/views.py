@@ -97,7 +97,7 @@ def metodo_grafico(request):
                     "z": v["z"],
                     "optimo": abs(v["z"] - opt_val) < 1e-6,
                 }
-        vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+                vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
         objetivo_text = (
                  f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
