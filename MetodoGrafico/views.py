@@ -116,7 +116,7 @@ def metodo_grafico(request):
             tabla = [
                 {k: to_native(v) for k, v in fila.items()} for fila in df_tabla.to_dict("records")
             ]
-            pasos_sistemas = pasos_vertices(restr_para_tabla)
+            pasos_sistemas = _convert_structure(pasos_vertices(restr_para_tabla))
 
         
             # 1.6  Preparar contexto para la plantilla de resultados
