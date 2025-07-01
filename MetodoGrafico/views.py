@@ -61,15 +61,17 @@ def metodo_grafico(request):
 
             # 1.2  Guardar problema en la BD si el usuario está autenticado
             if request.user.is_authenticated:
-                ProblemaPL.objects.create(
+                problema = ProblemaPL.objects.create(
                     user=request.user,
                     objetivo=form.cleaned_data["objetivo"],
                     coef_x1=form.cleaned_data["coef_x1"],
                     coef_x2=form.cleaned_data["coef_x2"],
                     restricciones=restricciones,
                 )
+                problema_id = problema.id
                 mensaje = "Problema guardado correctamente."
             else:
+                problema_id = None
                 mensaje = "Inicia sesión para guardar el problema en tu historial."
 
             # 1.3  Preparar límites opcionales
@@ -136,7 +138,8 @@ def metodo_grafico(request):
                 "pasos_inter": pasos_inter,
                 "pasos_sistemas": pasos_sistemas,
                 "vertices": vertices,
-                
+                "problema_id": problema_id,
+
             }
             
             return render(request, "resultado.html", context)

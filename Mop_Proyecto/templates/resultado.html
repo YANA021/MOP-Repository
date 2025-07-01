@@ -190,15 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    btnSave.addEventListener('click', () => {
-       const fmt = formatSel ? formatSel.value : 'png';
-       if (fmt === 'pdf') {
+   btnSave.addEventListener('click', () => {
+      const fmt = formatSel ? formatSel.value : 'png';
+      if (fmt === 'pdf') {
+{% if problema_id %}
            // Redirige directamente a la URL del PDF con el pk
            window.location.href = "{% url 'metodo:export_pdf' problema_id %}";
-       } else {
+{% else %}
+           alert('Debes iniciar sesi\u00f3n para descargar el PDF');
+{% endif %}
+      } else {
            Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
        }
-    });
+   });
 });
 </script>
 {% endblock %}
