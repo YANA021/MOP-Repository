@@ -1,3 +1,5 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +9,7 @@
     <title>{% block title %}MOP{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>.font-inter{font-family:'Inter',sans-serif;}</style>
      <script>
         tailwind.config = {
@@ -20,22 +22,25 @@
         <div class="flex items-center">
             <a href="{% url 'metodo:home' %}" class="text-[20px] font-bold mr-5">MOP</a>
             <div class="hidden md:flex space-x-1">
-                <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Inicio</a>
-                <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Método Gráfico</a>
-                <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Ayuda</a>
-                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Historial</a>
+                <a href="{% url 'metodo:home' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Inicio" %}</a>
+                <a href="{% url 'metodo:metodo_grafico' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Método Gráfico" %}</a>
+                <a href="/metodo-simplex/" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Ayuda" %}</a>
+                 <a href="{% url 'metodo:historial' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Historial" %}</a>
             </div>
         </div>
         <div class="flex items-center space-x-4">
             <div class="hidden md:flex space-x-1">
-                <a href="{% url 'logout' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">Cerrar sesión</a>
+                <a href="{% url 'logout' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Cerrar sesión" %}</a>
             </div>
-            <div class="relative">
-                <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 nav-theme rounded-md shadow-lg py-1">
-                    <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">Español</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-[#4FD1C5]">English</a>
-                </div>
-            </div>
+                <form action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <select name="language" onchange="this.form.submit()"
+                        class="bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1">
+                        <option value="es" {% if LANGUAGE_CODE == 'es' %}selected{% endif %}>Español</option>
+                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>
+                    </select>
+                </form>
              <div>
                 <button id="theme-toggle" aria-label="Cambiar tema" class="text-xl">
                    <span id="sun-icon" class="icon-theme">☀️</span>
@@ -50,12 +55,12 @@
         </div>
     </nav>
    <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 nav-theme z-40">
-        <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
-         <a href="{% url 'metodo:metodo_grafico' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Método Gráfico</a>
-        <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">Ayuda</a>
-        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Historial</a>
+        <a href="/" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Inicio" %}</a>
+        <a href="{% url 'metodo:metodo_grafico' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Método Gráfico" %}</a>
+        <a href="/metodo-simplex/" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Ayuda" %}</a>
+        <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Historial" %}</a>
     </div>
-    <main class="max-w-3xl mx-auto px-4 py-6">
+    <main class="pt-[54px] max-w-3xl mx-auto px-4 py-6">
         {% block content %}{% endblock %}
     </main>
     <script src="{% static 'js/narvar.js' %}"></script>

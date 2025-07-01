@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-30 23:34-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\Usuarios\forms.py:16 .\Usuarios\templates\auth\login.html:59
+msgid "Contraseña"
+msgstr "Password"
+
+#: .\Usuarios\forms.py:19
+msgid "La contraseña es obligatoria."
+msgstr "Password is required."
+
+#: .\Usuarios\forms.py:22
+msgid "Confirmar contraseña"
+msgstr "Confirm password"
+
+#: .\Usuarios\forms.py:25
+msgid "Por favor confirma tu contraseña."
+msgstr "Please confirm your password."
+
+#: .\Usuarios\forms.py:29 .\Usuarios\forms.py:136
+msgid "Nombre completo"
+msgstr "Full name"
+
+#: .\Usuarios\forms.py:33 .\Usuarios\forms.py:143
+msgid "El nombre completo es obligatorio."
+msgstr "Full name is required."
+
+#: .\Usuarios\forms.py:40 .\Usuarios\forms.py:90
+#: .\Usuarios\templates\auth\login.html:50
+msgid "Nombre de usuario"
+msgstr "Username"
+
+#: .\Usuarios\forms.py:41 .\Usuarios\forms.py:91
+msgid "Correo electrónico"
+msgstr "Email address"
+
+#: .\Usuarios\forms.py:49 .\Usuarios\forms.py:99
+msgid "El nombre de usuario es obligatorio."
+msgstr "Username is required."
+
+#: .\Usuarios\forms.py:50 .\Usuarios\forms.py:76 .\Usuarios\forms.py:118
+msgid "Este nombre de usuario ya está en uso."
+msgstr "This username is already taken."
+
+#: .\Usuarios\forms.py:53 .\Usuarios\forms.py:103
+msgid "El correo electrónico es obligatorio."
+msgstr "Email is required."
+
+#: .\Usuarios\forms.py:54
+msgid "Ingresa un correo electrónico válido."
+msgstr "Enter a valid email address."
+
+#: .\Usuarios\forms.py:55 .\Usuarios\forms.py:82
+msgid "Este correo ya está registrado."
+msgstr "This email is already registered."
+
+#: .\Usuarios\forms.py:64
+msgid "Las contraseñas no coinciden."
+msgstr "Passwords do not match."
+
+#: .\Usuarios\forms.py:69
+msgid "Contraseña inválida: "
+msgstr "Invalid password: "
+
+#: .\Usuarios\forms.py:100
+msgid "El nombre de usuario es demasiado largo."
+msgstr "Username is too long."
+
+#: .\Usuarios\forms.py:104
+msgid "Por favor, introduce un correo válido."
+msgstr "Please enter a valid email."
+
+#: .\Usuarios\forms.py:112
+msgid ""
+"El nombre de usuario solo puede contener letras, números y guiones bajos."
+msgstr ""
+"Username can only contain letters, numbers, and underscores."
+
+#: .\Usuarios\forms.py:115
+msgid "El nombre de usuario debe tener al menos 4 caracteres."
+msgstr "Username must be at least 4 characters long."
+
+#: .\Usuarios\forms.py:126
+msgid "Este correo electrónico ya está registrado."
+msgstr "This email is already registered."
+
+#: .\Usuarios\forms.py:150
+msgid "El nombre completo solo puede contener letras y espacios."
+msgstr "Full name can only contain letters and spaces."
+
+#: .\Usuarios\templates\auth\login.html:6
+#: .\Usuarios\templates\auth\login.html:74
+msgid "Iniciar Sesión"
+msgstr "Log In"
+
+#: .\Usuarios\templates\auth\login.html:45
+#: .\Usuarios\templates\auth\signup.html:45
+msgid "Solucionador gráfico de programación lineal"
+msgstr "Graphical linear programming solver"
+
+#: .\Usuarios\templates\auth\login.html:86
+msgid "Registrar Usuario"
+msgstr "Register User"
+
+#: .\Usuarios\templates\auth\signup.html:6
+msgid "Registrarse"
+msgstr "Sign Up"
+
+#: .\Usuarios\templates\auth\signup.html:105
+msgid "Crear cuenta"
+msgstr "Create Account"
+
+#: .\Usuarios\templates\auth\signup.html:110
+msgid "Iniciar sesión"
+msgstr "Log In"
