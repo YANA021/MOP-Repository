@@ -8,7 +8,7 @@
     {{ sistema_html|safe }}
 {% endif %}
 {% if resultado %}
-    <p>Status: {{ resultado.status }}</p>
+    <p>{% trans "Estado" %}: {{ resultado.status }}</p>
     <p>x1: {{ resultado.x }}</p>
     <p>x2: {{ resultado.y }}</p>
     <p>z: {{ resultado.z }}</p>

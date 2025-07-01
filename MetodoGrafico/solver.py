@@ -133,13 +133,13 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     
     # Determinar el estado del problema
     if resultado and resultado.status == 3:
-        estado = "no acotada"
+        estado = str(_("No acotada"))
         soluciones = []
         opt_val = float('nan')
     elif len(soluciones) > 1:
-        estado = "multiple"
+        estado = str(_("Múltiple"))
     else:
-        estado = "optimo"
+        estado = str(_("Óptimo"))
     
     # Crear gráfica
     fig = crear_grafica(

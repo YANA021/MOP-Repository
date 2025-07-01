@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 12:20-0600\n"
+"POT-Creation-Date: 2025-07-01 14:40-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,20 @@ msgstr "Maximize"
 msgid "Minimizar"
 msgstr "Minimize"
 
+#: .\MetodoGrafico\solver.py:136
+msgid "No acotada"
+msgstr ""
+
+#: .\MetodoGrafico\solver.py:140
+#, fuzzy
+#| msgid "múltiples"
+msgid "Múltiple"
+msgstr "multiple"
+
+#: .\MetodoGrafico\solver.py:142 .\MetodoGrafico\solver.py:288
+msgid "Óptimo"
+msgstr "Optimal"
+
 #: .\MetodoGrafico\solver.py:267
 msgid "Región factible"
 msgstr "Feasible region"
@@ -33,10 +47,6 @@ msgstr "Feasible region"
 #: .\MetodoGrafico\solver.py:280
 msgid "Vértices"
 msgstr "Vertices"
-
-#: .\MetodoGrafico\solver.py:288
-msgid "Óptimo"
-msgstr "Optimal"
 
 #: .\MetodoGrafico\solver.py:289
 msgid "Solución óptima"
@@ -49,3 +59,12 @@ msgstr "multiple"
 #: .\MetodoGrafico\solver.py:310
 msgid "Función objetivo"
 msgstr "Objective function"
+
+#: .\MetodoGrafico\tabla_intersecciones.py:69
+msgid "y"
+msgstr "and"
+
+#, fuzzy
+#~| msgid "Óptimo"
+#~ msgid "óptimo"
+#~ msgstr "Optimal"
