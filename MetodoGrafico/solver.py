@@ -291,12 +291,12 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     
     # Configurar el gráfico
     fig.update_layout(
-        xaxis=dict(title='x₁', range=[x_min, x_max]),
-        yaxis=dict(title='x₂', range=[y_min, y_max]),
+        xaxis=dict(title='x₁', range=[x_min, x_max], showgrid=True, gridcolor='lightgray'),
+        yaxis=dict(title='x₂', range=[y_min, y_max], showgrid=True, gridcolor='lightgray'),
         plot_bgcolor='white',
-        height=600,
-        transition=dict(duration=500)
+        height=600
     )
+    
     
     return fig
 
