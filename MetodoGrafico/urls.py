@@ -17,6 +17,12 @@ urlpatterns = [
         login_required(views.export_pdf),
         name="export_pdf",
     ),
+
+     path(
+        "export/pdf-image/",
+        views.export_pdf_image,
+        name="export_pdf_image",
+    ),
    
 
     
