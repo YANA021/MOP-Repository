@@ -194,7 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
        const fmt = formatSel ? formatSel.value : 'png';
        if (fmt === 'pdf') {
            // Redirige directamente a la URL del PDF con el pk
-           window.location.href = "{% url 'metodo:export_pdf' problema_id %}";
+          const pdfUrl = document.getElementById('plot').dataset.pdfUrl;
+           if (pdfUrl) {
+               window.location.href = pdfUrl;
+           } else {
+               Plotly.downloadImage(figDiv, { format: 'png', filename: 'grafico' });
+           }
        } else {
            Plotly.downloadImage(figDiv, { format: fmt, filename: 'grafico' });
        }
