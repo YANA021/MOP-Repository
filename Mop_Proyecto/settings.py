@@ -14,8 +14,13 @@ from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
 import os
+import plotly.io as pio
 
 load_dotenv()
+
+CHROME_PATH = os.getenv("CHROME_PATH")
+if CHROME_PATH:
+    pio.kaleido.scope.chromium_executable = CHROME_PATH
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
