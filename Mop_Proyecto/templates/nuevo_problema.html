@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
-{% block title %}Nuevo Problema{% endblock %}
+{% block title %}{% trans "Nuevo Problema" %}{% endblock %}
 {% block content %}
-<h1 class="text-center text-[36px] text-[#214164] tracking-wide my-10 font-semibold">NUEVO PROBLEMA DE PROGRAMACIÓN LINEAL</h1>
+<h1 class="text-center text-[36px] text-[#214164] tracking-wide my-10 font-semibold">{% trans "PROBLEMA DE PROGRAMACIÓN LINEAL" %}</h1>
 <form id="problema-form" method="post" class="space-y-8">
     {% csrf_token %}
     <div class="card-theme rounded-lg p-8 space-y-4">
-        <label class="text-white font-semibold block">Función Objetivo</label>
+        <label class="text-white font-semibold block">{% trans "Función Objetivo" %}</label>
         <div class="flex flex-wrap items-center gap-2">
             <select name="objetivo" class="w-full sm:w-40 form-theme rounded-md focus:ring-2 ring-sky-400">
-                <option value="max">Maximizar</option>
-                <option value="min">Minimizar</option>
+                <option value="max">{% trans "Maximizar" %}</option>
+                <option value="min">{% trans "Minimizar" %}</option>
             </select>
             <span>Z =</span>
             <input type="number" step="any" name="coef_x1" placeholder="Coef x₁" class="w-20 sm:w-24 text-right placeholder-blue-300 px-2 py-1 border rounded-md form-theme focus:ring-2 ring-sky-400">
@@ -20,14 +21,14 @@
         </div>
     </div>
     <div class="card-theme rounded-lg p-8">
-        <label class="text-white-700 font-semibold">Rango de valores permitidos</label>
+        <label class="text-white-700 font-semibold">{% trans "Rango de valores permitidos" %}</label>
         <div class="overflow-x-auto">
         <table class="min-w-full mt-4 text-center">
             <thead>
                 <tr class="bg-slate-50 text-xs uppercase tracking-wide">
-                    <th class="py-1 text-black">Variable</th>
-                    <th class="py-1 text-black">Mínimo</th>
-                    <th class="py-1 text-black">Máximo</th>
+                    <th class="py-1 text-black">{% trans "Variable" %}</th>
+                    <th class="py-1 text-black">{% trans "Mínimo" %}</th>
+                    <th class="py-1 text-black">{% trans "Máximo" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +48,7 @@
     </div>
 
 <div class="card-theme rounded-lg p-8">
-        <label class="text-white-700 font-semibold mb-4 block">Restricciones</label>
+        <label class="text-white-700 font-semibold mb-4 block">{% trans "Restricciones" %}</label>
         <div class="grid grid-cols-4 gap-4 mb-4">
            <input id="coef-x1" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₁">
             <input id="coef-x2" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Coef x₂">
@@ -56,12 +57,14 @@
                 <option value=">=">≥</option>
                 <option value="=">=</option>
             </select>
-            <input id="valor-restriccion" type="number" step="any" class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400" placeholder="Valor del lado derecho">
+            <input id="valor-restriccion" type="number" step="any"
+                class="w-full border rounded-md px-2 py-1 form-theme focus:ring-2 ring-sky-400"
+                placeholder="{% trans 'Valor del lado derecho' %}">
         </div>
-        <button type="button" id="agregar-restriccion" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">AGREGAR NUEVA RESTRICCIÓN</button>        <ul id="lista-restricciones" class="mt-4 space-y-1 text-sm"></ul>
+        <button type="button" id="agregar-restriccion" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">{% trans "AGREGAR NUEVA RESTRICCIÓN" %}</button>        <ul id="lista-restricciones" class="mt-4 space-y-1 text-sm"></ul>
     </div>
     <input type="hidden" name="restricciones" id="restricciones-hidden">
- <button type="submit" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">Resolver</button></form>
+ <button type="submit" class="btn-primary-theme rounded-md w-full py-3 uppercase tracking-wide shadow-md transition">{% trans "Resolver" %}</button></form>
 {% if form.errors %}
   <div class="bg-red-100 text-red-800 p-3 rounded-md mb-4">
       <strong>Corrige los errores:</strong>
