@@ -24,9 +24,9 @@
    <h2 class="text-xl mt-4 mb-2">{% trans "Paso 1: Intersección con los ejes" %}</h2>
 
    <div class="overflow-x-auto">
-    <table class="min-w-full text-center mb-4">
+    <table class="min-w-full text-center mb-4 ">
         <thead>
-            <tr class="bg-gray-200">
+            <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white border">
                 <th class="px-2 py-1">{% trans "Restricción" %}</th>
                 <th class="px-2 py-1">{% trans "Sustitución" %}</th>
                 <th class="px-2 py-1">{% trans "Ecuación resultante" %}</th>
@@ -36,7 +36,7 @@
         </thead>
         <tbody>
             {% for fila in pasos_inter %}
-            <tr class="{% if fila.resumen %}font-semibold{% endif %}">
+            <tr class="{% if fila.resumen %}font-semibold{% endif %} ">
                 <td class="border px-2 py-1">{{ fila.restriccion }}</td>
                 <td class="border px-2 py-1">{{ fila.sustitucion }}</td>
                 <td class="border px-2 py-1">{{ fila.ecuacion }}</td>
@@ -52,7 +52,7 @@
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mb-4">
         <thead>
-            <tr class="bg-gray-200">
+            <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white border">
                 <th class="px-2 py-1">{% trans "Restricción" %}</th>
                 <th class="px-2 py-1">{% trans "Intercepto x₁" %}</th>
                 <th class="px-2 py-1">{% trans "Intercepto x₂" %}</th>
@@ -117,7 +117,7 @@
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mt-4">
         <thead>
-            <tr class="bg-gray-200">
+            <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white border">
                 <th class="px-2 py-1">{% trans "Punto" %}</th>
                 <th class="px-2 py-1">{% trans "Coordenadas" %}</th>
                 <th class="px-2 py-1">{% trans "Valor Z" %}</th>
