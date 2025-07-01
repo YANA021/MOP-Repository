@@ -1,8 +1,9 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>{% trans "Registrarse" %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -41,7 +42,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card shadow-lg p-4">
-                <h2 class="text-center mb-4">¡Únete a nosotros!</h2>
+                <h2 class="text-center mb-4">{% trans "Solucionador gráfico de programación lineal" %}</h2>
 
                 <form method="POST" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
@@ -101,16 +102,12 @@
                                 <div class="text-danger">{{ form.password2.errors }}</div>
                             {% endif %}
                     </div>
-
-
-
-
-                    <button type="submit" class="btn btn-primary w-100">Crear cuenta</button>
+                    <button type="submit" class="btn btn-primary w-100"><h5 class="text-center">{% trans "Crear cuenta" %}</h5></button>
                 </form>
 
                 <hr class="my-4">
                 <div class="d-flex justify-content-center">
-                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-login w-50 me-2">Iniciar sesión</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-login w-50 me-2"><h5 class="text-center">{% trans "Iniciar sesión" %}</h5></a>
                 </div>
             </div>
         </div>

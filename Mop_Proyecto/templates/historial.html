@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
-{% block title %}Historial de Problemas{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Historial de Problemas" %}{% endblock %}
 {% block content %}
-<h1 class="text-3xl font-bold mb-6">Historial de Problemas</h1>
 <form method="get" class="flex flex-wrap gap-4 items-end">
     <select name="orden" class="form-theme">
-        <option value="old" {% if orden == 'old' %}selected{% endif %}>Primeros agregados</option>
-        <option value="new" {% if orden == 'new' %}selected{% endif %}>Últimos agregados</option>
+        <option value="old" {% if orden == 'old' %}selected{% endif %}>{% trans "Primeros agregados" %}</option>
+        <option value="new" {% if orden == 'new' %}selected{% endif %}>{% trans "Últimos agregados" %}</option>
     </select>
     <select name="obj" class="form-theme">
-        <option value="" {% if not obj %}selected{% endif %}>Todos</option>
-        <option value="max" {% if obj == 'max' %}selected{% endif %}>Maximizar</option>
-        <option value="min" {% if obj == 'min' %}selected{% endif %}>Minimizar</option>
+        <option value="" {% if not obj %}selected{% endif %}>{% trans "Todos" %}</option>
+        <option value="max" {% if obj == 'max' %}selected{% endif %}>{% trans "Maximizar" %}</option>
+        <option value="min" {% if obj == 'min' %}selected{% endif %}>{% trans "Minimizar" %}</option>
     </select>
     <input type="date" name="desde" class="form-theme" value="{{ desde }}" placeholder="mm/dd/yyyy">
     <input type="date" name="hasta" class="form-theme" value="{{ hasta }}" placeholder="mm/dd/yyyy">
-    <button class="btn-primary-theme" id="filtrar" type="submit">Filtrar</button>
+    <button class="btn-primary-theme" id="filtrar" type="submit">{% trans "Filtrar" %}</button>
 </form>
 <div class="overflow-x-auto">
 <table class="table-auto w-full mt-6 text-sm">
     <thead class="bg-gray-50 font-semibold text-black dark:text-black">
         <tr>
             <th class="px-4 py-2 text-center">#</th>
-            <th class="px-4 py-2 text-center">Objetivo</th>
-            <th class="px-4 py-2 text-center">Función Objetivo</th>
-            <th class="px-4 py-2 text-center">Restricciones</th>
-            <th class="px-4 py-2 text-center">Fecha</th>
-            <th class="px-4 py-2 text-center">Ir al problema</th>
+            <th class="px-4 py-2 text-center">{% trans "Objetivo" %}</th>
+            <th class="px-4 py-2 text-center">{% trans "Función Objetivo" %}</th>
+            <th class="px-4 py-2 text-center">{% trans "Restricciones" %}</th>
+            <th class="px-4 py-2 text-center">{% trans "Fecha" %}</th>
+            <th class="px-4 py-2 text-center">{% trans "Ir al problema" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -40,10 +40,10 @@
                 {% endfor %}
             </td>
                <td class="px-4 py-2 text-center align-middle" style="white-space:nowrap">{{ p.created_at|date:"Y-m-d H:i" }}</td>
-            <td class="px-4 py-2 text-center align-middle"><a href="{% url 'metodo:ver_problema' p.id %}" class="btn btn-primary">Ver</a></td>
+            <td class="px-4 py-2 text-center align-middle"><a href="{% url 'metodo:ver_problema' p.id %}" class="btn btn-primary">{% trans "Ver" %}</a></td>
         </tr>
         {% empty %}
-         <tr class="border-b border-gray-200"><td colspan="6" class="text-center py-4">Sin registros</td></tr>
+         <tr class="border-b border-gray-200"><td colspan="6" class="text-center py-4">{% trans "Sin registros" %}</td></tr>
           {% endfor %}  
     </tbody>
 </table>
