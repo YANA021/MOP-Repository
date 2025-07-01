@@ -68,14 +68,19 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     x2_min = limites.get('x2_min', 0)
     x2_max = limites.get('x2_max')
     
+    limit_indices = []
     if x1_min is not None:
         restr.append((1, 0, ">=", x1_min))
+        limit_indices.append(len(restr) - 1)
     if x1_max is not None:
         restr.append((1, 0, "<=", x1_max))
+        limit_indices.append(len(restr) - 1)
     if x2_min is not None:
         restr.append((0, 1, ">=", x2_min))
+        limit_indices.append(len(restr) - 1)
     if x2_max is not None:
         restr.append((0, 1, "<=", x2_max))
+        limit_indices.append(len(restr) - 1)
     
     # Preparar datos para linprog
     A_ub = []
@@ -129,7 +134,10 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
         estado = "optimo"
     
     # Crear gráfica
-    fig = crear_grafica(restr, vertices_factibles, soluciones, coef_x1, coef_x2, opt_val)
+    fig = crear_grafica(
+        restr, vertices_factibles, soluciones,
+        coef_x1, coef_x2, opt_val, limit_indices
+    )
     
     return {
         'status': estado,
@@ -195,8 +203,10 @@ def cumple_restricciones(punto, restricciones):
             return False
     return True
 
-def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val):
+def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val, limit_indices=None):
     """Crea la gráfica del problema."""
+    if limit_indices is None:
+        limit_indices = []
     fig = go.Figure()
     
     # Determinar límites del gráfico
@@ -211,7 +221,7 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     
     # Dibujar restricciones
     x = np.linspace(x_min, x_max, 100)
-    for a, b, op, c in restricciones:
+    for idx, (a, b, op, c) in enumerate(restricciones):
         if b == 0:  # Recta vertical
             x_line = np.full_like(x, c/a)
             y_line = np.linspace(y_min, y_max, 100)
@@ -224,7 +234,8 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
                 x=x_line,
                 y=y_line,
                 mode='lines',
-                name=f"{a}x₁ + {b}x₂ {op} {c}"
+                name=f"{a}x₁ + {b}x₂ {op} {c}",
+                showlegend=False if idx in limit_indices else True
             )
         )
     
@@ -284,10 +295,16 @@ def crear_grafica(restricciones, vertices, soluciones, coef_x1, coef_x2, opt_val
     if not np.isnan(opt_val) and coef_x2 != 0:
         y_obj = (opt_val - coef_x1*x) / coef_x2
         fig.add_trace(go.Scatter(
-            x=x, y=y_obj, mode='lines', 
+            x=x, y=y_obj, mode='lines',
             line=dict(dash='dash'),
             name=f'Función objetivo (Z={opt_val:.1f})'
         ))
+
+        # Ejes x1 y x2
+    fig.add_shape(type='line', x0=x_min, y0=0, x1=x_max, y1=0,
+                  line=dict(color='black', width=2))
+    fig.add_shape(type='line', x0=0, y0=y_min, x1=0, y1=y_max,
+                  line=dict(color='black', width=2))
     
     # Configurar el gráfico
     fig.update_layout(
