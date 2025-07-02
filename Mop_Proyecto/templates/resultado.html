@@ -143,7 +143,7 @@
         </thead>
         <tbody>
             {% for p in pasos_objetivo %}
-            <tr class="{% if p.optimo %}bg-green-200 dark:bg-green-700 text-black dark:text-white{% endif %}">
+            <tr class="{% if p.optimo %}bg-green-100 dark:bg-green-800 text-black dark:text-white{% endif %}">
                 <td class="border px-2 py-1">{{ p.punto }}</td>
                 <td class="border px-2 py-1">Z = {{ p.sustitucion }} = {{ p.z }}</td>
                 <td class="border px-2 py-1">{{ p.z }}</td>

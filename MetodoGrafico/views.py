@@ -115,7 +115,7 @@ def metodo_grafico(request):
                     "z": v["z"],
                     "optimo": abs(v["z"] - opt_val) < 1e-6,
                 }
-            vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
+                vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
             pasos_objetivo = _pasos_objetivo(
                 form.cleaned_data["coef_x1"],
@@ -230,7 +230,7 @@ def ver_problema(request, pk):
         }
         vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
-        pasos_objetivo = _pasos_objetivo(
+    pasos_objetivo = _pasos_objetivo(
         problema.coef_x1,
         problema.coef_x2,
         resultado.get("vertices", [])
