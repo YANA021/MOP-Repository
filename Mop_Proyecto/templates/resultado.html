@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n static %}
 {% block title %}{% trans "Resultado" %}{% endblock %}
+<!-- agregando script de configuración paara mathjax y cdn de mathjax -->
+{% block head %} 
+<script>
+    window.MathJax = {
+        tex: {inlineMath: [['\\(','\\)']]},     // todo lo que esté entre \(..\) es una formula 
+        svg: {fontCache: 'global'}              // formato svg para cargar mas rapido las formulas     
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+{% endblock %}
 {% block content %}
 <h1 class="text-2xl mb-4">{% trans "Resultado" %}</h1>
 {% if mensaje %}<p>{{ mensaje }}</p>{% endif %}
@@ -107,7 +117,7 @@
     {% for item in pasos_sistemas %}
     <div class="accordion-item">
         <button type="button" class="accordion-header">
-            {{ item.restriccion1 }} &#x2229; {{ item.restriccion2 }}
+            \( {{ item.latex1 }} \cap {{ item.latex2 }} \)
         </button>
         <pre class="accordion-content whitespace-pre-wrap border p-2">
 {% for p in item.pasos %}
