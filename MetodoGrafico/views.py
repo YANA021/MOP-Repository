@@ -50,6 +50,9 @@ def home(request):
     """Renderiza la página de inicio."""
     return render(request, "home.html")
 
+def manual(request):
+    """Renderiza la página manual."""
+    return render(request, "manual.html")
 
 def metodo_grafico(request):
     """Muestra el formulario y procesa el método gráfico."""

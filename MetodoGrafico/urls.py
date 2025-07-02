@@ -6,6 +6,7 @@ app_name = 'metodo'
 
 urlpatterns = [
     path('Inicio/', views.home, name='home'),
+    path('manual/', views.manual, name='manual'),
     path('solucionador/', views.metodo_grafico, name='metodo_grafico'),
     path('sistema/', views.resolver_sistema, name='resolver_sistema'),
     path('historial/', login_required(views.historial_problemas), name='historial'),
