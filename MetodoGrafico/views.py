@@ -35,13 +35,16 @@ def _convert_structure(data):
 
 def _pasos_objetivo(coef_x1, coef_x2, lista_vertices):
     """Genera pasos de sustitución en la función objetivo."""
+    from .utils import format_num
     pasos = []
     for idx, v in enumerate(lista_vertices, start=1):
-        expr = f"{coef_x1}({v['x']}) + {coef_x2}({v['y']})"
+        x_fmt = format_num(v["x"])
+        y_fmt = format_num(v["y"])
+        expr = f"{coef_x1}({x_fmt}) + {coef_x2}({y_fmt})"
         pasos.append({
             "punto": f"P{idx}",
             "sustitucion": expr,
-            "z": v["z"],
+            "z": format_num(v["z"]),
             "optimo": v.get("optimo", False),
         })
     return pasos
@@ -145,6 +148,11 @@ def metodo_grafico(request):
 
         
             # 1.6  Preparar contexto para la plantilla de resultados
+            from .utils import format_num
+
+            for key in ("x", "y", "z"):
+                if key in resultado:
+                    resultado[key] = format_num(resultado[key])
             context = {
                 "form": ProblemaPLForm(),  # formulario limpio para nuevos datos
                 "mensaje": mensaje,

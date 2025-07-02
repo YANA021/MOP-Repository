@@ -30,12 +30,10 @@ def tabla_intersecciones(restricciones, incluir_pasos=False):
 
     datos = []
     pasos = []
+    from .utils import format_num
 
     def _fmt_num(num):
-        num = float(num)
-        num_r = round(num, 2)
-        return int(num_r) if num_r.is_integer() else f"{num_r:.2f}"
-
+        return format_num(num)
     for restr in restricciones:
         # Detectar operador (<=, >=, =, <, >)
         m = re.search(r"(<=|>=|=|<|>)", restr)

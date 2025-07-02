@@ -32,9 +32,10 @@ def _coeficientes(eq: sp.Eq, x1, x2) -> Tuple[float, float, float]:
     return float(a), float(b), float(c)
 
 
+from .utils import format_num
+
 def _fmt(num: float) -> str:
-    n = round(float(num), 4)
-    return str(int(n)) if n.is_integer() else f"{n:.4f}"
+    return format_num(num)
 
 
 def _graficar(a1, b1, c1, a2, b2, c2, solucion) -> str:
