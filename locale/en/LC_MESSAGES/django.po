@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 14:41-0600\n"
+"POT-Creation-Date: 2025-07-01 21:43-0600\n"
 "PO-Revision-Date: 2025-07-01 00:00+0000\n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -12,19 +12,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\Mop_Proyecto\templates\base.html:33 .\Mop_Proyecto\templates\home.html:3
+#: .\Mop_Proyecto\templates\base.html:34 .\Mop_Proyecto\templates\home.html:3
 msgid "Inicio"
 msgstr "Home"
 
-#: .\Mop_Proyecto\templates\base.html:34 .\Mop_Proyecto\templates\base.html:66
+#: .\Mop_Proyecto\templates\base.html:35 .\Mop_Proyecto\templates\base.html:68
+msgid "Manual"
+msgstr ""
+
+#: .\Mop_Proyecto\templates\base.html:36 .\Mop_Proyecto\templates\base.html:69
 msgid "Método Gráfico"
 msgstr "Graphical Method"
 
-#: .\Mop_Proyecto\templates\base.html:35 .\Mop_Proyecto\templates\base.html:67
+#: .\Mop_Proyecto\templates\base.html:37 .\Mop_Proyecto\templates\base.html:70
 msgid "Historial"
 msgstr "History"
 
-#: .\Mop_Proyecto\templates\base.html:40
+#: .\Mop_Proyecto\templates\base.html:42
 msgid "Cerrar sesión"
 msgstr "Sign out"
 
@@ -45,11 +49,13 @@ msgid "Todos"
 msgstr "All"
 
 #: .\Mop_Proyecto\templates\historial.html:12
+#: .\Mop_Proyecto\templates\manual.html:13
 #: .\Mop_Proyecto\templates\nuevo_problema.html:13
 msgid "Maximizar"
 msgstr "Maximize"
 
 #: .\Mop_Proyecto\templates\historial.html:13
+#: .\Mop_Proyecto\templates\manual.html:14
 #: .\Mop_Proyecto\templates\nuevo_problema.html:14
 msgid "Minimizar"
 msgstr "Minimize"
@@ -64,13 +70,13 @@ msgstr "Objective"
 
 #: .\Mop_Proyecto\templates\historial.html:25
 #: .\Mop_Proyecto\templates\nuevo_problema.html:10
-#: .\Mop_Proyecto\templates\resultado.html:84
+#: .\Mop_Proyecto\templates\resultado.html:90
 msgid "Función Objetivo"
 msgstr "Objective Function"
 
 #: .\Mop_Proyecto\templates\historial.html:26
 #: .\Mop_Proyecto\templates\nuevo_problema.html:51
-#: .\Mop_Proyecto\templates\resultado.html:81
+#: .\Mop_Proyecto\templates\resultado.html:87
 msgid "Restricciones"
 msgstr "Constraints"
 
@@ -89,6 +95,178 @@ msgstr "View"
 #: .\Mop_Proyecto\templates\historial.html:46
 msgid "Sin registros"
 msgstr "No Records"
+
+#: .\Mop_Proyecto\templates\home.html:7
+msgid "Programación Lineal y Método Gráfico"
+msgstr "Linear Programming and Graphical Method"
+
+#: .\Mop_Proyecto\templates\home.html:11
+msgid ""
+"La <strong>programación lineal (PL)</strong> surge durante la Segunda Guerra "
+"Mundial como una herramienta para resolver problemas logísticos como el "
+"transporte y la dieta de los soldados. Su desarrollo se atribuye a "
+"<strong>George Dantzig</strong>, quien propuso el <em>Método Simplex</em>, "
+"el cual más adelante fue adoptado por las empresas para tomar decisiones "
+"científicas."
+msgstr ""
+"<strong>Linear Programming (LP)</strong> emerged during World War II as a "
+"tool for solving logistics problems such as transportation and soldiers' "
+"diets. Its development is attributed to <strong>George Dantzig</strong>, who "
+"proposed the <em>Simplex Method</em>, which was later adopted by businesses "
+"for scientific decision-making."
+
+#: .\Mop_Proyecto\templates\home.html:20
+msgid ""
+"Desde los años 50, la PL se integró al ámbito empresarial y, gracias a los "
+"avances tecnológicos y la globalización, se ha vuelto esencial en la toma de "
+"decisiones en sistemas productivos complejos. Su utilidad radica en que "
+"permite planificar actividades para <strong>maximizar beneficios o minimizar "
+"costos</strong> respetando las restricciones existentes."
+msgstr ""
+"Since the 1950s, LP has been integrated into the business field and, thanks "
+"to technological advances and globalization, it has become essential in "
+"decision-making in complex production systems. Its usefulness lies in "
+"allowing activity planning to <strong>maximize profits or minimize costs</"
+"strong> while respecting existing constraints."
+
+#: .\Mop_Proyecto\templates\home.html:29
+msgid ""
+"La PL se aplica a problemas que incluyen variables no negativas, sujetas a "
+"restricciones lineales, y busca optimizar una función objetivo. Para que un "
+"problema sea considerado de programación lineal deben cumplirse condiciones "
+"como: recursos limitados, objetivo definido, linealidad, homogeneidad y "
+"divisibilidad."
+msgstr ""
+"LP applies to problems that involve non-negative variables, subject to "
+"linear constraints, and seeks to optimize an objective function. For a "
+"problem to be considered linear programming, it must meet conditions such "
+"as: limited resources, defined objective, linearity, homogeneity, and "
+"divisibility."
+
+#: .\Mop_Proyecto\templates\home.html:36
+msgid "Un modelo de PL incluye tres componentes fundamentales:"
+msgstr "An LP model includes three fundamental components:"
+
+#: .\Mop_Proyecto\templates\home.html:39
+msgid ""
+"<strong>Función objetivo:</strong> maximizar o minimizar valores como "
+"ganancias o costos."
+msgstr ""
+"<strong>Objective function:</strong> maximize or minimize values such as "
+"profit or cost."
+
+#: .\Mop_Proyecto\templates\home.html:44
+msgid ""
+"<strong>Actividades posibles:</strong> opciones disponibles dentro del "
+"sistema (producción, ventas, etc.)."
+msgstr ""
+"<strong>Possible activities:</strong> available options within the system "
+"(production, sales, etc.)."
+
+#: .\Mop_Proyecto\templates\home.html:49
+msgid ""
+"<strong>Restricciones:</strong> limitaciones físicas, de mercado o políticas "
+"que afectan el modelo."
+msgstr ""
+"<strong>Constraints:</strong> physical, market, or policy limitations that "
+"affect the model."
+
+#: .\Mop_Proyecto\templates\home.html:56
+msgid ""
+"En cuanto al <strong>método gráfico</strong>, se utiliza para resolver "
+"problemas de PL con <strong>dos variables de decisión (x₁ y x₂)</strong>. "
+"Este método representa las restricciones en un plano cartesiano, permitiendo "
+"visualizar la región factible y encontrar la solución óptima."
+msgstr ""
+"As for the <strong>graphical method</strong>, it is used to solve LP "
+"problems with <strong>two decision variables (x₁ and x₂)</strong>. This "
+"method represents the constraints on a Cartesian plane, allowing the "
+"feasible region to be visualized and the optimal solution to be found."
+
+#: .\Mop_Proyecto\templates\home.html:64
+msgid "Fuente:"
+msgstr "Source:"
+
+#: .\Mop_Proyecto\templates\manual.html:4
+msgid "¿Cómo resolver un ejercicio?"
+msgstr "How to solve an exercise?"
+
+#: .\Mop_Proyecto\templates\manual.html:9
+msgid "Paso 1: Tipo de problema"
+msgstr "Step 1: Problem type"
+
+#: .\Mop_Proyecto\templates\manual.html:12
+msgid "Selecciona si deseas"
+msgstr "Select if you want"
+
+#: .\Mop_Proyecto\templates\manual.html:13
+msgid "o"
+msgstr "or"
+
+#: .\Mop_Proyecto\templates\manual.html:14
+msgid "tu función objetivo."
+msgstr "your objective function."
+
+#: .\Mop_Proyecto\templates\manual.html:18
+msgid "Seleccionar tipo"
+msgstr "Select type"
+
+#: .\Mop_Proyecto\templates\manual.html:26
+msgid "Paso 2: Función objetivo"
+msgstr "Step 2: Objective function"
+
+#: .\Mop_Proyecto\templates\manual.html:29
+msgid "Ingresa los coeficientes de la función Z. Ejemplo:"
+msgstr "Enter the coefficients of the Z function. Example:"
+
+#: .\Mop_Proyecto\templates\manual.html:33
+msgid "Función objetivo"
+msgstr "Objective function"
+
+#: .\Mop_Proyecto\templates\manual.html:41
+msgid "Paso 3: Rango de valores permitidos"
+msgstr "Step 3: Allowed value range"
+
+#: .\Mop_Proyecto\templates\manual.html:44
+msgid "Puedes definir los valores mínimos y máximos para x₁ y x₂, por ejemplo de 0 a 10."
+msgstr "You can define the minimum and maximum values for x₁ and x₂, for example from 0 to 10."
+
+#: .\Mop_Proyecto\templates\manual.html:48
+msgid "Rango permitido"
+msgstr "Allowed range"
+
+#: .\Mop_Proyecto\templates\manual.html:56
+msgid "Paso 4: Restricciones"
+msgstr "Step 4: Constraints"
+
+#: .\Mop_Proyecto\templates\manual.html:59
+msgid "Agrega restricciones individualmente. Por ejemplo:"
+msgstr "Add constraints individually. For example:"
+
+#: .\Mop_Proyecto\templates\manual.html:67
+msgid "Agregar restricciones"
+msgstr "Add constraints"
+
+#: .\Mop_Proyecto\templates\manual.html:74
+msgid "Paso 5: Resolver"
+msgstr "Step 5: Solve"
+
+#: .\Mop_Proyecto\templates\manual.html:76
+msgid "Haz clic en"
+msgstr "Click on"
+
+#: .\Mop_Proyecto\templates\manual.html:76
+msgid "RESOLVER"
+msgstr "SOLVE"
+
+#: .\Mop_Proyecto\templates\manual.html:78
+msgid "para obtener la gráfica y el resultado óptimo."
+msgstr "to get the graph and the optimal result."
+
+#: .\Mop_Proyecto\templates\manual.html:82
+msgid "Resultado óptimo"
+msgstr "Optimal result"
+
 
 #: .\Mop_Proyecto\templates\nuevo_problema.html:4
 msgid "Nuevo Problema"
@@ -127,95 +305,110 @@ msgid "Resolver"
 msgstr "Solve"
 
 #: .\Mop_Proyecto\templates\resultado.html:3
-#: .\Mop_Proyecto\templates\resultado.html:5
-#: .\Mop_Proyecto\templates\resultado.html:33
+#: .\Mop_Proyecto\templates\resultado.html:39
 msgid "Resultado"
 msgstr "Result"
 
-#: .\Mop_Proyecto\templates\resultado.html:11
-msgid "Estado"
-msgstr "Status"
-
 #: .\Mop_Proyecto\templates\resultado.html:15
+msgid "Problema resuelto"
+msgstr ""
+
+#: .\Mop_Proyecto\templates\resultado.html:21
 msgid "Función objetivo:"
 msgstr "Objective function:"
 
-#: .\Mop_Proyecto\templates\resultado.html:17
+#: .\Mop_Proyecto\templates\resultado.html:23
 msgid "Sujeto a:"
 msgstr "Subject to:"
 
-#: .\Mop_Proyecto\templates\resultado.html:24
+#: .\Mop_Proyecto\templates\resultado.html:30
 msgid "Paso 1: Intersección con los ejes"
 msgstr "Step 1: Axis Intersections"
 
-#: .\Mop_Proyecto\templates\resultado.html:30
-#: .\Mop_Proyecto\templates\resultado.html:56
+#: .\Mop_Proyecto\templates\resultado.html:36
+#: .\Mop_Proyecto\templates\resultado.html:62
 msgid "Restricción"
 msgstr "Constraint"
 
-#: .\Mop_Proyecto\templates\resultado.html:31
+#: .\Mop_Proyecto\templates\resultado.html:37
+#: .\Mop_Proyecto\templates\resultado.html:136
 msgid "Sustitución"
 msgstr "Substitution"
 
-#: .\Mop_Proyecto\templates\resultado.html:32
+#: .\Mop_Proyecto\templates\resultado.html:38
 msgid "Ecuación resultante"
 msgstr "Resulting equation"
 
-#: .\Mop_Proyecto\templates\resultado.html:34
+#: .\Mop_Proyecto\templates\resultado.html:40
 msgid "Punto obtenido"
 msgstr "Obtained point"
 
-#: .\Mop_Proyecto\templates\resultado.html:51
+#: .\Mop_Proyecto\templates\resultado.html:57
 msgid "Paso 2: Tabulación de intersecciones"
 msgstr "Step 2: Tabulation of Intersections"
 
-#: .\Mop_Proyecto\templates\resultado.html:57
+#: .\Mop_Proyecto\templates\resultado.html:63
 msgid "Intercepto x₁"
 msgstr "x₁ Intercept"
 
-#: .\Mop_Proyecto\templates\resultado.html:58
+#: .\Mop_Proyecto\templates\resultado.html:64
 msgid "Intercepto x₂"
 msgstr "x₂ Intercept"
 
-#: .\Mop_Proyecto\templates\resultado.html:59
+#: .\Mop_Proyecto\templates\resultado.html:65
 msgid "Puntos resultantes"
 msgstr "Resulting points"
 
-#: .\Mop_Proyecto\templates\resultado.html:78
+#: .\Mop_Proyecto\templates\resultado.html:84
 msgid "Etiquetas del Gráfico"
 msgstr "Chart Labels"
 
-#: .\Mop_Proyecto\templates\resultado.html:87
+#: .\Mop_Proyecto\templates\resultado.html:93
 msgid "Puntos de Región Factible"
 msgstr "Feasible Region Points"
 
-#: .\Mop_Proyecto\templates\resultado.html:90
+#: .\Mop_Proyecto\templates\resultado.html:96
 msgid "Cuadrícula"
 msgstr "Grid"
 
-#: .\Mop_Proyecto\templates\resultado.html:93
+#: .\Mop_Proyecto\templates\resultado.html:99
 msgid "Formato"
 msgstr "Format"
 
-#: .\Mop_Proyecto\templates\resultado.html:100
+#: .\Mop_Proyecto\templates\resultado.html:106
 msgid "Descargar"
 msgstr "Download"
 
-#: .\Mop_Proyecto\templates\resultado.html:104
+#: .\Mop_Proyecto\templates\resultado.html:110
 msgid "Paso 3: Intersección de restricciones"
 msgstr "Step 3: Constraints Intersections"
 
-#: .\Mop_Proyecto\templates\resultado.html:121
+#: .\Mop_Proyecto\templates\resultado.html:130
+#, fuzzy
+#| msgid "Paso 2: Tabulación de intersecciones"
+msgid "Paso 4: Evaluación de la función objetivo"
+msgstr "Step 2: Tabulation of Intersections"
+
+#: .\Mop_Proyecto\templates\resultado.html:135
 msgid "Punto"
 msgstr "Point"
 
-#: .\Mop_Proyecto\templates\resultado.html:122
-msgid "Coordenadas"
-msgstr "Coordinates"
-
-#: .\Mop_Proyecto\templates\resultado.html:123
+#: .\Mop_Proyecto\templates\resultado.html:137
 msgid "Valor Z"
 msgstr "Z Value"
+
+#: .\Mop_Proyecto\templates\resultado.html:155
+#, fuzzy
+#| msgid "Resultado"
+msgid "Resultado Final"
+msgstr "Result"
+
+#: .\Mop_Proyecto\templates\resultado.html:156
+msgid "Estado"
+msgstr "Status"
+
+#~ msgid "Coordenadas"
+#~ msgstr "Coordinates"
 
 #~ msgid "Ayuda"
 #~ msgstr "Help"

@@ -1,0 +1,92 @@
+{% extends "base.html" %} 
+{% load i18n %} 
+{% load static %} 
+{% block title %}Manual{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 text-center">
+  <h1 class="text-3xl font-bold mb-6">
+    {% trans "¿Cómo resolver un ejercicio?" %}
+  </h1>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">
+      {% trans "Paso 1: Tipo de problema" %}
+    </h2>
+    <p class="mb-4">
+      {% trans "Selecciona si deseas" %}
+      <strong>{% trans "Maximizar" %}</strong> {% trans "o" %}
+      <strong>{% trans "Minimizar" %}</strong> {% trans "tu función objetivo." %}
+    </p>
+    <img
+      src="{% static 'images/manual/paso1_tipo.png' %}"
+      alt="{% trans 'Seleccionar tipo' %}"
+      width="400"
+      class="mx-auto rounded shadow"
+    />
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">
+      {% trans "Paso 2: Función objetivo" %}
+    </h2>
+    <p class="mb-4">
+      {% trans "Ingresa los coeficientes de la función Z. Ejemplo:"%} Z = 3x₁ + 2x₂
+    </p>
+    <img
+      src="{% static 'images/manual/paso2_objetivo.png' %}"
+      alt="{% trans 'Función objetivo' %}"
+      width="400"
+      class="mx-auto rounded shadow"
+    />
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">
+      {% trans "Paso 3: Rango de valores permitidos" %}
+    </h2>
+    <p class="mb-4">
+      {% trans "Puedes definir los valores mínimos y máximos para x₁ y x₂, por ejemplo de 0 a 10." %}
+    </p>
+    <img
+      src="{% static 'images/manual/paso3_rango.png' %}"
+      alt="{% trans 'Rango permitido' %}"
+      width="400"
+      class="mx-auto rounded shadow"
+    />
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">
+      {% trans "Paso 4: Restricciones" %}
+    </h2>
+    <p class="mb-2">
+      {% trans "Agrega restricciones individualmente. Por ejemplo:" %}
+    </p>
+    <ul class="list-disc list-inside inline-block text-left">
+      <li>x₁ + x₂ ≤ 10</li>
+      <li>2x₁ + 3x₂ ≤ 18</li>
+    </ul>
+    <img
+      src="{% static 'images/manual/paso4_restricciones.png' %}"
+      alt="{% trans 'Agregar restricciones' %}"
+      width="400"
+      class="mx-auto rounded shadow mt-4"
+    />
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">{% trans "Paso 5: Resolver" %}</h2>
+    <p>
+      {% trans "Haz clic en" %} <strong>{% trans "RESOLVER" %}
+
+      </strong> {% trans "para obtener la gráfica y el resultado óptimo." %}
+    </p>
+    <img
+      src="{% static 'images/manual/paso5_resultado.png' %}"
+      alt="{% trans 'Resultado óptimo' %}"
+      width="400"
+      class="mx-auto rounded shadow"
+    />
+  </section>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-01 15:56-0600\n"
+"POT-Creation-Date: 2025-07-01 21:38-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,24 +26,6 @@ msgstr "Maximize"
 msgid "Minimizar"
 msgstr "Minimize"
 
-#: .\MetodoGrafico\solver.py:119
-msgid "Inviable"
-msgstr "Infeasible"
-
-#: .\MetodoGrafico\solver.py:136
-msgid "No acotada"
-msgstr "Unbounded"
-
-#: .\MetodoGrafico\solver.py:140
-#, fuzzy
-#| msgid "múltiples"
-msgid "Múltiple"
-msgstr "multiple"
-
-#: .\MetodoGrafico\solver.py:142 .\MetodoGrafico\solver.py:288
-msgid "Óptimo"
-msgstr "Optimal"
-
 #: .\MetodoGrafico\solver.py:267
 msgid "Región factible"
 msgstr "Feasible region"
@@ -51,6 +33,10 @@ msgstr "Feasible region"
 #: .\MetodoGrafico\solver.py:280
 msgid "Vértices"
 msgstr "Vertices"
+
+#: .\MetodoGrafico\solver.py:288
+msgid "Óptimo"
+msgstr "Optimal"
 
 #: .\MetodoGrafico\solver.py:289
 msgid "Solución óptima"
@@ -72,9 +58,20 @@ msgstr "INFEASIBLE PROBLEM"
 msgid "y"
 msgstr "and"
 
-#: .\MetodoGrafico\views.py:72
+#: .\MetodoGrafico\views.py:89
 msgid "Problema guardado correctamente."
 msgstr "Problem saved successfully."
+
+#~ msgid "Inviable"
+#~ msgstr "Infeasible"
+
+#~ msgid "No acotada"
+#~ msgstr "Unbounded"
+
+#, fuzzy
+#~| msgid "múltiples"
+#~ msgid "Múltiple"
+#~ msgstr "multiple"
 
 #, fuzzy
 #~| msgid "Óptimo"
