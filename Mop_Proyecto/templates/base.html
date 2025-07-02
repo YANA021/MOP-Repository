@@ -64,8 +64,8 @@
         </div>
     </nav>
    <div id="mobile-menu" class="hidden md:hidden fixed top-[54px] inset-x-0 nav-theme z-40">
-        <a href="{% url 'metodo:home' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Inicio</a>
-        <a href="{% url 'metodo:manual' %}" class="px-3 py-1 hover:underline hover:text-[#4FD1C5] transition">{% trans "Manual" %}</a>
+        <a href="{% url 'metodo:home' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Inicio" %}</a>
+        <a href="{% url 'metodo:manual' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">Manual</a>
         <a href="{% url 'metodo:metodo_grafico' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Método Gráfico" %}</a>
         <a href="{% url 'metodo:historial' %}" class="block px-4 py-2 hover:bg-[#4FD1C5]">{% trans "Historial" %}</a>
     </div>
