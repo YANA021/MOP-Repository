@@ -166,6 +166,8 @@ def pasos_vertices(restricciones: List[str], metodo: str = 'eliminacion') -> Lis
                 pares.append({
                     'restriccion1': restricciones[i],
                     'restriccion2': restricciones[j],
+                    'latex1': restriccion_a_latex(restricciones[i]),    #llama y reemplaza caracteres
+                    'latex2': restriccion_a_latex(restricciones[j]),
                     'pasos': res['pasos'],
                     'punto': res['resultado'],
                 })
@@ -174,7 +176,15 @@ def pasos_vertices(restricciones: List[str], metodo: str = 'eliminacion') -> Lis
 
     return pares
 
-
+# funcion para reemplazar signos y pueda ser convertido a latex en la template
+def restriccion_a_latex(expr: str) -> str:
+    expr = expr.replace('<=', r'\leq')
+    expr = expr.replace('>=', r'\geq')
+    expr = expr.replace('<', r'<')
+    expr = expr.replace('>', r'>')
+    expr = expr.replace('=', r'=')
+    expr = re.sub(r'\b([xX])(\d+)', r'x_{\2}', expr)    #reemplaza x1,x2 a x_{1},x_{2}
+    return expr
 
 
 if __name__ == '__main__':
