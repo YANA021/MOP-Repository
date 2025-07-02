@@ -144,27 +144,6 @@
     </div>
     {% endif %}
 
-
-    <div class="overflow-x-auto">
-    <table class="min-w-full text-center mt-4">
-        <thead>
-            <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white border">
-                <th class="px-2 py-1">{% trans "Punto" %}</th>
-                <th class="px-2 py-1">{% trans "Coordenadas" %}</th>
-                <th class="px-2 py-1">{% trans "Valor Z" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for v in vertices %}
-            <tr class="{% if v.optimo %}bg-red-200{% endif %}">
-                <td class="border px-2 py-1">{{ v.punto }}</td>
-                <td class="border px-2 py-1">({{ v.x1 }}, {{ v.x2 }})</td>
-                <td class="border px-2 py-1">{{ v.z }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
 {% endif %}
 {% endblock %}
 
