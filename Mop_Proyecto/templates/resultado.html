@@ -18,6 +18,10 @@
     {{ sistema_html|safe }}
 {% endif %}
 {% if resultado %}
+    <p>{% trans "Estado" %}: {{ resultado.status }}</p>
+    <p>x1: {{ resultado.x }}</p>
+    <p>x2: {{ resultado.y }}</p>
+    <p>z: {{ resultado.z }}</p>
     <p class="mb-2"><strong>{% trans "Función objetivo:" %}</strong> {{ objetivo }}</p>
 
     <p class="font-semibold">{% trans "Sujeto a:" %}</p>
@@ -148,10 +152,7 @@
         </tbody>
     </table>
     </div>
-    <p class="mt-4">{% trans "Estado" %}: {{ resultado.status }}</p>
-    <p>x1: {{ resultado.x }}</p>
-    <p>x2: {{ resultado.y }}</p>
-    <p>z: {{ resultado.z }}</p>
+    {% endif %}
 
 {% endif %}
 {% endblock %}
