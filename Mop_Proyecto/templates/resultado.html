@@ -157,6 +157,13 @@
     <p>x1: {{ resultado.x }}</p>
     <p>x2: {{ resultado.y }}</p>
     <p>z: {{ resultado.z }}</p>
+    {% if problema_id %}
+    <div class="flex gap-2 my-4">
+        <a href="{% url 'metodo:export_procedure' problema_id 'pdf' %}" class="btn-primary-theme">PDF</a>
+        <a href="{% url 'metodo:export_procedure' problema_id 'excel' %}" class="btn-primary-theme">Excel</a>
+        <a href="{% url 'metodo:export_procedure' problema_id 'word' %}" class="btn-primary-theme">Word</a>
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}

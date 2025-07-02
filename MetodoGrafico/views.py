@@ -379,3 +379,228 @@ def export_pdf_image(request):
         filename="grafico.pdf",
         content_type="application/pdf",
     )
+@login_required
+def export_procedure(request, pk, fmt):
+    """Exporta todo el procedimiento del método gráfico en PDF, Excel o Word."""
+
+    problema = get_object_or_404(ProblemaPL, pk=pk, user=request.user)
+
+    resultado = resolver_problema_lineal(
+        problema.objetivo,
+        problema.coef_x1,
+        problema.coef_x2,
+        problema.restricciones,
+    )
+
+    objetivo_text = f"Z = {problema.coef_x1}x₁ + {problema.coef_x2}x₂"
+    restr_para_tabla = [
+        f"{r['coef_x1']} x1 + {r['coef_x2']} x2 {r['operador']} {r['valor']}"
+        for r in problema.restricciones
+    ]
+
+    df_tabla, pasos_inter = tabla_intersecciones(restr_para_tabla, incluir_pasos=True)
+    pasos_sistemas = pasos_vertices(restr_para_tabla)
+
+    vertices = []
+    opt_val = resultado.get("z")
+    for idx, v in enumerate(resultado.get("vertices", []), start=1):
+        vert = {
+            "Punto": f"P{idx}",
+            "x1": v["x"],
+            "x2": v["y"],
+            "z": v["z"],
+            "optimo": abs(v["z"] - opt_val) < 1e-6,
+        }
+        vertices.append(vert)
+
+    pasos_objetivo = _pasos_objetivo(
+        problema.coef_x1,
+        problema.coef_x2,
+        resultado.get("vertices", []),
+    )
+
+    if fmt == "excel":
+        import pandas as pd
+        import io
+
+        output = io.BytesIO()
+        with pd.ExcelWriter(output, engine="openpyxl") as writer:
+            pd.DataFrame(pasos_inter).to_excel(writer, sheet_name="Paso1", index=False)
+            df_tabla.to_excel(writer, sheet_name="Paso2", index=False)
+            pd.DataFrame(pasos_sistemas).to_excel(writer, sheet_name="Paso3", index=False)
+            pd.DataFrame(pasos_objetivo).to_excel(writer, sheet_name="Paso4", index=False)
+            pd.DataFrame(vertices).to_excel(writer, sheet_name="Vertices", index=False)
+        output.seek(0)
+        return FileResponse(
+            output,
+            as_attachment=True,
+            filename=f"metodo_grafico_{pk}.xlsx",
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+
+    if fmt == "word":
+        import io
+        from docx import Document
+
+        doc = Document()
+        doc.add_heading("Método Gráfico", level=1)
+        doc.add_paragraph(f"Función objetivo: {objetivo_text}")
+
+        doc.add_heading("Paso 1: Intersección con los ejes", level=2)
+        table = doc.add_table(rows=1, cols=5)
+        table.style = "Table Grid"
+        hdr = table.rows[0].cells
+        hdr[0].text = "Restricción"
+        hdr[1].text = "Sustitución"
+        hdr[2].text = "Ecuación"
+        hdr[3].text = "Resultado"
+        hdr[4].text = "Punto"
+        for fila in pasos_inter:
+            row_cells = table.add_row().cells
+            row_cells[0].text = str(fila["restriccion"])
+            row_cells[1].text = str(fila["sustitucion"])
+            row_cells[2].text = str(fila["ecuacion"])
+            row_cells[3].text = str(fila["resultado"])
+            row_cells[4].text = str(fila["punto"])
+
+        doc.add_heading("Paso 2: Tabulación de intersecciones", level=2)
+        table = doc.add_table(rows=1, cols=4)
+        table.style = "Table Grid"
+        hdr = table.rows[0].cells
+        hdr[0].text = "Restricción"
+        hdr[1].text = "Intercepto x1"
+        hdr[2].text = "Intercepto x2"
+        hdr[3].text = "Puntos"
+        for fila in df_tabla.to_dict("records"):
+            row_cells = table.add_row().cells
+            row_cells[0].text = str(fila["restriccion"])
+            row_cells[1].text = str(fila["intercepto_x1"])
+            row_cells[2].text = str(fila["intercepto_x2"])
+            row_cells[3].text = str(fila["puntos"])
+
+        if pasos_sistemas:
+            doc.add_heading("Paso 3: Intersección de restricciones", level=2)
+            for item in pasos_sistemas:
+                doc.add_paragraph(f"{item['latex1']} ∩ {item['latex2']}")
+                for p in item["pasos"]:
+                    doc.add_paragraph(p, style="List Bullet")
+
+        if pasos_objetivo:
+            doc.add_heading("Paso 4: Evaluación de la función objetivo", level=2)
+            table = doc.add_table(rows=1, cols=3)
+            table.style = "Table Grid"
+            hdr = table.rows[0].cells
+            hdr[0].text = "Punto"
+            hdr[1].text = "Sustitución"
+            hdr[2].text = "Valor Z"
+            for item in pasos_objetivo:
+                row_cells = table.add_row().cells
+                row_cells[0].text = str(item["punto"])
+                row_cells[1].text = f"Z = {item['sustitucion']} = {item['z']}"
+                row_cells[2].text = str(item["z"])
+
+        doc.add_heading("Resultado Final", level=1)
+        doc.add_paragraph(f"Estado: {resultado['status']}")
+        doc.add_paragraph(f"x1: {resultado['x']}")
+        doc.add_paragraph(f"x2: {resultado['y']}")
+        doc.add_paragraph(f"z: {resultado['z']}")
+
+        output = io.BytesIO()
+        doc.save(output)
+        output.seek(0)
+        return FileResponse(
+            output,
+            as_attachment=True,
+            filename=f"metodo_grafico_{pk}.docx",
+            content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+
+    import io
+    from reportlab.lib.pagesizes import letter
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib import colors
+    from reportlab.lib.styles import getSampleStyleSheet
+
+    output = io.BytesIO()
+    doc = SimpleDocTemplate(output, pagesize=letter)
+    styles = getSampleStyleSheet()
+    elems = []
+
+    elems.append(Paragraph("Método Gráfico", styles["Title"]))
+    elems.append(Paragraph(f"Función objetivo: {objetivo_text}", styles["Normal"]))
+    elems.append(Spacer(1, 12))
+
+    elems.append(Paragraph("Paso 1: Intersección con los ejes", styles["Heading2"]))
+    data = [["Restricción", "Sustitución", "Ecuación", "Resultado", "Punto"]]
+    for fila in pasos_inter:
+        data.append([
+            fila["restriccion"],
+            fila["sustitucion"],
+            fila["ecuacion"],
+            fila["resultado"],
+            fila["punto"],
+        ])
+    tabla = Table(data, repeatRows=1)
+    tabla.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.gray),
+    ]))
+    elems.append(tabla)
+    elems.append(Spacer(1, 12))
+
+    elems.append(Paragraph("Paso 2: Tabulación de intersecciones", styles["Heading2"]))
+    data = [["Restricción", "Intercepto x1", "Intercepto x2", "Puntos"]]
+    for fila in df_tabla.to_dict("records"):
+        data.append([
+            fila["restriccion"],
+            fila["intercepto_x1"],
+            fila["intercepto_x2"],
+            fila["puntos"],
+        ])
+    tabla = Table(data, repeatRows=1)
+    tabla.setStyle(TableStyle([
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.gray),
+    ]))
+    elems.append(tabla)
+    elems.append(Spacer(1, 12))
+
+    if pasos_sistemas:
+        elems.append(Paragraph("Paso 3: Intersección de restricciones", styles["Heading2"]))
+        for item in pasos_sistemas:
+            elems.append(Paragraph(f"{item['latex1']} ∩ {item['latex2']}", styles["Normal"]))
+            for p in item["pasos"]:
+                elems.append(Paragraph(p, styles["Bullet"]))
+        elems.append(Spacer(1, 12))
+
+    if pasos_objetivo:
+        elems.append(Paragraph("Paso 4: Evaluación de la función objetivo", styles["Heading2"]))
+        data = [["Punto", "Sustitución", "Valor Z"]]
+        for item in pasos_objetivo:
+            data.append([
+                item["punto"],
+                f"Z = {item['sustitucion']} = {item['z']}",
+                item["z"],
+            ])
+        tabla = Table(data, repeatRows=1)
+        tabla.setStyle(TableStyle([
+            ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
+            ("BACKGROUND", (0, 0), (-1, 0), colors.gray),
+        ]))
+        elems.append(tabla)
+        elems.append(Spacer(1, 12))
+
+    elems.append(Paragraph("Resultado Final", styles["Heading2"]))
+    elems.append(Paragraph(f"Estado: {resultado['status']}", styles["Normal"]))
+    elems.append(Paragraph(f"x1: {resultado['x']}", styles["Normal"]))
+    elems.append(Paragraph(f"x2: {resultado['y']}", styles["Normal"]))
+    elems.append(Paragraph(f"z: {resultado['z']}", styles["Normal"]))
+
+    doc.build(elems)
+    output.seek(0)
+    return FileResponse(
+        output,
+        as_attachment=True,
+        filename=f"metodo_grafico_{pk}.pdf",
+        content_type="application/pdf",
+    )

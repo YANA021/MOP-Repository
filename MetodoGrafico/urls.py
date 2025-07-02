@@ -18,10 +18,15 @@ urlpatterns = [
         name="export_pdf",
     ),
 
-     path(
+    path(
         "export/pdf-image/",
         views.export_pdf_image,
         name="export_pdf_image",
+    ),
+    path(
+        "export/procedure/<int:pk>/<str:fmt>/",
+        login_required(views.export_procedure),
+        name="export_procedure",
     ),
    
 
