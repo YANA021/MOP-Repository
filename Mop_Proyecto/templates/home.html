@@ -1,5 +1,73 @@
-{% extends 'base.html' %}
-{% load i18n %}
-{% block title %}{% trans "Inicio" %}{% endblock %}
+{% extends 'base.html' %} 
+{% load i18n %} 
+{% block title %}{% trans "Inicio" %}{% endblock %} 
 {% block content %}
+<section class="space-y-6 text-justify">
+  <h1 class="text-3xl font-bold text-center">
+    {% trans "Programación Lineal y Método Gráfico" %}
+  </h1>
+
+  <p>
+    {% blocktrans trimmed %} La <strong>programación lineal (PL)</strong> surge
+    durante la Segunda Guerra Mundial como una herramienta para resolver
+    problemas logísticos como el transporte y la dieta de los soldados. Su
+    desarrollo se atribuye a <strong>George Dantzig</strong>, quien propuso el
+    <em>Método Simplex</em>, el cual más adelante fue adoptado por las empresas
+    para tomar decisiones científicas. {% endblocktrans %}
+  </p>
+
+  <p>
+    {% blocktrans trimmed %} Desde los años 50, la PL se integró al ámbito
+    empresarial y, gracias a los avances tecnológicos y la globalización, se ha
+    vuelto esencial en la toma de decisiones en sistemas productivos complejos.
+    Su utilidad radica en que permite planificar actividades para
+    <strong>maximizar beneficios o minimizar costos</strong> respetando las
+    restricciones existentes. {% endblocktrans %}
+  </p>
+
+  <p>
+    {% blocktrans trimmed %} La PL se aplica a problemas que incluyen variables
+    no negativas, sujetas a restricciones lineales, y busca optimizar una
+    función objetivo. Para que un problema sea considerado de programación
+    lineal deben cumplirse condiciones como: recursos limitados, objetivo
+    definido, linealidad, homogeneidad y divisibilidad. {% endblocktrans %}
+  </p>
+
+  <p>{% trans "Un modelo de PL incluye tres componentes fundamentales:" %}</p>
+  <ul class="list-disc pl-6">
+    <li>
+      {% blocktrans trimmed %}
+      <strong>Función objetivo:</strong> maximizar o minimizar valores como
+      ganancias o costos. {% endblocktrans %}
+    </li>
+    <li>
+      {% blocktrans trimmed %}
+      <strong>Actividades posibles:</strong> opciones disponibles dentro del
+      sistema (producción, ventas, etc.). {% endblocktrans %}
+    </li>
+    <li>
+      {% blocktrans trimmed %}
+      <strong>Restricciones:</strong> limitaciones físicas, de mercado o
+      políticas que afectan el modelo. {% endblocktrans %}
+    </li>
+  </ul>
+
+  <p>
+    {% blocktrans trimmed %} En cuanto al <strong>método gráfico</strong>, se
+    utiliza para resolver problemas de PL con
+    <strong>dos variables de decisión (x₁ y x₂)</strong>. Este método representa
+    las restricciones en un plano cartesiano, permitiendo visualizar la región
+    factible y encontrar la solución óptima. {% endblocktrans %}
+  </p>
+
+  <p class="text-sm italic text-right">
+    {% trans "Fuente:" %} Tinitana, J., & Franco, N. (n.d.).
+    <a
+      href="https://repositorio.utmachala.edu.ec/bitstream/48000/15284/1/E-8283_JARAMILLO%20TINITANA%20NERY%20FRANCO.pdf"
+      target="_blank"
+      class="text-[#4FD1C5] underline">
+      FACULTAD DE CIENCIAS EMPRESARIALES, UTMACH" 
+    </a>.
+  </p>
+</section>
 {% endblock %}
