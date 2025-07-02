@@ -120,6 +120,31 @@
 {% endif %}
 
 
+{% if pasos_objetivo %}
+    <h2 class="text-xl mt-4 mb-2">{% trans "Paso 4: Evaluación de la función objetivo" %}</h2>
+    <div class="overflow-x-auto">
+    <table class="min-w-full text-center mb-4">
+        <thead>
+            <tr class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white border">
+                <th class="px-2 py-1">{% trans "Punto" %}</th>
+                <th class="px-2 py-1">{% trans "Sustitución" %}</th>
+                <th class="px-2 py-1">{% trans "Valor Z" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pasos_objetivo %}
+            <tr class="{% if p.optimo %}bg-red-200{% endif %}">
+                <td class="border px-2 py-1">{{ p.punto }}</td>
+                <td class="border px-2 py-1">Z = {{ p.sustitucion }} = {{ p.z }}</td>
+                <td class="border px-2 py-1">{{ p.z }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% endif %}
+
+
     <div class="overflow-x-auto">
     <table class="min-w-full text-center mt-4">
         <thead>

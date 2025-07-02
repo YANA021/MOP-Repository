@@ -116,7 +116,7 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     if not vertices_factibles:
         fig = crear_grafica_vacia()
         return {
-            'status': str(_('Inviable')),
+            'status': 'inviable',
             'grafica': fig.to_html(
                 full_html=False,
                 include_plotlyjs='cdn',
@@ -133,13 +133,13 @@ def resolver_problema_lineal(objetivo, coef_x1, coef_x2, restricciones, limites=
     
     # Determinar el estado del problema
     if resultado and resultado.status == 3:
-        estado = str(_("No acotada"))
+        estado = 'no acotada'
         soluciones = []
         opt_val = float('nan')
     elif len(soluciones) > 1:
-        estado = str(_("Múltiple"))
+        estado = 'multiple'
     else:
-        estado = str(_("Óptimo"))
+        estado = 'optimo'
     
     # Crear gráfica
     fig = crear_grafica(

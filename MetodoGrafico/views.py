@@ -33,6 +33,19 @@ def _convert_structure(data):
         return [_convert_structure(v) for v in data]
     return to_native(data)
 
+def _pasos_objetivo(coef_x1, coef_x2, lista_vertices):
+    """Genera pasos de sustitución en la función objetivo."""
+    pasos = []
+    for idx, v in enumerate(lista_vertices, start=1):
+        expr = f"{coef_x1}({v['x']}) + {coef_x2}({v['y']})"
+        pasos.append({
+            "punto": f"P{idx}",
+            "sustitucion": expr,
+            "z": v["z"],
+            "optimo": v.get("optimo", False),
+        })
+    return pasos
+
 def home(request):
     """Renderiza la página de inicio."""
     return render(request, "home.html")
@@ -104,6 +117,12 @@ def metodo_grafico(request):
                 }
             vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
+            pasos_objetivo = _pasos_objetivo(
+                form.cleaned_data["coef_x1"],
+                form.cleaned_data["coef_x2"],
+                resultado.get("vertices", [])
+            )
+
             objetivo_text = (
                 f"Z = {form.cleaned_data['coef_x1']}x₁ + {form.cleaned_data['coef_x2']}x₂"
             )
@@ -137,6 +156,7 @@ def metodo_grafico(request):
                 "pasos_inter": pasos_inter,
                 "pasos_sistemas": pasos_sistemas,
                 "vertices": vertices,
+                 "pasos_objetivo": pasos_objetivo,
                 
             }
             
@@ -210,6 +230,12 @@ def ver_problema(request, pk):
         }
         vertices.append({_k: to_native(_v) for _k, _v in vert.items()})
 
+        pasos_objetivo = _pasos_objetivo(
+        problema.coef_x1,
+        problema.coef_x2,
+        resultado.get("vertices", [])
+    )
+
     objetivo_text = f"Z = {problema.coef_x1}x₁ + {problema.coef_x2}x₂"
     restricciones_fmt = [
         f"{r['coef_x1']}x₁ + {r['coef_x2']}x₂ {r['operador']} {r['valor']}"
@@ -237,6 +263,7 @@ def ver_problema(request, pk):
         "pasos_inter": pasos_inter,
         "pasos_sistemas": pasos_sistemas,
         "vertices": vertices,
+        "pasos_objetivo": pasos_objetivo,
         "problema_id": pk,
     }
     return render(request, "resultado.html", context)
